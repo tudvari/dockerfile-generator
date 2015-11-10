@@ -1,0 +1,21 @@
+{
+  "name": "dockerfile-generator",
+  "version": "1.0.0",
+  "description": "dockerfile generator library",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha tests.js",
+    "coverage": "istanbul cover _mocha tests.js"
+  },
+  "keywords": [
+    "dockerfile",
+    "generator"
+  ],
+  "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^1.9.0",
+    "mocha": "^2.3.3",
+    "should": "^7.1.1"
+  },
+}

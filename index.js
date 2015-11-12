@@ -47,5 +47,14 @@ module.exports.generate = function(input, cb) {
       }
     }
   }
+  //processing expose
+  if(incomingJSON['expose'] && !Array.isArray(incomingJSON['expose'])){
+    return cb(new Error('Input JSON has a semantic error! (expose)'));
+  }
+  else if(incomingJSON['expose']){
+    for(let portNum of incomingJSON['expose']){
+       result = result + 'EXPOSE '+portNum+'\n' ;
+    }
+  }
   return cb(null, result);
 }

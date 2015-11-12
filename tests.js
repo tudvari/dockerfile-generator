@@ -50,10 +50,25 @@ describe('dockerfile-generator', function() {
     });
     done() ;
   }) ;
-  it('RUN element missing', function(done) {
+  it('Run element missing', function(done) {
     generator.generate(fs.readFileSync('./tests/7_parsable_input_run_missing.json'), function(err, result) {
       should.exist(err) ;
       should.equal(err.message, 'Input JSON has a semantic error! (run)') ;
+    });
+    done() ;
+  }) ;
+  it('Expose not array', function(done) {
+    generator.generate(fs.readFileSync('./tests/8_parsable_input_expose_not_array.json'), function(err, result) {
+      should.exist(err) ;
+      should.equal(err.message, 'Input JSON has a semantic error! (expose)') ;
+    });
+    done() ;
+  }) ;
+  it('Expose missing', function(done) {
+    let expected = fs.readFileSync('./tests/9_expose_missing.out');
+    generator.generate(fs.readFileSync('./tests/9_expose_missing.json'), function(err, result) {
+      should.not.exist(err) ;
+      should.equal(result,expected.toString()) ;
     });
     done() ;
   }) ;

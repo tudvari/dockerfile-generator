@@ -11,7 +11,10 @@
             "dst": "/path/to/dst"
         }
     ],
-    "cmd": "command",
+    "cmd": {
+      "command" : "cmd",
+      "args" : ["arg1","arg2"]
+    },
     "run": [
         {
             "command": "command",

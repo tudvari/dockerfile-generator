@@ -7,4 +7,4 @@ RUN ["command"]
 EXPOSE 123
 EXPOSE 456
 EXPOSE 789
-CMD ["cmd","arg1","arg2"]
+CMD ["cmd"]

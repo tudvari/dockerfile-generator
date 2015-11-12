@@ -18,7 +18,7 @@ describe('dockerfile-generator', function() {
     let expected = fs.readFileSync('./tests/all_element_test.out');
     generator.generate(fs.readFileSync('./tests/all_element_test_input.json'), function(err, result) {
       should.not.exist(err) ;
-      should.equal(result,expected.toString()) ;
+      should.equal(result, expected.toString()) ;
     });
     done() ;
   }) ;
@@ -68,7 +68,29 @@ describe('dockerfile-generator', function() {
     let expected = fs.readFileSync('./tests/9_expose_missing.out');
     generator.generate(fs.readFileSync('./tests/9_expose_missing.json'), function(err, result) {
       should.not.exist(err) ;
-      should.equal(result,expected.toString()) ;
+      should.equal(result, expected.toString()) ;
+    });
+    done() ;
+  }) ;
+  it('Cmd args missing', function(done) {
+    let expected = fs.readFileSync('./tests/10_cmd_args_missing.out');
+    generator.generate(fs.readFileSync('./tests/10_cmd_args_missing.json'), function(err, result) {
+      should.not.exist(err) ;
+      should.equal(result, expected.toString()) ;
+    });
+    done() ;
+  }) ;
+  it('Cmd missing', function(done) {
+    generator.generate(fs.readFileSync('./tests/11_cmd_missing.json'), function(err, result) {
+      should.exist(err) ;
+      should.equal(err.message, 'Input JSON has a semantic error! (cmd)') ;
+    });
+    done() ;
+  }) ;
+  it('Cmd.command missing', function(done) {
+    generator.generate(fs.readFileSync('./tests/12_cmd_command_missing.json'), function(err, result) {
+      should.exist(err) ;
+      should.equal(err.message, 'Input JSON has a semantic error! (cmd.command)') ;
     });
     done() ;
   }) ;

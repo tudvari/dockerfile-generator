@@ -30,8 +30,7 @@
             ]
         },
         {
-            "command": "command",
-            "args": []
+            "command": "command"
         }
     ],
     "expose": [

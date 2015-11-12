@@ -12,7 +12,6 @@
         }
     ],
     "cmd": {
-      "command" : "cmd",
       "args" : ["arg1","arg2"]
     },
     "run": [
@@ -33,5 +32,10 @@
             "command": "command",
             "args": []
         }
+    ],
+    "expose": [
+        123,
+        456,
+        789
     ]
 }

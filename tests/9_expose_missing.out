@@ -4,3 +4,4 @@ COPY path/to/src /path/to/dst
 RUN ["command","arg"]
 RUN ["command","arg1","arg2"]
 RUN ["command"]
+CMD ["cmd","arg1","arg2"]

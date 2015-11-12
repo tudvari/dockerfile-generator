@@ -1,0 +1,20 @@
+{
+    "imagename": "node",
+    "imageversion": "4.1.2",
+    "copy": [
+        {
+            "src": "path/to/src",
+            "dst": "/path/to/dst"
+        },
+        {
+            "src": "path/to/src",
+            "dst": "/path/to/dst"
+        }
+    ],
+    "cmd": "command",  
+    "expose": [
+        123,
+        456,
+        789
+    ]
+}

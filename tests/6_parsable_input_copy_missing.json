@@ -1,0 +1,29 @@
+{
+    "imagename": "node",
+    "imageversion": "4.1.2",
+    "cmd": "command",
+    "run": [
+        {
+            "command": "command",
+            "args": [
+                "arg"
+            ]
+        },
+        {
+            "command": "command",
+            "args": [
+                "arg1",
+                "arg2"
+            ]
+        },
+        {
+            "command": "command",
+            "args": []
+        }
+    ],
+    "expose": [
+        123,
+        456,
+        789
+    ]
+}

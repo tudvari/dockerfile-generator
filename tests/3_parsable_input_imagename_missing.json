@@ -2,13 +2,16 @@
     "imageversion": "4.1.2",
     "copy": [
         {
-            "src": "dst"
+            "src": "path/to/src",
+            "dst": "/path/to/dst"
         },
         {
-            "src": "dst"
+            "src": "path/to/src",
+            "dst": "/path/to/dst"
         },
         {
-            "src": "dst"
+            "src": "path/to/src",
+            "dst": "/path/to/dst"
         }
     ],
     "cmd": "command",

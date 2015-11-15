@@ -94,4 +94,11 @@ describe('dockerfile-generator', function() {
     });
     done() ;
   }) ;
+  it('env is not array', function(done) {
+    generator.generate(fs.readFileSync('./tests/13_env_not_array.json'), function(err, result) {
+      should.exist(err) ;
+      should.equal(err.message, 'Input JSON has a semantic error! (env)') ;
+    });
+    done() ;
+  }) ;
 });

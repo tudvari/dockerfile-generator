@@ -33,14 +33,11 @@
             "command": "command"
         }
     ],
-    "env" : [
+    "env" :
       {"envname" : "TESTENV1",
        "envvalue" : "testvalue1"
-     },
-     {"envname" : "TESTENV2",
-      "envvalue" : "testvalue2"
      }
-   ],
+   ,
     "expose": [
         123,
         456,

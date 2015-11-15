@@ -13,7 +13,7 @@ The main goal of this module generate a dockerfile in runtime from the input dat
 
 ## Example input
 ```json
-{
+{{
     "imagename": "node",
     "imageversion": "4.1.2",
     "copy": [
@@ -48,12 +48,21 @@ The main goal of this module generate a dockerfile in runtime from the input dat
             "command": "command"
         }
     ],
+    "env" : [
+      {"envname" : "TESTENV1",
+       "envvalue" : "testvalue1"
+     },
+     {"envname" : "TESTENV2",
+      "envvalue" : "testvalue2"
+     }
+   ],
     "expose": [
         123,
         456,
         789
     ]
 }
+
 ```
 
 ## Example output
@@ -65,10 +74,13 @@ COPY path/to/src /path/to/dst
 RUN ["command","arg"]
 RUN ["command","arg1","arg2"]
 RUN ["command"]
+ENV TESTENV1=testvalue1
+ENV TESTENV2=testvalue2
 EXPOSE 123
 EXPOSE 456
 EXPOSE 789
 CMD ["cmd","arg1","arg2"]
+
 ```
 ## Usage
 

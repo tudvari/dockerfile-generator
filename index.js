@@ -50,6 +50,15 @@ module.exports.generate = function(input, cb) {
       }
     }
   }
+  //processing env commands
+  if (incomingJSON['env'] && !Array.isArray(incomingJSON['env'])) {
+    return cb(new Error('Input JSON has a semantic error! (env)'));
+  } else if (incomingJSON['env']) {
+    let envArray = incomingJSON['env'];
+    for (let envArrayElement of envArray) {
+      result = result + 'ENV ' + envArrayElement.envname + '=' + envArrayElement.envvalue + '\n';
+    }
+  }
   //processing expose
   if (incomingJSON['expose'] && !Array.isArray(incomingJSON['expose'])) {
     return cb(new Error('Input JSON has a semantic error! (expose)'));

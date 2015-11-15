@@ -10,10 +10,11 @@ The main goal of this module generate a dockerfile in runtime from the input dat
 - cmd : Array of one object, this object has two required property command - the executable command- and args, which is array of arguments. Required.
 - run : Array of objects, it has two property: command - executable command - and args as arguments of the executable command. Optional.
 - expose : Array of ports. Optional.
+- env : Array of objects it has two property: envname - name of the environment variable -and envvalue value of the environment variable
 
 ## Example input
 ```json
-{{
+{
     "imagename": "node",
     "imageversion": "4.1.2",
     "copy": [

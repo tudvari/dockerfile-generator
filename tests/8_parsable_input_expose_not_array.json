@@ -12,6 +12,7 @@
         }
     ],
     "cmd": "command",
+    "workdir" :"/app",
     "run": [
         {
             "command": "command",

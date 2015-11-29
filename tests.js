@@ -101,4 +101,11 @@ describe('dockerfile-generator', function() {
     });
     done() ;
   }) ;
+  it('workdir missing', function(done) {
+    generator.generate(fs.readFileSync('./tests/14_workdir_missing.json'), function(err, result) {
+      should.exist(err) ;
+      should.equal(err.message, 'Input JSON has a semantic error! (workdir)') ;
+    });
+    done() ;
+  }) ;
 });

@@ -11,7 +11,8 @@
             "dst": "/path/to/dst"
         }
     ],
-    "cmd": "command",  
+    "workdir" : "/app",
+    "cmd": "command",
     "expose": [
         123,
         456,

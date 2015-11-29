@@ -15,6 +15,7 @@
       "command" : "cmd",
       "args" : ["arg1","arg2"]
     },
+    "workdir" : "/app",
     "run": [
         {
             "command": "command",

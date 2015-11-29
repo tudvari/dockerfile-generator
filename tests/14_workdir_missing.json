@@ -15,7 +15,6 @@
       "command" : "cmd",
       "args" : ["arg1","arg2"]
     },
-    "workdir" : "/app",
     "run": [
         {
             "command": "command",
@@ -34,11 +33,14 @@
             "command": "command"
         }
     ],
-    "env" :
+    "env" : [
       {"envname" : "TESTENV1",
        "envvalue" : "testvalue1"
+     },
+     {"envname" : "TESTENV2",
+      "envvalue" : "testvalue2"
      }
-   ,
+   ],
     "expose": [
         123,
         456,

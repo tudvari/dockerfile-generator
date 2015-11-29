@@ -11,6 +11,7 @@
             "dst": "/path/to/dst"
         }
     ],
+    "workdir" : "/app",
     "run": [
         {
             "command": "command",

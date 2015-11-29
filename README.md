@@ -11,6 +11,7 @@ The main goal of this module generate a Dockerfile in runtime from the input dat
 - run : Array of objects, it has two property: command - executable command - and args as arguments of the executable command. Optional.
 - expose : Array of ports. Optional.
 - env : Array of objects it has two property: envname - name of the environment variable -and envvalue value of the environment variable
+- workdir : Define the working directory. Required.
 
 ## Example input
 ```json
@@ -31,6 +32,7 @@ The main goal of this module generate a Dockerfile in runtime from the input dat
       "command" : "cmd",
       "args" : ["arg1","arg2"]
     },
+    "workdir" : "/app",
     "run": [
         {
             "command": "command",
@@ -71,6 +73,7 @@ The main goal of this module generate a Dockerfile in runtime from the input dat
 FROM node:4.1.2
 COPY path/to/src /path/to/dst
 COPY path/to/src /path/to/dst
+WORKDIR /app
 RUN ["command","arg"]
 RUN ["command","arg1","arg2"]
 RUN ["command"]
@@ -80,7 +83,6 @@ EXPOSE 123
 EXPOSE 456
 EXPOSE 789
 CMD ["cmd","arg1","arg2"]
-
 ```
 ## Usage
 
@@ -91,3 +93,14 @@ generator.generate(inputJSON,function(err,result){
   //do something with the result..
 }) ;
 ```
+
+## Release Notes
+
+You can read the changelist: [here](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md)
+
+
+## Metrics
+
+[![Code Climate](https://codeclimate.com/github/tudvari/composer/badges/gpa.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator)
+[![Test Coverage](https://codeclimate.com/github/tudvari/composer/badges/coverage.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator/coverage)
+[![Build Status](https://travis-ci.org/tudvari/docker-composer.svg?branch=master)](https://travis-ci.org/tudvari/ddockerfile-generator)

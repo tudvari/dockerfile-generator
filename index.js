@@ -24,6 +24,12 @@ module.exports.generate = function(input, cb) {
       result = result + 'COPY ' + cpyArrayElement.src + ' ' + cpyArrayElement.dst + '\n';
     }
   }
+  //processing workdir
+  if (!incomingJSON['workdir']) {
+    return cb(new Error('Input JSON has a semantic error! (workdir)'));
+  } else {
+    result = result + 'WORKDIR ' + incomingJSON['workdir'] + '\n';
+  }
   //processing run commands
   if (!incomingJSON['run'] || !Array.isArray(incomingJSON['run'])) {
     return cb(new Error('Input JSON has a semantic error! (run)'));

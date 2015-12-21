@@ -95,7 +95,7 @@ generator.generate(inputJSON,function(err,result){
   //do something with the result..
 }) ;
 
-generator.convertToJSON(inputDokcerFile,funciont(err,result)){
+generator.convertToJSON(inputDockerFile,funciont(err,result)){
   //Result is a converted JSON Object.
 
   //do something with the result..

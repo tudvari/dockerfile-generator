@@ -4,14 +4,14 @@ The main goal of this module generate a Dockerfile in runtime from the input dat
 
 ## Ruleset
 
-- imagename : String type. Required.
-- imageversion : String type. Required.
-- copy : Array of objects. This object has two required property src for the source dir and dst for the destination dir
-- cmd : Array of a object, this object has two required property command - the executable command- and args, which is array of arguments. Required.
-- run : Array of objects, it has two property: command - executable command - and args as arguments of the executable command. Optional.
-- expose : Array of ports. Optional.
-- env : Array of objects it has two property: envname - name of the environment variable -and envvalue value of the environment variable
-- workdir : Define the working directory. Required.
+- imagename : String type.
+- imageversion : String type.
+- copy : Array of objects. This object has two required property SRC for the source directory and DST for the destination directory.
+- cmd : Array of a object, this object has two required property COMMAND - the executable command- and ARGS, which is array of arguments.
+- run : Array of objects, it has two property: COMMAND - executable command - and ARGS as arguments of the executable command.
+- expose : Array of ports.
+- env : Array of objects it has two property: ENVNAME - name of the environment variable -and ENVVALUE value of the environment variable.
+- workdir : Define the working directory.
 
 ## Example input
 ```json
@@ -90,8 +90,16 @@ CMD ["cmd","arg1","arg2"]
 var generator = require('dockerfile-generator') ;
 
 generator.generate(inputJSON,function(err,result){
+  //Result is a generated Dockerfile.
+
   //do something with the result..
 }) ;
+
+generator.convertToJSON(inputDokcerFile,funciont(err,result)){
+  //Result is a converted JSON Object.
+
+  //do something with the result..
+}
 ```
 
 ## Release Notes

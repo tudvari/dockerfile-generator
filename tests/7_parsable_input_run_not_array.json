@@ -1,6 +1,7 @@
 {
     "imagename": "node",
     "imageversion": "4.1.2",
+    "run" : "not_array",
     "copy": [
         {
             "src": "path/to/src",

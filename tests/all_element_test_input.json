@@ -11,10 +11,6 @@
             "dst": "/path/to/dst"
         }
     ],
-    "cmd": {
-      "command" : "cmd",
-      "args" : ["arg1","arg2"]
-    },
     "workdir" : "/app",
     "run": [
         {
@@ -46,5 +42,9 @@
         123,
         456,
         789
-    ]
+    ],
+    "cmd": {
+      "command" : "cmd",
+      "args" : ["arg1","arg2"]
+    }
 }

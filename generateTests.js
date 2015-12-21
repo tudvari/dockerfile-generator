@@ -43,22 +43,23 @@ describe('dockerfile-generator', function() {
     });
     done() ;
   }) ;
-  /*
-  it('Copy element missing', function(done) {
-    generator.generate(fs.readFileSync('./tests/6_parsable_input_copy_missing.json'), function(err, result) {
+
+  it('Copy element not array', function(done) {
+    generator.generate(fs.readFileSync('./tests/6_parsable_input_copy_not_array.json'), function(err, result) {
       should.exist(err) ;
       should.equal(err.message, 'Input JSON has a semantic error! (copy)') ;
     });
     done() ;
   }) ;
-  it('Run element missing', function(done) {
-    generator.generate(fs.readFileSync('./tests/7_parsable_input_run_missing.json'), function(err, result) {
+
+  it('Run element not array', function(done) {
+    generator.generate(fs.readFileSync('./tests/7_parsable_input_run_not_array.json'), function(err, result) {
       should.exist(err) ;
       should.equal(err.message, 'Input JSON has a semantic error! (run)') ;
     });
     done() ;
   }) ;
-  */
+
   it('Expose not array', function(done) {
     generator.generate(fs.readFileSync('./tests/8_parsable_input_expose_not_array.json'), function(err, result) {
       should.exist(err) ;

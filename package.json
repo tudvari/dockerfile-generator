@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
-    "compare-tests": "./node_modules/mocha/bin/mocha compareTests.js",
-    "coverage": "istanbul cover _mocha tests.js"
+    "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
+    "coverage": "istanbul cover _mocha *Tests.js",
+    "test" : "./node_modules/mocha/bin/mocha *Tests.js"
   },
   "keywords": [
     "dockerfile",

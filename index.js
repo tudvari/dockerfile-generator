@@ -113,6 +113,7 @@ module.exports.convertToJSON = function(dockerFileStream, cb) {
   });
 
   lineReader.on('line', function(line) {
+
     //processing from
     if (line.startsWith('FROM')) {
       let imageName = line.substring(line.indexOf(' ') + 1, line.indexOf(':'));
@@ -126,11 +127,10 @@ module.exports.convertToJSON = function(dockerFileStream, cb) {
       let src = line.substring(line.indexOf(' ') + 1, line.lastIndexOf(' '));
       let dst = line.substring(line.lastIndexOf(' ') + 1);
       let copyObject = {};
+      let copyArray = [];
 
       copyObject.src = src ;
       copyObject.dst = dst ;
-
-      let copyArray = [];
 
       if (dockerJSON.copy) {
         copyArray = dockerJSON.copy;
@@ -141,19 +141,23 @@ module.exports.convertToJSON = function(dockerFileStream, cb) {
     //processing workdir
     if (line.startsWith('WORKDIR')) {
       let workDir = line.substring(line.indexOf(' ') + 1);
+
       dockerJSON.workdir = workDir;
     }
     //processing run commands
     if (line.startsWith('RUN')) {
-      let runArgsArray = line.split(' ');
-      let runCommand = runArgsArray[0];
-      let runArgs = runArgsArray.splice(0, 1);
-      let runObject = {};
 
-      runObject.command = runCommand;
-      runObject.args = runArgs;
-
+      let runObject = {} ;
       let runArray = [];
+      let runArgsArray = line.split(' ');
+
+      runArgsArray = JSON.parse(runArgsArray[1]);
+
+      runObject.command = runArgsArray[0] ;
+
+      if(runArgsArray.slice(1).length){
+       runObject.args = runArgsArray.slice(1) ;
+      }
 
       if (dockerJSON.run) {
         runArray = dockerJSON.run;
@@ -163,17 +167,15 @@ module.exports.convertToJSON = function(dockerFileStream, cb) {
       dockerJSON.run = runArray;
     }
     //processing env
-
     if (line.startsWith('ENV')) {
 
       let envName = line.substring(line.indexOf(' ') + 1, line.indexOf('='));
       let envValue = line.substring(line.indexOf('=') + 1);
       let envObject = {};
+      let envArray = [];
 
       envObject.envname = envName;
       envObject.envvalue = envValue;
-
-      let envArray = [];
 
       if (dockerJSON.env) {
         envArray = dockerJSON.env;
@@ -184,19 +186,34 @@ module.exports.convertToJSON = function(dockerFileStream, cb) {
     }
     //processing expose
     if (line.startsWith('EXPOSE')) {
-      let portNum = line.substring(line.indexOf(' ') + 1);
+      let portNum = Number(line.substring(line.indexOf(' ') + 1));
       let portArray = [];
 
       if (dockerJSON.expose) {
         portArray = dockerJSON.expose;
       }
+
       portArray.push(portNum);
       dockerJSON.expose = portArray ;
     }
-  //processing cmd
+    //processing cmd
+    if (line.startsWith('CMD')) {
+      let cmdObject = {} ;
+      let cmdArgsArray = line.split(' ');
+
+      cmdArgsArray = JSON.parse(cmdArgsArray[1]);
+
+      cmdObject.command = cmdArgsArray[0] ;
+
+      if(cmdArgsArray.slice(1).length){
+       cmdObject.args = cmdArgsArray.slice(1) ;
+      }
+
+      dockerJSON.cmd = cmdObject
+    }
   });
+
   lineReader.on('close', function() {
-    console.log('dockerJSON is:', dockerJSON) ;
-    return cb(null, dockerJSON);
+    return cb(null,dockerJSON);
   }) ;
 }

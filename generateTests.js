@@ -43,6 +43,7 @@ describe('dockerfile-generator', function() {
     });
     done() ;
   }) ;
+  /*
   it('Copy element missing', function(done) {
     generator.generate(fs.readFileSync('./tests/6_parsable_input_copy_missing.json'), function(err, result) {
       should.exist(err) ;
@@ -57,6 +58,7 @@ describe('dockerfile-generator', function() {
     });
     done() ;
   }) ;
+  */
   it('Expose not array', function(done) {
     generator.generate(fs.readFileSync('./tests/8_parsable_input_expose_not_array.json'), function(err, result) {
       should.exist(err) ;
@@ -103,8 +105,8 @@ describe('dockerfile-generator', function() {
   }) ;
   it('workdir missing', function(done) {
     generator.generate(fs.readFileSync('./tests/14_workdir_missing.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (workdir)') ;
+      should.not.exist(err) ;
+    //should.equal(err.message, 'Input JSON has a semantic error! (workdir)') ;
     });
     done() ;
   }) ;

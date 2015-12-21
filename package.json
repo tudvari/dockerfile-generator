@@ -1,10 +1,11 @@
 {
   "name": "dockerfile-generator",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Dockerfile generator for NodeJS",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha tests.js",
+    "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
+    "compare-tests": "./node_modules/mocha/bin/mocha compareTests.js",
     "coverage": "istanbul cover _mocha tests.js"
   },
   "keywords": [

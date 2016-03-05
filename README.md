@@ -95,10 +95,14 @@ generator.generate(inputJSON,function(err,result){
   //do something with the result..
 }) ;
 
-generator.convertToJSON(inputDockerFile,funciont(err,result)){
+generator.convertToJSON(inputDockerFile,function(err,result)){
   //Result is a converted JSON Object.
 
   //do something with the result..
+}
+
+generator.generateIgnoreFile(ignoredElementsArray,function(err,result)){
+  //Result is a generated .dockerignore file
 }
 ```
 

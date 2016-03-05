@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 2.1.0 (2016.03.05)
+
+- New functionality: Generating .dockerignore file
 
 ## Version 2.0.0 (2015.12.21)
 

@@ -217,3 +217,11 @@ module.exports.convertToJSON = function(dockerFileStream, cb) {
     return cb(null,dockerJSON);
   }) ;
 }
+
+module.exports.generateIgnoreFile = function(ignoredFilesArray,cb){
+	let ignoredFileContent = '';
+	for(let ignoredFile of ignoredFilesArray) {
+		ignoredFileContent = ignoredFileContent + ignoredFile+'\n' ;
+	}
+  return cb(null,ignoredFileContent) ;
+}

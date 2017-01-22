@@ -1,6 +1,11 @@
+[![Code Climate](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/gpa.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator)
+[![Test Coverage](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/coverage.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator/coverage)
+[![Build Status](https://travis-ci.org/tudvari/dockerfile-generator.svg?branch=master)](https://travis-ci.org/tudvari/dockerfile-generator)
+
+
 # Dockerfile Generator
 
-The main goal of this module generate a Dockerfile in runtime from the input data which is a JSON document.
+Generating a dockerfile from JSON.
 
 ## Ruleset
 
@@ -87,32 +92,26 @@ CMD ["cmd","arg1","arg2"]
 ## Usage
 
 ```Javascript
-var generator = require('dockerfile-generator') ;
+var generator = require('dockerfile-generator')
 
-generator.generate(inputJSON,function(err,result){
+generator.generate(inputJSON, function(err, result) {
   //Result is a generated Dockerfile.
 
   //do something with the result..
-}) ;
+})
 
-generator.convertToJSON(inputDockerFile,function(err,result)){
+generator.convertToJSON(inputDockerFile, function(err, result) {
   //Result is a converted JSON Object.
 
   //do something with the result..
-}
+})
 
-generator.generateIgnoreFile(ignoredElementsArray,function(err,result)){
+generator.generateIgnoreFile(ignoredElementsArray, function(err, result) {
   //Result is a generated .dockerignore file
-}
+})
 ```
 
 ## Release Notes
 
-You can read the changelist: [here](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md)
+List of changes : [here](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md)
 
-
-## Metrics
-
-[![Code Climate](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/gpa.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator)
-[![Test Coverage](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/coverage.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator/coverage)
-[![Build Status](https://travis-ci.org/tudvari/dockerfile-generator.svg?branch=master)](https://travis-ci.org/tudvari/dockerfile-generator)

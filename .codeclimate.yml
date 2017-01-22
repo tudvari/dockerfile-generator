@@ -1,0 +1,20 @@
+---
+engines:
+  eslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - "javascript"
+ratings:
+  paths:
+  - "**.md"
+exclude_paths:
+  - tests.js
+  - tests/
+  - .editorconfig
+  - .esformatter
+  - .eslintrc.json
+  - .travis.yml
+

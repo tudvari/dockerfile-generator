@@ -7,22 +7,22 @@
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
     "coverage": "istanbul cover _mocha *Tests.js",
-    "test" : "./node_modules/mocha/bin/mocha *Tests.js"
+    "test": "./node_modules/mocha/bin/mocha *Tests.js"
   },
   "keywords": [
     "dockerfile",
     "generator"
   ],
-  "repository" :
-  { "type" : "git",
-    "url" : "https://github.com/tudvari/dockerfile-generator.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tudvari/dockerfile-generator.git"
   },
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.14.0",
-    "mocha": "^3.2.0",
-    "should": "^11.1.2",
+    "eslint": "4.14.0",
+    "mocha": "4.1.0",
+    "should": "13.2.0",
     "istanbul": "0.4.5"
   }
 }

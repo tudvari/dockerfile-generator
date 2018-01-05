@@ -1,6 +1,6 @@
 {
   "name": "dockerfile-generator",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Dockerfile generator for NodeJS",
   "main": "index.js",
   "scripts": {

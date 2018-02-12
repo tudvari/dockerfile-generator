@@ -20,7 +20,7 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "4.16.0",
+    "eslint": "4.17.0",
     "mocha": "5.0.0",
     "should": "13.2.1",
     "istanbul": "0.4.5"

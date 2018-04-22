@@ -94,21 +94,14 @@ CMD ["cmd","arg1","arg2"]
 ```Javascript
 var generator = require('dockerfile-generator')
 
-generator.generate(inputJSON, function(err, result) {
-  //Result is a generated Dockerfile.
+let result = await generator.generate(inputJSON)
+// Result is a generated Dockerfile.
 
-  //do something with the result..
-})
+let convertedJSON = generator.convertToJSON(inputDockerFile)
+// Result is a generated JSON from Dockerfile.
 
-generator.convertToJSON(inputDockerFile, function(err, result) {
-  //Result is a converted JSON Object.
-
-  //do something with the result..
-})
-
-generator.generateIgnoreFile(ignoredElementsArray, function(err, result) {
-  //Result is a generated .dockerignore file
-})
+let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
+// generatedIgnore is a generated dockerignore file
 ```
 
 ## Release Notes

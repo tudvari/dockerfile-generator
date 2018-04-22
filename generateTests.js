@@ -1,114 +1,123 @@
-'use strict' ;
+const fs = require('fs')
+const mocha = require('mocha')
+const should = require('should')
 
-let fs = require('fs');
-let mocha = require('mocha');
-let should = require('should');
+const generator = require('./')
 
-let generator = require('./');
+describe('dockerfile-generator', function () {
 
-describe('dockerfile-generator', function() {
+  it('Invalid JSON', async function () {
+    try {
+    let resp = await generator.generate(fs.readFileSync('./tests/1_unparsable_input.json'))
+    }
+    catch (err) {
+      should.exist(err)
+    }
+  })
 
-  it('Invalid JSON', function(done) {
-    generator.generate(fs.readFileSync('./tests/1_unparsable_input.json'), function(err, result) {
-      should.exist(err) ;
-    });
-    done() ;
-  }) ;
-  it('Full test with all element ok', function(done) {
-    let expected = fs.readFileSync('./tests/all_element_test.out');
-    generator.generate(fs.readFileSync('./tests/all_element_test_input.json'), function(err, result) {
-      should.not.exist(err) ;
-      should.equal(result, expected.toString()) ;
-    });
-    done() ;
-  }) ;
+  it('Full test with all element ok', async function () {
+    let expected = fs.readFileSync('./tests/all_element_test.out')
+    let resp = await generator.generate(fs.readFileSync('./tests/all_element_test_input.json'))
+    should.equal(resp, expected.toString())
+  })
 
-  it('ImageName does not exist', function(done) {
-    generator.generate(fs.readFileSync('./tests/3_parsable_input_imagename_missing.json'), function(err, result) {
-      should.exist(err) ;
-    });
-    done() ;
-  }) ;
+  it('ImageName does not exist', async function () {
+    try {
+      let resp = await generator.generate(fs.readFileSync('./tests/3_parsable_input_imagename_missing.json'))
+    }
+    catch (err) {
+      should.exist(err)
+    }
+  })
 
-  it('ImageVersion does not exist', function(done) {
-    generator.generate(fs.readFileSync('./tests/4_parsable_input_imageversion_missing.json'), function(err, result) {
-      should.exist(err) ;
-    });
-    done() ;
-  }) ;
-  it('ImageName and imageVersion are missing', function(done) {
-    generator.generate(fs.readFileSync('./tests/5_parsable_input_imageinfos_missing.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (imagename or imageversion)') ;
-    });
-    done() ;
-  }) ;
+  it('ImageVersion does not exist', async function () {
+    try {
+      let resp = generator.generate(fs.readFileSync('./tests/4_parsable_input_imageversion_missing.json'))
+    }
+    catch (err) {
+      should.exist(err)
+    }
+  })
 
-  it('Copy element not array', function(done) {
-    generator.generate(fs.readFileSync('./tests/6_parsable_input_copy_not_array.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (copy)') ;
-    });
-    done() ;
-  }) ;
+  it('ImageName and imageVersion are missing', async function () {
+    try {
+      let resp = await generator.generate(fs.readFileSync('./tests/5_parsable_input_imageinfos_missing.json'))
+    }
+    catch (err) {
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (imagename or imageversion)')
+    }
+  })
 
-  it('Run element not array', function(done) {
-    generator.generate(fs.readFileSync('./tests/7_parsable_input_run_not_array.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (run)') ;
-    });
-    done() ;
-  }) ;
+  it('Copy element not array', async function () {
+    try {
+      let resp = await generator.generate(fs.readFileSync('./tests/6_parsable_input_copy_not_array.json'))
+    }
+    catch (err) {
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (copy)')
+    }
+  })
 
-  it('Expose not array', function(done) {
-    generator.generate(fs.readFileSync('./tests/8_parsable_input_expose_not_array.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (expose)') ;
-    });
-    done() ;
-  }) ;
-  it('Expose missing', function(done) {
-    let expected = fs.readFileSync('./tests/9_expose_missing.out');
-    generator.generate(fs.readFileSync('./tests/9_expose_missing.json'), function(err, result) {
-      should.not.exist(err) ;
-      should.equal(result, expected.toString()) ;
-    });
-    done() ;
-  }) ;
-  it('Cmd args missing', function(done) {
-    let expected = fs.readFileSync('./tests/10_cmd_args_missing.out');
-    generator.generate(fs.readFileSync('./tests/10_cmd_args_missing.json'), function(err, result) {
-      should.not.exist(err) ;
-      should.equal(result, expected.toString()) ;
-    });
-    done() ;
-  }) ;
-  it('Cmd missing', function(done) {
-    generator.generate(fs.readFileSync('./tests/11_cmd_missing.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (cmd)') ;
-    });
-    done() ;
-  }) ;
-  it('Cmd.command missing', function(done) {
-    generator.generate(fs.readFileSync('./tests/12_cmd_command_missing.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (cmd.command)') ;
-    });
-    done() ;
-  }) ;
-  it('env is not array', function(done) {
-    generator.generate(fs.readFileSync('./tests/13_env_not_array.json'), function(err, result) {
-      should.exist(err) ;
-      should.equal(err.message, 'Input JSON has a semantic error! (env)') ;
-    });
-    done() ;
-  }) ;
-  it('workdir missing', function(done) {
-    generator.generate(fs.readFileSync('./tests/14_workdir_missing.json'), function(err, result) {
-      should.not.exist(err) ;
-    //should.equal(err.message, 'Input JSON has a semantic error! (workdir)') ;
-    });
-    done() ;
-  }) ;
-});
+  it('Run element not array', async function () {
+    try{
+      let resp = await generator.generate(fs.readFileSync('./tests/7_parsable_input_run_not_array.json'))
+    }
+    catch(err) {  
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (run)')
+    }
+  })
+
+  it('Expose not array', async function () {
+    try {
+      let resp = await generator.generate(fs.readFileSync('./tests/8_parsable_input_expose_not_array.json'))
+    }
+    catch (err) {
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (expose)')
+    }
+  })
+
+  it('Expose missing', async function () {
+    let expected = fs.readFileSync('./tests/9_expose_missing.out')
+    let resp = await generator.generate(fs.readFileSync('./tests/9_expose_missing.json'))
+    should.equal(resp, expected.toString())
+  })
+
+  it('Cmd args missing', async function () {
+    let expected = fs.readFileSync('./tests/10_cmd_args_missing.out')
+    let resp = await generator.generate(fs.readFileSync('./tests/10_cmd_args_missing.json'))
+    should.equal(resp, expected.toString())
+  })
+
+  it('Cmd missing', async function () {
+    try {
+      let resp = await generator.generate(fs.readFileSync('./tests/11_cmd_missing.json'))
+    }
+    catch (err) {
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (cmd)')
+    }
+  })
+
+  it('Cmd.command missing', async function () {
+    try {
+      let resp = generator.generate(fs.readFileSync('./tests/12_cmd_command_missing.json'))
+    }
+    catch (err) {
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (cmd.command)')
+    }
+  })
+
+  it('env is not array', async function () {
+    try {
+      let resp = generator.generate(fs.readFileSync('./tests/13_env_not_array.json'))
+    }
+    catch (err) {
+      should.exist(err)
+      should.equal(err.message, 'Input JSON has a semantic error! (env)')
+    }
+  })
+})

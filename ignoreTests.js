@@ -1,30 +1,24 @@
-'use strict' ;
+const fs = require('fs')
+const mocha = require('mocha')
+const should = require('should')
 
-let fs = require('fs');
-let mocha = require('mocha');
-let should = require('should');
+const generator = require('./')
 
-let generator = require('./');
+describe('.dockerignore generate tests', function () {
 
-describe('dockerfile-generator', function() {
+  it('Empty Array', async function () {
+    let resp = await generator.generateIgnoreFile([])
+		should.equal(resp,'')
+	})
+	
+	it('One Item in the Array', async function () {
+		let resp = await generator.generateIgnoreFile(['node_modules'])
+		should.equal(resp,'node_modules\n')
+	})
 
-  it('Empty Array', function(done) {
-    generator.generateIgnoreFile([], function(err, result) {
-			should.not.exist(err) ;
-			should.equal(result,'') ;
-    });
-    done() ;
-  }) ;
-	it('One Item in the Array', function(done) {
-		generator.generateIgnoreFile(['node_modules'], function(err, result) {
-			should.equal(result,'node_modules\n') ;
-		});
-		done() ;
-	}) ;
-	it('Multiple Item in the Array', function(done) {
-		generator.generateIgnoreFile(['node_modules','.git'], function(err, result) {
-			should.equal(result,'node_modules\n.git\n') ;
-		});
-		done() ;
-	}) ;
-});
+	it('Multiple Item in the Array', async function () {
+		let resp = await generator.generateIgnoreFile(['node_modules','.git'])
+		should.equal(resp,'node_modules\n.git\n')
+	})
+
+})

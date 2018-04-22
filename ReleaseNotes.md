@@ -1,5 +1,9 @@
 # Release Notes
 
+
+## Version 3.0.0 (2018.04.22)
+- Change from callback to Promise for async/await support.
+
 ## Version 2.1.1 (2017.12.29)
 - Refresh dependencies.
 

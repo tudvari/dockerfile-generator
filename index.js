@@ -3,7 +3,7 @@
 var readline = require('readline')
 
 module.exports.generate = function (input) {
-	return new Promise(function (resolve, reject) {
+	return new Promise( function (resolve, reject) {
 		let incomingJSON
 		let result = ''
 
@@ -215,10 +215,13 @@ module.exports.convertToJSON = function (dockerFileStream, cb) {
 	})
 }
 
-module.exports.generateIgnoreFile = function (ignoredFilesArray, cb) {
-	let ignoredFileContent = ''
-	for (let ignoredFile of ignoredFilesArray) {
-		ignoredFileContent = ignoredFileContent + ignoredFile + '\n'
-	}
-	return cb(null, ignoredFileContent)
+module.exports.generateIgnoreFile = function (ignoredFilesArray) {
+	return new Promise( function (resolve, reject) {
+		let ignoredFileContent = ''
+		for (let ignoredFile of ignoredFilesArray) {
+			ignoredFileContent = ignoredFileContent + ignoredFile + '\n'
+		}
+		return resolve(ignoredFileContent)
+	})
+
 }

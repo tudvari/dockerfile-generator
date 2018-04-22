@@ -6,7 +6,7 @@ let should = require('should');
 
 let generator = require('./');
 
-describe('convertToJSON', function() {
+describe('convertToJSON', function () {
 
   it('convertToJSON', function(done) {
     let expected = fs.readFileSync('./tests/all_element_test_input.json');

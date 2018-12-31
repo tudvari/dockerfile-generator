@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/tudvari/dockerfile-generator.svg?branch=master)](https://travis-ci.org/tudvari/dockerfile-generator)
 
 
-# Dockerfile Generator
+# Dockerfile Generator ( Version 3.1.0 is under development, dont try to use it!)
 
 Generating a dockerfile from JSON.
 

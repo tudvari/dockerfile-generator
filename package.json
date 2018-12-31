@@ -24,5 +24,8 @@
     "mocha": "5.2.0",
     "should": "13.2.3",
     "istanbul": "0.4.5"
+  },
+  "dependencies": {
+    "jsonschema": "^1.2.4"
   }
 }

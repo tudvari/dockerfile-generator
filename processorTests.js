@@ -57,4 +57,22 @@ describe('ProcessorTests', function() {
         processor.processEnvs(params).should.equal('ENV key1=value1\nENV key2=value2\n')
     })
 
+    it('EXPOSE - test', function() {
+        processor.processExposes(["80/tcp", "8080"]).should.equal('EXPOSE 80/tcp\nEXPOSE 8080\n')
+    })
+
+    it('ADD - array', function() {
+        let params = []
+        params['src1'] = 'dest1'
+        params['src2'] = 'dest2'
+        processor.processAnd(params).should.equal('ADD src1 dest1\nADD src2 dest2\n')
+    })
+
+    it('COPY - array', function() {
+        let params = []
+        params['src1'] = 'dest1'
+        params['src2'] = 'dest2'
+        processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2\n')
+    })
+
 })

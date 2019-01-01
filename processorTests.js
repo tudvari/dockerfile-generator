@@ -75,4 +75,27 @@ describe('ProcessorTests', function() {
         processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2\n')
     })
 
+    it('ENTRYPOINT - string', function() {
+        processor.processEntryPoint('test.entrypoint').should.equal('ENTRYPOINT [ "test.entrypoint" ]')
+    })
+
+    it('ENTRYPOINT - array', function() {
+        processor.processEntryPoint(['test.entrypoint', '-b', 'testparam']).should.equal('ENTRYPOINT [ "test.entrypoint", "-b", "testparam" ]')
+    })
+
+    it('USER test', function() {
+        processor.processUser('testuser').should.equal('USER testuser')
+    })
+
+    it('WORKDIR test', function() {
+        processor.processWorkDir('/home/work').should.equal('WORKDIR /home/work')
+    })
+
+    it('STOPSIGNAL test', function() {
+        processor.processStopSignal('signal').should.equal('STOPSIGNAL signal')
+    })
+
+    it('ARG - test', function() {
+        processor.processArgs(["arg1", "arg2"]).should.equal('ARG arg1\nARG arg2\n')
+    })
 })

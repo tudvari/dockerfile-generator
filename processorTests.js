@@ -98,4 +98,12 @@ describe('ProcessorTests', function() {
     it('ARG - test', function() {
         processor.processArgs(["arg1", "arg2"]).should.equal('ARG arg1\nARG arg2\n')
     })
+
+    it('VOLUME - test', function() {
+        processor.processVolumes(["/volume1", "/volume2"]).should.equal('VOLUME /volume1\nVOLUME /volume2\n')
+    })
+
+    it('SHELL - array', function() {
+        processor.processShell(['test.shell', '-b', 'testparam']).should.equal('SHELL [ "test.shell", "-b", "testparam" ]')
+    })
 })

@@ -1,2 +1,4 @@
 multiple RUN support
 multiple CMD support
+ONBUILD support
+HEALTHCHECK support

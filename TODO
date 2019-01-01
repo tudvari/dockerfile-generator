@@ -1,1 +1,3 @@
 multiple RUN support
+multiple CMD support
+refactor CMD and RUN support

@@ -16,4 +16,9 @@ describe('GeneratorTests', function() {
             should.equal(error.message, 'Input Validation error')
         }
     })
+
+    it('Valid JSON', function() {
+        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest' })
+        generateResult.should.equal('FROM nginx:latest\n')
+    })
 })

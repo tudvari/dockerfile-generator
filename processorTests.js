@@ -5,7 +5,7 @@ const should = require('should')
 
 const processor = require(path.resolve(__dirname + '/lib/processor'))
 
-describe('ProcessorTests', function() {
+describe('ProcessorTests - Fragments', function() {
 
     it('FROM test', function() {
         processor.processFrom('testFrom').should.equal('FROM testFrom')
@@ -65,7 +65,7 @@ describe('ProcessorTests', function() {
         let params = []
         params['src1'] = 'dest1'
         params['src2'] = 'dest2'
-        processor.processAnd(params).should.equal('ADD src1 dest1\nADD src2 dest2\n')
+        processor.processAdd(params).should.equal('ADD src1 dest1\nADD src2 dest2\n')
     })
 
     it('COPY - array', function() {
@@ -105,5 +105,13 @@ describe('ProcessorTests', function() {
 
     it('SHELL - array', function() {
         processor.processShell(['test.shell', '-b', 'testparam']).should.equal('SHELL [ "test.shell", "-b", "testparam" ]')
+    })
+})
+
+describe('ProcessorTests - determineTests', function(){
+
+    it('determine - FROM', function(){
+        let resp = processor.determineFunction('from')
+        console.log('resp >>>',  resp)
     })
 })

@@ -112,6 +112,78 @@ describe('ProcessorTests - determineTests', function(){
 
     it('determine - FROM', function(){
         let resp = processor.determineFunction('from')
-        console.log('resp >>>',  resp)
+        resp.name.should.equal('processFrom')
     })
+
+    it('determine - RUN', function(){
+        let resp = processor.determineFunction('run')
+        resp.name.should.equal('processSingleRun')
+    })
+
+    it('determine - CMD', function(){
+        let resp = processor.determineFunction('cmd')
+        resp.name.should.equal('processSingleCmd')
+    })
+
+    it('determine - LABELS', function(){
+        let resp = processor.determineFunction('labels')
+        resp.name.should.equal('processLabels')
+    })
+
+    it('determine - ENV', function(){
+        let resp = processor.determineFunction('env')
+        let respType = typeof resp
+        resp.name.should.equal('processEnvs')
+    })
+
+    it('determine - EXPOSE', function(){
+        let resp = processor.determineFunction('expose')
+        resp.name.should.equal('processExposes')
+    })
+
+    it('determine - ADD', function(){
+        let resp = processor.determineFunction('add')
+        resp.name.should.equal('processAdd')
+    })
+
+    it('determine - COPY', function(){
+        let resp = processor.determineFunction('copy')
+        resp.name.should.equal('processCopy')
+    })
+
+    it('determine - ENTRYPOINT', function(){
+        let resp = processor.determineFunction('entrypoint')
+        resp.name.should.equal('processEntryPoint')
+    })
+
+    it('determine - VOLUMES', function(){
+        let resp = processor.determineFunction('volumes')
+        resp.name.should.equal('processVolumes')
+    })
+
+    it('determine - USER', function(){
+        let resp = processor.determineFunction('user')
+        resp.name.should.equal('processUser')
+    })
+
+    it('determine - WORKING_DIR', function(){
+        let resp = processor.determineFunction('working_dir')
+        resp.name.should.equal('processWorkDir')
+    })
+
+    it('determine - ARGS', function(){
+        let resp = processor.determineFunction('args')
+        resp.name.should.equal('processArgs')
+    })
+
+    it('determine - STOPSIGNAL', function(){
+        let resp = processor.determineFunction('stopsignal')
+        resp.name.should.equal('processStopSignal')
+    })
+
+    it('determine - SHELL', function(){
+        let resp = processor.determineFunction('shell')
+        resp.name.should.equal('processShell')
+    })
+    
 })

@@ -21,4 +21,14 @@ describe('GeneratorTests', function() {
         let generateResult = Generator.generateDockerFile({ from: 'nginx:latest' })
         generateResult.should.equal('FROM nginx:latest\n')
     })
+
+    it('Valid JSON - FROM, ARG', function() {
+        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', args:["arg1", "arg2"] })
+        generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n\n')
+    })
+
+    it('Valid JSON - FROM, CMD', function() {
+        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', cmd:["test.cmd", "-b"] })
+        generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n')
+    })
 })

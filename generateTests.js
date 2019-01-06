@@ -17,6 +17,15 @@ describe('dockerfile-generator', function () {
   })
 
   it('JSON contains all element', async function () {
+
+    let copyObject = []
+    copyObject['src1'] = 'dst1'
+    copyObject['src2'] = 'dst2'
+
+    let addObject = []
+    addObject['src1'] = 'dst1'
+    addObject['src2'] = 'dst2'
+
     let inputJSON = {
       from: "nginx:latest",
       run: "test.run",
@@ -28,8 +37,8 @@ describe('dockerfile-generator', function () {
         env1: "value1",
         env2: "value2"
       },
-      add: [src1='dst1'],
-      copy: [src1='dst1'],
+      add: addObject,
+      copy: copyObject,
       expose: ["80/tcp"],
       entrypoint: "/home/test",
       volumes: [ "/home/testvolume" ],
@@ -42,32 +51,12 @@ describe('dockerfile-generator', function () {
     }
 
     try {
+      let respLiteral = 'FROM nginx:latest\nRUN [ "test.run" ]\nCMD [ "test.cmd" ]\nLABEL name=value\nENV env1=value1\nENV env2=value2\nADD src1 dst1\nADD src2 dst2\nCOPY src1 dst1\nCOPY src2 dst2\nEXPOSE 80/tcp\nENTRYPOINT [ "/home/test" ]\nVOLUME /home/testvolume\nUSER testuser\nWORKDIR /home/app\nARG value1\nARG value2\nSTOPSIGNAL stop\nSHELL [ "cmd", "param1", "param2" ]\n'
       let resp = await generator.generate(inputJSON)
-      console.log(resp)
+      resp.should.equal(respLiteral)
     }
     catch(error) {
-      console.log('err >>>', error)
       should.not.exist(error)
     }
   })
 })
-
-/*
-FROM nginx:latest
-RUN [ "test.run" ]
-CMD [ "test.cmd" ]
-LABEL name=value
-ENV env1=value1
-ENV env2=value2
-EXPOSE 80/tcp
-ADD src1 dst1
-COPY src1 dst1
-ENTRYPOINT /home/test
-VOLUME /home/testvolume
-USER testuser
-WORKDIR /home/app
-ARG value1
-ARG value2
-STOPSIGNAL stop
-SHELL [ "param1", "param2" ] 
-*/

@@ -5,7 +5,7 @@ const should = require('should')
 
 const processor = require(path.resolve(__dirname + '/lib/processor'))
 
-describe.skip('ProcessorTests - Fragments', function() {
+describe('ProcessorTests - Fragments', function() {
 
     it('FROM test', function() {
         processor.processFrom('testFrom').should.equal('FROM testFrom')
@@ -31,7 +31,7 @@ describe.skip('ProcessorTests - Fragments', function() {
         let params = []
         params['key1'] = 'value1'
         params['key2'] = 'value2'
-        processor.processLabels(params).should.equal('LABEL key1=value1\nLABEL key2=value2\n')
+        processor.processLabels(params).should.equal('LABEL key1=value1\nLABEL key2=value2')
     })
 
     it('LABEL - object', function() {
@@ -39,14 +39,14 @@ describe.skip('ProcessorTests - Fragments', function() {
             key1: 'value1',
             key2: 'value2'
         }
-        processor.processLabels(params).should.equal('LABEL key1=value1\nLABEL key2=value2\n')
+        processor.processLabels(params).should.equal('LABEL key1=value1\nLABEL key2=value2')
     })
 
     it('ENV - array', function() {
         let params = []
         params['key1'] = 'value1'
         params['key2'] = 'value2'
-        processor.processEnvs(params).should.equal('ENV key1=value1\nENV key2=value2\n')
+        processor.processEnvs(params).should.equal('ENV key1=value1\nENV key2=value2')
     })
 
     it('ENV - object', function() {
@@ -54,25 +54,25 @@ describe.skip('ProcessorTests - Fragments', function() {
             key1: 'value1',
             key2: 'value2'
         }
-        processor.processEnvs(params).should.equal('ENV key1=value1\nENV key2=value2\n')
+        processor.processEnvs(params).should.equal('ENV key1=value1\nENV key2=value2')
     })
 
     it('EXPOSE - test', function() {
-        processor.processExposes(["80/tcp", "8080"]).should.equal('EXPOSE 80/tcp\nEXPOSE 8080\n')
+        processor.processExposes(["80/tcp", "8080"]).should.equal('EXPOSE 80/tcp\nEXPOSE 8080')
     })
 
     it('ADD - array', function() {
         let params = []
         params['src1'] = 'dest1'
         params['src2'] = 'dest2'
-        processor.processAdd(params).should.equal('ADD src1 dest1\nADD src2 dest2\n')
+        processor.processAdd(params).should.equal('ADD src1 dest1\nADD src2 dest2')
     })
 
     it('COPY - array', function() {
         let params = []
         params['src1'] = 'dest1'
         params['src2'] = 'dest2'
-        processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2\n')
+        processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2')
     })
 
     it('ENTRYPOINT - string', function() {
@@ -96,11 +96,11 @@ describe.skip('ProcessorTests - Fragments', function() {
     })
 
     it('ARG - test', function() {
-        processor.processArgs(["arg1", "arg2"]).should.equal('ARG arg1\nARG arg2\n')
+        processor.processArgs(["arg1", "arg2"]).should.equal('ARG arg1\nARG arg2')
     })
 
     it('VOLUME - test', function() {
-        processor.processVolumes(["/volume1", "/volume2"]).should.equal('VOLUME /volume1\nVOLUME /volume2\n')
+        processor.processVolumes(["/volume1", "/volume2"]).should.equal('VOLUME /volume1\nVOLUME /volume2')
     })
 
     it('SHELL - array', function() {
@@ -108,7 +108,7 @@ describe.skip('ProcessorTests - Fragments', function() {
     })
 })
 
-describe.skip('ProcessorTests - determineTests', function(){
+describe('ProcessorTests - determineTests', function(){
 
     it('determine - FROM', function(){
         let resp = processor.determineFunction('from')

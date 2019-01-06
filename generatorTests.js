@@ -5,7 +5,7 @@ const should = require('should')
 
 const Generator = require(path.resolve(__dirname + '/lib/generator'))
 
-describe.skip('GeneratorTests', function() { 
+describe('GeneratorTests', function() { 
 
     it('Invalid JSON', function() {
         try {
@@ -24,7 +24,7 @@ describe.skip('GeneratorTests', function() {
 
     it('Valid JSON - FROM, ARG', function() {
         let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', args:["arg1", "arg2"] })
-        generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n\n')
+        generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n')
     })
 
     it('Valid JSON - FROM, CMD', function() {

@@ -2,3 +2,4 @@ multiple RUN support
 multiple CMD support
 ONBUILD support
 HEALTHCHECK support
+ADD/COPY src path should be a string

@@ -5,7 +5,7 @@ const should = require('should')
 
 const processor = require(path.resolve(__dirname + '/lib/processor'))
 
-describe('ProcessorTests - Fragments', function() {
+describe.skip('ProcessorTests - Fragments', function() {
 
     it('FROM test', function() {
         processor.processFrom('testFrom').should.equal('FROM testFrom')
@@ -108,7 +108,7 @@ describe('ProcessorTests - Fragments', function() {
     })
 })
 
-describe('ProcessorTests - determineTests', function(){
+describe.skip('ProcessorTests - determineTests', function(){
 
     it('determine - FROM', function(){
         let resp = processor.determineFunction('from')

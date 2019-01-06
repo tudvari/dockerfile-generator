@@ -1,109 +1,17 @@
-'use strict'
+const path = require('path')
 
-var readline = require('readline')
+const readline = require('readline')
+
+const Generator = require(path.resolve(__dirname + '/lib/generator'))
 
 module.exports.generate = function (input) {
 	return new Promise( function (resolve, reject) {
-		let incomingJSON
-		let result = ''
-
 		try {
-			incomingJSON = JSON.parse(input)
-		} catch (err) {
-			reject(err)
+			resolve(Generator.generateDockerFile(input))
 		}
-
-		// processing imageName and imageVersion
-		if (!incomingJSON['imagename'] || !incomingJSON['imageversion']) {
-			reject(new Error('Input JSON has a semantic error! (imagename or imageversion)'))
-		} else {
-			result = 'FROM ' + incomingJSON['imagename'] + ':' + incomingJSON['imageversion'] + '\n'
+		catch(error) {
+			reject(error)
 		}
-
-		// processing copy commands
-		if (incomingJSON['copy'] && !Array.isArray(incomingJSON['copy'])) {
-			reject(new Error('Input JSON has a semantic error! (copy)'))
-		} else if (incomingJSON['copy']) {
-
-			let cpyArray = incomingJSON['copy']
-
-			for (let cpyArrayElement of cpyArray) {
-				result = result + 'COPY ' + cpyArrayElement.src + ' ' + cpyArrayElement.dst + '\n'
-			}
-		}
-
-		// processing working directory
-		if (incomingJSON['workdir']) {
-			result = result + 'WORKDIR ' + incomingJSON['workdir'] + '\n'
-		}
-
-		// processing run commands
-		if (incomingJSON['run'] && !Array.isArray(incomingJSON['run'])) {
-			reject(new Error('Input JSON has a semantic error! (run)'))
-		} else if (incomingJSON['run']) {
-
-			let runArray = incomingJSON['run']
-			for (let runArrayElement of runArray) {
-				result = result + 'RUN [\"' + runArrayElement.command
-
-				let args = runArrayElement.args
-
-				if (!args) {
-					result = result + '"]\n'
-				} else {
-					result = result + '",'
-
-					for (let argItem of args) {
-						result = result + '"' + argItem + '"'
-						result = result + ','
-					}
-					result = result.slice(0, -1)
-					result = result + ']\n'
-				}
-			}
-		}
-		// processing env commands
-		if (incomingJSON['env'] && !Array.isArray(incomingJSON['env'])) {
-			reject(new Error('Input JSON has a semantic error! (env)'))
-		} else if (incomingJSON['env']) {
-
-			let envArray = incomingJSON['env']
-			for (let envArrayElement of envArray) {
-				result = result + 'ENV ' + envArrayElement.envname + '=' + envArrayElement.envvalue + '\n'
-			}
-		}
-
-		// processing expose
-		if (incomingJSON['expose'] && !Array.isArray(incomingJSON['expose'])) {
-			reject(new Error('Input JSON has a semantic error! (expose)'))
-		} else if (incomingJSON['expose']) {
-			for (let portNum of incomingJSON['expose']) {
-				result = result + 'EXPOSE ' + portNum + '\n'
-			}
-		}
-		// processing cmd
-		if (!incomingJSON['cmd']) {
-			reject(new Error('Input JSON has a semantic error! (cmd)'))
-		} else if (!incomingJSON['cmd']['command']) {
-			reject(new Error('Input JSON has a semantic error! (cmd.command)'))
-		} else {
-			// process command tag
-			result = result + 'CMD [\"' + incomingJSON['cmd']['command']
-			let args = incomingJSON['cmd']['args']
-			if (!args) {
-				result = result + '"]\n'
-			} else {
-				result = result + '",'
-
-				for (let argItem of args) {
-					result = result + '"' + argItem + '"'
-					result = result + ','
-				}
-				result = result.slice(0, -1)
-				result = result + ']\n'
-			}
-		}
-		resolve(result)
 	})
 }
 

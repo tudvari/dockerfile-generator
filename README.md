@@ -20,7 +20,7 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 - Refactor of the Dockerfile generation functionality.
 - Refactor of the JSON creation from a Dockerfile
 
-You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md)
+You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 
 ## Usage
 
@@ -35,6 +35,67 @@ let convertedJSON = generator.convertToJSON(inputDockerFile)
 
 let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
 // generatedIgnore is a generated dockerignore file
+```
+
+### Examples
+
+#### Example for Dockerfile Generation
+
+##### Input
+
+```json
+    {
+      from: "nginx:latest",
+      run: "test.run",
+      cmd: "test.cmd",
+      labels: {
+        name: "value"
+      },
+      env: {
+        env1: "value1",
+        env2: "value2"
+      },
+      add: {
+        '/home/src1' : '/home/dst1',
+        '/home/src2' : '/home/dst2'
+      },
+      copy:  {
+        '/home/src1' : 'dst1',
+        '/home/src2' : 'dst2'
+      },
+      expose: ["80/tcp"],
+      entrypoint: "/home/test",
+      volumes: [ "/home/testvolume" ],
+      user: "testuser",
+      working_dir : "/home/app",
+      args: [ "value1", "value2"],
+      stopsignal: "stop",
+      shell: [ "cmd", "param1", "param2" ]
+    }
+```
+
+##### Output
+
+```code
+FROM nginx:latest
+RUN [ "test.run" ]
+CMD [ "test.cmd" ]
+LABEL name=value
+ENV env1=value1
+ENV env2=value2
+ADD /home/src1 /home/dst1
+ADD /home/src2 /home/dst2
+COPY /home/src1 dst1
+COPY /home/src2 dst2
+EXPOSE 80/tcp
+ENTRYPOINT [ "/home/test" ]
+VOLUME /home/testvolume
+USER testuser
+WORKDIR /home/app
+ARG value1
+ARG value2
+STOPSIGNAL stop
+SHELL [ "cmd", "param1", "param2" ]
 ```
 
 ### License

@@ -32,12 +32,14 @@
         "env": {"$ref": "#/definitions/list_or_dict"},
         "add": { 
             "oneOf": [
-                {"type": "array", "items": {"type": "string"}}
+                {"type": "array", "items": {"type": "string"}},
+                {"type": "object"}
             ]
         },
         "copy": { 
             "oneOf": [
-                {"type": "array", "items": {"type": "string"}}
+                {"type": "array", "items": {"type": "string"}},
+                {"type": "object"}
             ]
         },
         "entrypoint": {

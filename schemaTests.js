@@ -142,7 +142,7 @@ describe('JSON schema Tests', function() {
 
   it('Add is Object', function() {
     validationResult = v.validate({ 'from' : 'nginx:latest', run: "test.run", cmd: "test.cmd", labels: {}, expose: [], env: { key: "value" }, add: {} }, schema).errors.length
-    validationResult.should.be.not.equal(0)
+    validationResult.should.be.equal(0)
   })
 
   it('Copy is String', function() {
@@ -162,7 +162,7 @@ describe('JSON schema Tests', function() {
 
   it('Copy is Object', function() {
     validationResult = v.validate({ 'from' : 'nginx:latest', run: "test.run", cmd: "test.cmd", labels: {}, expose: [], env: { key: "value" }, copy: {} }, schema).errors.length
-    validationResult.should.be.not.equal(0)
+    validationResult.should.be.equal(0)
   })
 
   it('Entrypoint is String', function() {

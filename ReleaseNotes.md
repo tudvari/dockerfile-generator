@@ -1,7 +1,12 @@
 # Release Notes
 
+## Version 3.1.0 (2019.01.XX)
+
+- Refactor of the Dockerfile generation functionality.
+- Refactor of the JSON creation from a Dockerfile.
 
 ## Version 3.0.0 (2018.04.22)
+
 - Change from callback to Promise for async/await support.
 
 ## Version 2.1.1 (2017.12.29)

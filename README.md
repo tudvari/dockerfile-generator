@@ -18,7 +18,7 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 #### Version 3.1.0 ( 2019.01.XX)
 
 - Refactor of the Dockerfile generation functionality.
-- Refactor of the JSON creation from a Dockerfile
+- Refactor of the JSON creation from a Dockerfile.
 
 You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 

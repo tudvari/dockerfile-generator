@@ -12,6 +12,11 @@ describe('jsonProcessorTests - determineTests', function() {
         foundFunction.name.should.equal('processFROM')
     })
 
+    it('determine - Single param', function(){
+        let foundFunction = jsonProcessor.determineFunction('EXPOSE 80/tcp')
+        foundFunction.name.should.equal('processEXPOSE')
+    })
+
     it('determine - mutliple params (array)', function(){
         let resp = jsonProcessor.determineFunction('CMD ["test.cmd","-b","param"]')
         resp.name.should.equal('processCMD')
@@ -20,6 +25,11 @@ describe('jsonProcessorTests - determineTests', function() {
     it('determine - mutliple params (array)', function(){
         let resp = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]')
         resp.name.should.equal('processRUN')
+    })
+
+    it('determine - mutliple params (array)', function(){
+        let resp = jsonProcessor.determineFunction('ENTRYPOINT ["test.run","-b","param"]')
+        resp.name.should.equal('processENTRYPOINT')
     })
 
     it('determine - mutliple params (simple params)', function(){
@@ -54,6 +64,16 @@ describe('jsonProcessorTests - processTests', function(){
         respObject.from.should.be.equal('nginx:latest')
     })
 
+    it('process - EXPOSE', function(){
+        let foundFunction = jsonProcessor.determineFunction('EXPOSE 80/tcp')
+        foundFunction.name.should.equal('processEXPOSE')
+        
+        // call the function
+        let respObject = foundFunction('EXPOSE 80/tcp')
+
+        respObject.expose.should.be.equal('80/tcp')
+    })
+
     it('process - CMD', function(){
         let foundFunction = jsonProcessor.determineFunction('CMD ["test.cmd","-b","param"]')
         foundFunction.name.should.equal('processCMD')
@@ -82,6 +102,21 @@ describe('jsonProcessorTests - processTests', function(){
         expectedArray.push("param")
 
         respObject.run.should.be.eql(expectedArray)
+    })
+
+    it('process - ENTRYPOINT', function(){
+        let foundFunction = jsonProcessor.determineFunction('ENTRYPOINT ["test.run","-b","param"]')
+        foundFunction.name.should.equal('processENTRYPOINT')
+
+        //call the function
+        let respObject = foundFunction('ENTRYPOINT ["test.run","-b","param"]')
+
+        let expectedArray = new Array()
+        expectedArray.push("test.run")
+        expectedArray.push("-b")
+        expectedArray.push("param")
+
+        respObject.entrypoint.should.be.eql(expectedArray)
     })
 
     it('process - COPY', function(){

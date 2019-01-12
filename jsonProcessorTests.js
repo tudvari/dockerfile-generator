@@ -17,9 +17,29 @@ describe('jsonProcessorTests - determineTests', function() {
         resp.name.should.equal('processCMD')
     })
 
+    it('determine - mutliple params (array)', function(){
+        let resp = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]')
+        resp.name.should.equal('processRUN')
+    })
+
     it('determine - mutliple params (simple params)', function(){
         let resp = jsonProcessor.determineFunction('COPY src dst')
         resp.name.should.equal('processCOPY')
+    })
+
+    it('determine - key-value pair', function(){
+        let resp = jsonProcessor.determineFunction('LABEL key=value')
+        resp.name.should.equal('processLABEL')
+    })
+
+    it('determine - key-value pair', function(){
+        let resp = jsonProcessor.determineFunction('LABEL key=value')
+        resp.name.should.equal('processLABEL')
+    })
+
+    it('determine - key-value pair', function(){
+        let resp = jsonProcessor.determineFunction('ENV key=value')
+        resp.name.should.equal('processENV')
     })
 })
 
@@ -49,6 +69,21 @@ describe('jsonProcessorTests - processTests', function(){
         respObject.cmd.should.be.eql(expectedArray)
     })
 
+    it('process - RUN', function(){
+        let foundFunction = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]')
+        foundFunction.name.should.equal('processRUN')
+
+        //call the function
+        let respObject = foundFunction('RUN ["test.run","-b","param"]')
+
+        let expectedArray = new Array()
+        expectedArray.push("test.run")
+        expectedArray.push("-b")
+        expectedArray.push("param")
+
+        respObject.run.should.be.eql(expectedArray)
+    })
+
     it('process - COPY', function(){
         let foundFunction = jsonProcessor.determineFunction('COPY src dst')
         foundFunction.name.should.equal('processCOPY')
@@ -60,5 +95,44 @@ describe('jsonProcessorTests - processTests', function(){
         expectedArray['src'] = 'dst'
 
         respObject.copy.should.be.eql(expectedArray)
+    })
+
+    it('process - ADD', function(){
+        let foundFunction = jsonProcessor.determineFunction('ADD src dst')
+        foundFunction.name.should.equal('processADD')
+
+        //call the function
+        let respObject = foundFunction('ADD src dst')
+
+        let expectedArray = {}
+        expectedArray['src'] = 'dst'
+
+        respObject.add.should.be.eql(expectedArray)
+    })
+
+    it('process - LABEL', function(){
+        let foundFunction = jsonProcessor.determineFunction('LABEL key=value')
+        foundFunction.name.should.equal('processLABEL')
+
+        //call the function
+        let respObject = foundFunction('LABEL key=value')
+        console.log(respObject)
+        let expectedArray = {}
+        expectedArray['key'] = 'value'
+
+        respObject.label.should.be.eql(expectedArray)
+    })
+
+    it('process - ENV', function(){
+        let foundFunction = jsonProcessor.determineFunction('ENV key=value')
+        foundFunction.name.should.equal('processENV')
+
+        //call the function
+        let respObject = foundFunction('ENV key=value')
+        console.log(respObject)
+        let expectedArray = {}
+        expectedArray['key'] = 'value'
+
+        respObject.env.should.be.eql(expectedArray)
     })
 })

@@ -17,6 +17,21 @@ describe('jsonProcessorTests - determineTests', function() {
         foundFunction.name.should.equal('processEXPOSE')
     })
 
+    it('determine - Single param', function(){
+        let foundFunction = jsonProcessor.determineFunction('VOLUME /home/testuser')
+        foundFunction.name.should.equal('processVOLUME')
+    })
+
+    it('determine - Single param', function(){
+        let foundFunction = jsonProcessor.determineFunction('USER testuser')
+        foundFunction.name.should.equal('processUSER')
+    })
+
+    it('determine - Single param', function(){
+        let foundFunction = jsonProcessor.determineFunction('WORKDIR /work')
+        foundFunction.name.should.equal('processWORKDIR')
+    })
+
     it('determine - mutliple params (array)', function(){
         let resp = jsonProcessor.determineFunction('CMD ["test.cmd","-b","param"]')
         resp.name.should.equal('processCMD')
@@ -72,6 +87,36 @@ describe('jsonProcessorTests - processTests', function(){
         let respObject = foundFunction('EXPOSE 80/tcp')
 
         respObject.expose.should.be.equal('80/tcp')
+    })
+
+    it('process - VOLUME', function(){
+        let foundFunction = jsonProcessor.determineFunction('VOLUME /home/testvolume')
+        foundFunction.name.should.equal('processVOLUME')
+        
+        // call the function
+        let respObject = foundFunction('VOLUME /home/testvolume')
+
+        respObject.volume.should.be.equal('/home/testvolume')
+    })
+
+    it('process - USER', function(){
+        let foundFunction = jsonProcessor.determineFunction('USER testuser')
+        foundFunction.name.should.equal('processUSER')
+        
+        // call the function
+        let respObject = foundFunction('USER testuser')
+
+        respObject.user.should.be.equal('testuser')
+    })
+
+    it('process - WORKDIR', function(){
+        let foundFunction = jsonProcessor.determineFunction('WORKDIR /work')
+        foundFunction.name.should.equal('processWORKDIR')
+        
+        // call the function
+        let respObject = foundFunction('WORKDIR /work')
+
+        respObject.workdir.should.be.equal('/work')
     })
 
     it('process - CMD', function(){
@@ -151,7 +196,7 @@ describe('jsonProcessorTests - processTests', function(){
 
         //call the function
         let respObject = foundFunction('LABEL key=value')
-        console.log(respObject)
+       
         let expectedArray = {}
         expectedArray['key'] = 'value'
 
@@ -164,7 +209,7 @@ describe('jsonProcessorTests - processTests', function(){
 
         //call the function
         let respObject = foundFunction('ENV key=value')
-        console.log(respObject)
+
         let expectedArray = {}
         expectedArray['key'] = 'value'
 

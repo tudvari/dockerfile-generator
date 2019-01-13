@@ -1,6 +1,7 @@
 const path = require('path')
 
 const DockerGenerator = require(path.resolve(__dirname + '/lib/dockerGenerator'))
+const JsonGenerator = require(path.resolve(__dirname + '/lib/jsonGenerator'))
 
 module.exports.generate = function (input) {
 	return new Promise( function (resolve, reject) {
@@ -14,7 +15,7 @@ module.exports.generate = function (input) {
 }
 
 module.exports.convertToJSON = function (dockerFileStream) {
-	return DockerGenerator.generateJSON(dockerFileStream)
+	return JsonGenerator.generateJSON(dockerFileStream)
 }
 
 module.exports.generateIgnoreFile = function (ignoredFilesArray) {

@@ -2,7 +2,7 @@ const fs = require('fs')
 const mocha = require('mocha')
 const should = require('should')
 
-const generator = require('./')
+const generator = require('.')
 
 describe('dockerfile-generator', function () {
 

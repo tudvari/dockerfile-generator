@@ -1,94 +1,27 @@
+# dockerfile-generator
+
+Generating Dockerfile from JSON and generate JSON document from a Dockerfile.
+
+[![Build Status](https://travis-ci.org/tudvari/dockerfile-generator.svg?branch=master)](https://travis-ci.org/tudvari/dockerfile-generator)
 [![Code Climate](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/gpa.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator)
 [![Test Coverage](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/coverage.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator/coverage)
-[![Build Status](https://travis-ci.org/tudvari/dockerfile-generator.svg?branch=master)](https://travis-ci.org/tudvari/dockerfile-generator)
+[![npm version](https://badge.fury.io/js/dockerfile-generator.svg)](https://badge.fury.io/js/dockerfile-generator)
 
+## About the package
 
-# Dockerfile Generator
+The main goal of this package is to support a Dockfile generation from Javascript. You are able to use all keyword from a Dockerfile reference.
 
-Generating a dockerfile from JSON.
+Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/).
 
-## Ruleset
+###  Changes of the Latest Release
 
-- imagename : String type.
-- imageversion : String type.
-- copy : Array of objects. This object has two required property SRC for the source directory and DST for the destination directory.
-- cmd : Array of a object, this object has two required property COMMAND - the executable command- and ARGS, which is array of arguments.
-- run : Array of objects, it has two property: COMMAND - executable command - and ARGS as arguments of the executable command.
-- expose : Array of ports.
-- env : Array of objects it has two property: ENVNAME - name of the environment variable -and ENVVALUE value of the environment variable.
-- workdir : Define the working directory.
+#### Version 3.1.0 ( 2019.01.XX)
 
-## Example input
-```json
-{
-    "imagename": "node",
-    "imageversion": "4.1.2",
-    "copy": [
-        {
-            "src": "path/to/src",
-            "dst": "/path/to/dst"
-        },
-        {
-            "src": "path/to/src",
-            "dst": "/path/to/dst"
-        }
-    ],
-    "cmd": {
-      "command" : "cmd",
-      "args" : ["arg1","arg2"]
-    },
-    "workdir" : "/app",
-    "run": [
-        {
-            "command": "command",
-            "args": [
-                "arg"
-            ]
-        },
-        {
-            "command": "command",
-            "args": [
-                "arg1",
-                "arg2"
-            ]
-        },
-        {
-            "command": "command"
-        }
-    ],
-    "env" : [
-      {"envname" : "TESTENV1",
-       "envvalue" : "testvalue1"
-     },
-     {"envname" : "TESTENV2",
-      "envvalue" : "testvalue2"
-     }
-   ],
-    "expose": [
-        123,
-        456,
-        789
-    ]
-}
-```
+- Refactor of the Dockerfile generation functionality.
+- Refactor of the JSON creation from a Dockerfile.
 
-## Example output
+You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 
-```yml
-FROM node:4.1.2
-COPY path/to/src /path/to/dst
-COPY path/to/src /path/to/dst
-WORKDIR /app
-RUN ["command","arg"]
-RUN ["command","arg1","arg2"]
-RUN ["command"]
-ENV TESTENV1=testvalue1
-ENV TESTENV2=testvalue2
-EXPOSE 123
-EXPOSE 456
-EXPOSE 789
-CMD ["cmd","arg1","arg2"]
-```
 ## Usage
 
 ```Javascript
@@ -104,7 +37,67 @@ let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
 // generatedIgnore is a generated dockerignore file
 ```
 
-## Release Notes
+### Examples
 
-List of changes : [here](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md)
+#### Example for Dockerfile Generation
 
+##### Input
+
+```json
+    {
+      from: "nginx:latest",
+      run: "test.run",
+      cmd: "test.cmd",
+      labels: {
+        name: "value"
+      },
+      env: {
+        env1: "value1",
+        env2: "value2"
+      },
+      add: {
+        '/home/src1' : '/home/dst1',
+        '/home/src2' : '/home/dst2'
+      },
+      copy:  {
+        '/home/src1' : 'dst1',
+        '/home/src2' : 'dst2'
+      },
+      expose: ["80/tcp"],
+      entrypoint: "/home/test",
+      volumes: [ "/home/testvolume" ],
+      user: "testuser",
+      working_dir : "/home/app",
+      args: [ "value1", "value2"],
+      stopsignal: "stop",
+      shell: [ "cmd", "param1", "param2" ]
+    }
+```
+
+##### Output
+
+```code
+FROM nginx:latest
+RUN [ "test.run" ]
+CMD [ "test.cmd" ]
+LABEL name=value
+ENV env1=value1
+ENV env2=value2
+ADD /home/src1 /home/dst1
+ADD /home/src2 /home/dst2
+COPY /home/src1 dst1
+COPY /home/src2 dst2
+EXPOSE 80/tcp
+ENTRYPOINT [ "/home/test" ]
+VOLUME /home/testvolume
+USER testuser
+WORKDIR /home/app
+ARG value1
+ARG value2
+STOPSIGNAL stop
+SHELL [ "cmd", "param1", "param2" ]
+```
+
+### License
+
+Copyright (c) 2015 Tibor Udvari. Released under the MIT license. See [LICENSE](https://github.com/tudvari/docker-composer/blob/master/LICENSE) for details.

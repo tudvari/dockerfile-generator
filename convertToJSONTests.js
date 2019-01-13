@@ -4,7 +4,7 @@ const should = require('should')
 
 let generator = require('./')
 
-describe.skip('convertToJSON tests', function () {
+describe('convertToJSON tests', function () {
 
   it('convertToJSON', async function () {
     let expected = fs.readFileSync('./tests/all_element_test_input.json')

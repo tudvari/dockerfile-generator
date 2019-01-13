@@ -52,6 +52,11 @@ describe('jsonProcessorTests - determineTests', function() {
         resp.name.should.equal('processENTRYPOINT')
     })
 
+    it('determine - mutliple params (array)', function(){
+        let resp = jsonProcessor.determineFunction('ARG arg1')
+        resp.name.should.equal('processARG')
+    })
+
     it('determine - mutliple params (simple params)', function(){
         let resp = jsonProcessor.determineFunction('COPY src dst')
         resp.name.should.equal('processCOPY')
@@ -132,6 +137,16 @@ describe('jsonProcessorTests - processTests', function(){
         let respObject = foundFunction('STOPSIGNAL sigterm')
 
         respObject.stopsignal.should.be.equal('sigterm')
+    })
+
+    it('process - ARG', function(){
+        let foundFunction = jsonProcessor.determineFunction('ARG arg1')
+        foundFunction.name.should.equal('processARG')
+        
+        // call the function
+        let respObject = foundFunction('ARG arg1')
+
+        respObject.arg.should.be.equal('arg1')
     })
 
     it('process - CMD', function(){

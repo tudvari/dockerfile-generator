@@ -4,7 +4,7 @@ const should = require('should')
 
 const generator = require('./')
 
-describe.skip('dockerfile-generator', function () {
+describe('dockerfile-generator', function () {
 
   it('Empty JSON as input - Validation Error', async function () {
     try {

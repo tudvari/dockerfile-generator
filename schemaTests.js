@@ -9,7 +9,7 @@ const v = new Validator()
 
 const schema = JSON.parse(fs.readFileSync(path.resolve(__dirname, './schema.json')))
 
-describe.skip('JSON schema Tests', function() {
+describe('JSON schema Tests', function() {
 
   it('FROM is String', function() {
     validationResult = v.validate({ 'from' : 'nginx:latest' }, schema).errors.length

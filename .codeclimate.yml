@@ -11,11 +11,9 @@ ratings:
   paths:
   - "**.md"
 exclude_paths:
-  - tests.js
-  - tests/
   - .editorconfig
   - .esformatter
   - .eslintrc.json
   - .travis.yml
-  - *Tests.js
+  - "*Tests.js"
 

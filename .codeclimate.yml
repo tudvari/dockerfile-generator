@@ -17,4 +17,5 @@ exclude_paths:
   - .esformatter
   - .eslintrc.json
   - .travis.yml
+  - *Tests.js
 

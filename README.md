@@ -160,7 +160,6 @@ SHELL [ "cmd", "param1", "param2" ]
 
 ##### Input
 ```code
-
 ['node_modules','.git']
 ```
 

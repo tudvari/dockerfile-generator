@@ -32,6 +32,11 @@ describe('jsonProcessorTests - determineTests', function() {
         foundFunction.name.should.equal('processWORKDIR')
     })
 
+    it('determine - Single param', function(){
+        let foundFunction = jsonProcessor.determineFunction('STOPSIGNAL sigterm')
+        foundFunction.name.should.equal('processSTOPSIGNAL')
+    })
+
     it('determine - mutliple params (array)', function(){
         let resp = jsonProcessor.determineFunction('CMD ["test.cmd","-b","param"]')
         resp.name.should.equal('processCMD')
@@ -119,6 +124,16 @@ describe('jsonProcessorTests - processTests', function(){
         respObject.workdir.should.be.equal('/work')
     })
 
+    it('process - STOPSIGNAL', function(){
+        let foundFunction = jsonProcessor.determineFunction('STOPSIGNAL sigterm')
+        foundFunction.name.should.equal('processSTOPSIGNAL')
+        
+        // call the function
+        let respObject = foundFunction('STOPSIGNAL sigterm')
+
+        respObject.stopsignal.should.be.equal('sigterm')
+    })
+
     it('process - CMD', function(){
         let foundFunction = jsonProcessor.determineFunction('CMD ["test.cmd","-b","param"]')
         foundFunction.name.should.equal('processCMD')
@@ -147,6 +162,21 @@ describe('jsonProcessorTests - processTests', function(){
         expectedArray.push("param")
 
         respObject.run.should.be.eql(expectedArray)
+    })
+
+    it('process - SHELL', function(){
+        let foundFunction = jsonProcessor.determineFunction('SHELL ["test.sh","-b","param"]')
+        foundFunction.name.should.equal('processSHELL')
+
+        //call the function
+        let respObject = foundFunction('SHELL ["test.sh","-b","param"]')
+
+        let expectedArray = new Array()
+        expectedArray.push("test.sh")
+        expectedArray.push("-b")
+        expectedArray.push("param")
+
+        respObject.shell.should.be.eql(expectedArray)
     })
 
     it('process - ENTRYPOINT', function(){

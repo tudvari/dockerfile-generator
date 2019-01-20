@@ -6,7 +6,7 @@ const should = require('should')
 
 const jsonGenerator = require(path.resolve(__dirname + '/lib/jsonGenerator'))
 
-describe.skip('JSONGenerator Tests', function() { 
+describe('JSONGenerator Tests', function() { 
 
     it('Valid Dockerfile - FROM ', async function() {
 

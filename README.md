@@ -15,7 +15,7 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-#### Version 3.1.0 ( 2019.01.XX) UNRELEASED YET!!
+#### Version 3.1.0 ( 2019.01.20)
 
 - Refactor of the Dockerfile generation functionality.
 - Refactor of the JSON creation from a Dockerfile.
@@ -46,8 +46,10 @@ let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
 ```code
     {
       from: "nginx:latest",
-      run: "test.run",
-      cmd: "test.cmd",
+      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
+      volumes: [ "/home/testuser/app" ],
+      user: "testuser",
+      working_dir: "/home/testuser/app",
       labels: {
         name: "value"
       },
@@ -56,46 +58,39 @@ let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
         env2: "value2"
       },
       add: {
-        '/home/src1' : '/home/dst1',
-        '/home/src2' : '/home/dst2'
+        'test.run' : '/home/testuser/app/test.run'
       },
       copy:  {
-        '/home/src1' : 'dst1',
-        '/home/src2' : 'dst2'
+        'test.cmd' : '/home/testuser/app/test.cmd'
       },
+      entrypoint: "tail",
+      cmd: ["-f", "/dev/null"],
       expose: ["80/tcp"],
-      entrypoint: "/home/test",
-      volumes: [ "/home/testvolume" ],
-      user: "testuser",
-      working_dir : "/home/app",
       args: [ "value1", "value2"],
       stopsignal: "stop",
-      shell: [ "cmd", "param1", "param2" ]
+      shell: [ "/bin/bash", "-c", "echo", "hello" ]
     }
 ```
-
 ##### Output
 
 ```code
 FROM nginx:latest
-RUN [ "test.run" ]
-CMD [ "test.cmd" ]
+RUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
+VOLUME /home/testuser/app
+USER testuser
+WORKDIR /home/testuser/app
 LABEL name=value
 ENV env1=value1
 ENV env2=value2
-ADD /home/src1 /home/dst1
-ADD /home/src2 /home/dst2
-COPY /home/src1 dst1
-COPY /home/src2 dst2
+ADD test.run /home/testuser/app/test.run
+COPY test.cmd /home/testuser/app/test.cmd
+ENTRYPOINT [ "tail" ]
+CMD [ "-f", "/dev/null" ]
 EXPOSE 80/tcp
-ENTRYPOINT [ "/home/test" ]
-VOLUME /home/testvolume
-USER testuser
-WORKDIR /home/app
 ARG value1
 ARG value2
 STOPSIGNAL stop
-SHELL [ "cmd", "param1", "param2" ]
+SHELL [ "/bin/bash", "-c", "echo", "hello"]
 ```
 #### Example for JSON Generation ( convertToJSON function )
 
@@ -103,24 +98,22 @@ SHELL [ "cmd", "param1", "param2" ]
 
 ```code
 FROM nginx:latest
-RUN [ "test.run" ]
-CMD [ "test.cmd" ]
+RUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
+VOLUME /home/testuser/app
+USER testuser
+WORKDIR /home/testuser/app
 LABEL name=value
 ENV env1=value1
 ENV env2=value2
-ADD /home/src1 /home/dst1
-ADD /home/src2 /home/dst2
-COPY /home/src1 dst1
-COPY /home/src2 dst2
+ADD test.run /home/testuser/app/test.run
+COPY test.cmd /home/testuser/app/test.cmd
+ENTRYPOINT [ "tail" ]
+CMD [ "-f", "/dev/null" ]
 EXPOSE 80/tcp
-ENTRYPOINT [ "/home/test" ]
-VOLUME /home/testvolume
-USER testuser
-WORKDIR /home/app
 ARG value1
 ARG value2
 STOPSIGNAL stop
-SHELL [ "cmd", "param1", "param2" ]
+SHELL [ "/bin/bash", "-c", "echo", "hello"]
 ```
 
 ##### Example Output
@@ -128,8 +121,10 @@ SHELL [ "cmd", "param1", "param2" ]
 ```code
     {
       from: "nginx:latest",
-      run: "test.run",
-      cmd: "test.cmd",
+      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
+      volumes: [ "/home/testuser/app" ],
+      user: "testuser",
+      working_dir: "/home/testuser/app",
       labels: {
         name: "value"
       },
@@ -138,21 +133,17 @@ SHELL [ "cmd", "param1", "param2" ]
         env2: "value2"
       },
       add: {
-        '/home/src1' : '/home/dst1',
-        '/home/src2' : '/home/dst2'
+        'test.run' : '/home/testuser/app/test.run'
       },
       copy:  {
-        '/home/src1' : 'dst1',
-        '/home/src2' : 'dst2'
+        'test.cmd' : '/home/testuser/app/test.cmd'
       },
+      entrypoint: "tail",
+      cmd: ["-f", "/dev/null"],
       expose: ["80/tcp"],
-      entrypoint: "/home/test",
-      volumes: [ "/home/testvolume" ],
-      user: "testuser",
-      working_dir : "/home/app",
       args: [ "value1", "value2"],
       stopsignal: "stop",
-      shell: [ "cmd", "param1", "param2" ]
+      shell: [ "/bin/bash", "-c", "echo", "hello" ]
     }
 ```
 

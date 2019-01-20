@@ -1,6 +1,6 @@
 # Release Notes
 
-## Version 3.1.0 (2019.01.XX)
+## Version 3.1.0 (2019.01.20)
 
 - Refactor of the Dockerfile generation functionality.
 - Refactor of the JSON creation from a Dockerfile.

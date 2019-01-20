@@ -5,7 +5,7 @@ const should = require('should')
 
 const jsonProcessor = require(path.resolve(__dirname + '/lib/jsonProcessor'))
 
-describe('jsonProcessorTests - determineTests', function() {
+describe.skip('jsonProcessorTests - determineTests', function() {
 
     it('determine - Single param', function(){
         let foundFunction = jsonProcessor.determineFunction('FROM nginx:latest')
@@ -78,7 +78,7 @@ describe('jsonProcessorTests - determineTests', function() {
     })
 })
 
-describe('jsonProcessorTests - processTests', function(){
+describe.skip('jsonProcessorTests - processTests', function(){
     it('process - FROM', function(){
         let foundFunction = jsonProcessor.determineFunction('FROM nginx:latest')
         foundFunction.name.should.equal('processFROM')

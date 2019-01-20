@@ -7,7 +7,7 @@ const generator = require('.')
 
 describe('JSON To Dockerfile', function () {
 
-  it('Empty JSON as input - Validation Error', async function () {
+  it.skip('Empty JSON as input - Validation Error', async function () {
     try {
       let resp = await generator.generate({} )
     }
@@ -17,7 +17,7 @@ describe('JSON To Dockerfile', function () {
     }
   })
 
-  it('JSON contains all element', async function () {
+  it.skip('JSON contains all element', async function () {
 
     let copyObject = []
     copyObject['src1'] = 'dst1'
@@ -61,7 +61,7 @@ describe('JSON To Dockerfile', function () {
     }
   })
 
-  it('JSON contains all element - add/copy values are full path', async function () {
+  it.skip('JSON contains all element - add/copy values are full path', async function () {
 
     let inputJSON = {
       from: "nginx:latest",
@@ -102,9 +102,66 @@ describe('JSON To Dockerfile', function () {
       should.not.exist(error)
     }
   })
+  /*
+  FROM nginx:latest
+  RUN ["adduser", "--disabled-password", "-gecos", "", "testuser"]
+  RUN ["mkdir", "/home/testuser/app"]
+  VOLUME /home/testuser/app
+  USER testuser
+  WORKDIR /home/testuser/app
+  LABEL name=value
+  ENV env1=value1
+  ENV env2=value2
+  ADD test.run /home/testuser/app/test.run
+  COPY test.cmd /home/testuser/app/test.cmd
+  CMD ["tail", "-f", "/dev/null" ]
+  EXPOSE 80/tcp
+  ARG value1
+  ARG value2
+  STOPSIGNAL stop
+  SHELL [ "/bin/bash", "-c", "echo hello"]
+  */
+  it('All element working example - 1 ', async function() {
+    let inputJSON = {
+      from: "nginx:latest",
+      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
+      volumes: [ "/home/testuser/app" ],
+      user: "testuser",
+      working_dir: "/home/testuser/app",
+      labels: {
+        name: "value"
+      },
+      env: {
+        env1: "value1",
+        env2: "value2"
+      },
+      add: {
+        'test.run' : '/home/testuser/app/test.run'
+      },
+      copy:  {
+        'test.cmd' : '/home/testuser/app/test.cmd'
+      },
+      cmd: [ "tail", "-f", "/dev/null"],
+      expose: ["80/tcp"],
+      args: [ "value1", "value2"],
+      stopsignal: "stop",
+      shell: [ "/bin/bash", "-c", "echo hello" ]
+    }
+
+    try {
+      let respLiteral = 'FROM nginx:latest\nRUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]\nVOLUME /home/testuser/app\nUSER testuser\nWORKDIR /home/testuser/app\nLABEL name=value\nENV env1=value1\nENV env2=value2\nADD test.run /home/testuser/app/test.run\nCOPY test.cmd /home/testuser/app/test.cmd\nCMD [ "tail", "-f", "/dev/null" ]\nEXPOSE 80/tcp\nARG value1\nARG value2\nSTOPSIGNAL stop\nSHELL [ "/bin/bash", "-c", "echo hello" ]\n'
+      let resp = await generator.generate(inputJSON)
+      console.log(respLiteral)
+      console.log(resp)
+      resp.should.equal(respLiteral)
+    }
+    catch(error) {
+      should.not.exist(error)
+    }
+  })
 })
 
-describe('Dockerfile TO JSON', function() {
+describe.skip('Dockerfile TO JSON', function() {
 
   it('GenerateJSON - Full', async function() {
     let copyObject = {}

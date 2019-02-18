@@ -1,14 +1,12 @@
-const path = require('path')
-
-const DockerGenerator = require(path.resolve(__dirname + '/lib/dockerGenerator'))
-const JsonGenerator = require(path.resolve(__dirname + '/lib/jsonGenerator'))
+const DockerGenerator = require('./lib/dockerGenerator')
+const JsonGenerator = require('./lib/jsonGenerator')
 
 module.exports.generate = function (input) {
 	return new Promise( function (resolve, reject) {
 		try {
 			resolve(DockerGenerator.generateDockerFile(input))
 		}
-		catch(error) {
+		catch (error) {
 			reject(error)
 		}
 	})

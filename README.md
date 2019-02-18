@@ -15,10 +15,9 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-#### Version 3.1.0 ( 2019.01.20)
+#### Version 3.1.1 (2019.02.18)
 
-- Refactor of the Dockerfile generation functionality.
-- Refactor of the JSON creation from a Dockerfile.
+- linting, gulp support
 
 You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 

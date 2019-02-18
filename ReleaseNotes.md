@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 3.1.1 (2019.02.18)
+
+- linting, gulp support
+
 ## Version 3.1.0 (2019.01.20)
 
 - Refactor of the Dockerfile generation functionality.

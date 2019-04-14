@@ -17,7 +17,8 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 #### Version 3.2.0 (2019.04.14)
 
-- linting, gulp support
+- generateDockerFileFromArray function: Generate the Dockerfile from a Array. It can have mulitple instance from one command for example: copy and add
+- small linting fixes
 
 You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 

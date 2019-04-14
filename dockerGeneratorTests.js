@@ -1,15 +1,14 @@
 const path = require('path')
 
-const mocha = require('mocha')
 const should = require('should')
 
 const Generator = require(path.resolve(__dirname + '/lib/dockerGenerator'))
 
-describe('GeneratorTests', function() { 
+describe('GeneratorTests', function () {
 
-    it('Invalid JSON', function() {
+    it('Invalid JSON', function () {
         try {
-            let generateResult = Generator.generateDockerFile({})
+            Generator.generateDockerFile({})
         }
         catch(error) {
             should.exists(error)
@@ -17,18 +16,18 @@ describe('GeneratorTests', function() {
         }
     })
 
-    it('Valid JSON', function() {
+    it('Valid JSON', function () {
         let generateResult = Generator.generateDockerFile({ from: 'nginx:latest' })
         generateResult.should.equal('FROM nginx:latest\n')
     })
 
-    it('Valid JSON - FROM, ARG', function() {
-        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', args:["arg1", "arg2"] })
+    it('Valid JSON - FROM, ARG', function () {
+        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', args: [ 'arg1', 'arg2'] })
         generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n')
     })
 
-    it('Valid JSON - FROM, CMD', function() {
-        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', cmd:["test.cmd", "-b"] })
+    it('Valid JSON - FROM, CMD', function () {
+        let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', cmd: [ 'test.cmd', '-b'] })
         generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n')
     })
 })

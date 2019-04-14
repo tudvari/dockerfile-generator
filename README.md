@@ -95,7 +95,7 @@ STOPSIGNAL stop
 SHELL [ "/bin/bash", "-c", "echo", "hello"]
 ```
 
-#### Example for Dockerfile Generation Array Input ( generate function )
+#### Example for Dockerfile Generation Array Input ( generateDockerFileFromArray function )
 
 ##### Input
 

@@ -15,7 +15,7 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-#### Version 3.1.1 (2019.02.18)
+#### Version 3.2.0 (2019.04.14)
 
 - linting, gulp support
 
@@ -26,7 +26,10 @@ You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-gene
 ```Javascript
 var generator = require('dockerfile-generator')
 
-let result = await generator.generate(inputJSON)
+let result = await generator.generateDockerFile(inputJson)
+// Result is a generated Dockerfile.
+
+let generateResult = Generator.generateDockerFileFromArray(inputArray)
 // Result is a generated Dockerfile.
 
 let convertedJSON = generator.convertToJSON(inputDockerFile)
@@ -38,7 +41,7 @@ let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
 
 ### Examples
 
-#### Example for Dockerfile Generation ( generate function )
+#### Example for Dockerfile Generation JSON Input ( generateDockerFile function )
 
 ##### Input
 
@@ -69,6 +72,90 @@ let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
       stopsignal: "stop",
       shell: [ "/bin/bash", "-c", "echo", "hello" ]
     }
+```
+##### Output
+
+```code
+FROM nginx:latest
+RUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
+VOLUME /home/testuser/app
+USER testuser
+WORKDIR /home/testuser/app
+LABEL name=value
+ENV env1=value1
+ENV env2=value2
+ADD test.run /home/testuser/app/test.run
+COPY test.cmd /home/testuser/app/test.cmd
+ENTRYPOINT [ "tail" ]
+CMD [ "-f", "/dev/null" ]
+EXPOSE 80/tcp
+ARG value1
+ARG value2
+STOPSIGNAL stop
+SHELL [ "/bin/bash", "-c", "echo", "hello"]
+```
+
+#### Example for Dockerfile Generation Array Input ( generate function )
+
+##### Input
+
+```code
+  [
+    {
+      from: "nginx:latest"
+    },
+     {
+      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
+    },
+     {
+      volumes: [ "/home/testuser/app" ]
+    },
+     {
+      user: "testuser"
+    },
+     {
+      working_dir: "/home/testuser/app"
+    },
+     {  
+      labels: {
+        name: "value"
+      }
+    },
+     {
+      env: {
+        env1: "value1",
+        env2: "value2"
+      }
+    },
+     {
+      add: {
+        'test.run' : '/home/testuser/app/test.run'
+      }
+    },
+     {
+      copy:  {
+        'test.cmd' : '/home/testuser/app/test.cmd'
+      }
+    },
+    {  
+      entrypoint: "tail"
+    },
+    {
+      cmd: ["-f", "/dev/null"]
+    },
+    {
+      expose: ["80/tcp"]
+    },
+    {
+      args: [ "value1", "value2"]
+    },
+    {
+      stopsignal: "stop"
+    },
+    {
+      shell: [ "/bin/bash", "-c", "echo", "hello" ]
+    }
+  ]
 ```
 ##### Output
 

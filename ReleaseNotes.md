@@ -1,5 +1,11 @@
 # Release Notes
 
+
+## Version 3.2.0 (2019.04.14)
+
+- generateDockerFileFromArray function: Generate the Dockerfile from a Array. It can have mulitple instance from one command for example: copy and add
+- small linting fixes
+
 ## Version 3.1.1 (2019.02.18)
 
 - linting, gulp support

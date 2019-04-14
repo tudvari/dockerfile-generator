@@ -30,7 +30,7 @@ var generator = require('dockerfile-generator')
 let result = await generator.generateDockerFile(inputJson)
 // Result is a generated Dockerfile.
 
-let generateResult = Generator.generateDockerFileFromArray(inputArray)
+let generateResult = generator.generateDockerFileFromArray(inputArray)
 // Result is a generated Dockerfile.
 
 let convertedJSON = generator.convertToJSON(inputDockerFile)

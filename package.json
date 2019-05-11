@@ -24,7 +24,7 @@
     "mocha": "6.1.4",
     "should": "13.2.3",
     "istanbul": "0.4.5",
-    "gulp": "^4.0.1",
+    "gulp": "^4.0.2",
     "gulp-eslint": "^5.0.0"
   },
   "dependencies": {

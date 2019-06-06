@@ -15,10 +15,9 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-#### Version 3.2.0 (2019.04.14)
+## Version 3.2.1 (2019.06.06)
 
-- generateDockerFileFromArray function: Generate the Dockerfile from a Array. It can have mulitple instance from one command for example: copy and add
-- small linting fixes
+- This is a maintenance release, it contains only dependency updates.
 
 You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 

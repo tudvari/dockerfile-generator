@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 3.2.1 (2019.06.06)
+
+- This is a maintenance release, it contains only dependency updates.
 
 ## Version 3.2.0 (2019.04.14)
 

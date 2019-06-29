@@ -20,12 +20,12 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "5.16.0",
+    "eslint": "6.0.1",
     "mocha": "6.1.4",
     "should": "13.2.3",
     "istanbul": "0.4.5",
     "gulp": "^4.0.2",
-    "gulp-eslint": "^5.0.0"
+    "gulp-eslint": "^6.0.0"
   },
   "dependencies": {
     "jsonschema": "^1.2.4"

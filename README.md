@@ -15,7 +15,7 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-## Version 3.2.1 (2019.06.06)
+## Version 3.2.2 (2019.07.13)
 
 - This is a maintenance release, it contains only dependency updates.
 

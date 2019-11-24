@@ -1,12 +1,12 @@
 {
   "name": "dockerfile-generator",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Dockerfile generator for NodeJS",
   "main": "index.js",
   "scripts": {
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
-    "coverage": "istanbul cover _mocha *Tests.js",
+    "coverage": "nyc npm run test",
     "test": "./node_modules/mocha/bin/mocha *Tests.js"
   },
   "keywords": [
@@ -20,14 +20,21 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "6.6.0",
-    "mocha": "6.2.2",
-    "should": "13.2.3",
-    "istanbul": "0.4.5",
+    "eslint": "6.7.0",
     "gulp": "^4.0.2",
-    "gulp-eslint": "^6.0.0"
+    "gulp-eslint": "^6.0.0",
+    "mocha": "6.2.2",
+    "nyc": "^14.1.1",
+    "should": "13.2.3"
   },
   "dependencies": {
     "jsonschema": "^1.2.4"
+  },
+  "nyc": {
+    "all": true,
+    "exclude": [
+      "*Test.js",
+      "Gulpfile.js"
+    ]
   }
 }

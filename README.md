@@ -15,9 +15,10 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-## Version 3.2.2 (2019.07.13)
-
-- This is a maintenance release, it contains only dependency updates.
+## Version 3.2.3 (2019.11.24)
+- Replace instanbul with nyc
+- Update dependencies
+- Reduce published npm package size
 
 You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 

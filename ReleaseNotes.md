@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 3.2.3 (2019.11.24)
+- Replace instanbul with nyc
+- Update dependencies
+- Reduce published npm package size
+
 ## Version 3.2.2 (2019.07.13)
 - This is a maintenance release, it contains only dependency updates.
 

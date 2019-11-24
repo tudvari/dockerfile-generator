@@ -1,0 +1,14 @@
+node_modules
+Gulpfile.js
+.DS_Store
+.codeclimate.yml
+.editorconfig
+.esformatter
+.eslintrc.json
+.git
+.gitignore
+.nyc_output
+.travis.yml
+*Tests.js
+test_datas
+TODO

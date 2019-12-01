@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 3.2.4 (2019.12.01)
+- Update dependencies
+
 ## Version 3.2.3 (2019.11.24)
 - Replace instanbul with nyc
 - Update dependencies

@@ -260,4 +260,16 @@ describe('jsonProcessorTests - processTests', function(){
 
         respObject.env.should.be.eql(expectedArray)
     })
+
+    it('process - COMMENT', function(){
+        let foundFunction = jsonProcessor.determineFunction('# Some value')
+        foundFunction.name.should.equal('processCOMMENT')
+
+        //call the function
+        let respObject = foundFunction('# Some value')
+
+        let expectedValue = 'Some value'
+
+        respObject[Object.keys(respObject)[0]].should.be.eql(expectedValue)
+    })
 })

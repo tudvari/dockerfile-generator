@@ -15,8 +15,8 @@ Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/
 
 ###  Changes of the Latest Release
 
-## Version 3.2.4 (2019.12.01)
-- Update dependencies
+## Version 3.3.0 (2020.01.22)
+- Comment handling
 
 You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
 

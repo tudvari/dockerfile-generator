@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 3.3.0 (2020.01.22)
+- Comment handling
+
 ## Version 3.2.4 (2019.12.01)
 - Update dependencies
 

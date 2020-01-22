@@ -106,6 +106,10 @@ describe('DockerProcessorTests - Fragments', function() {
     it('SHELL - array', function() {
         processor.processShell(['test.shell', '-b', 'testparam']).should.equal('SHELL [ "test.shell", "-b", "testparam" ]')
     })
+
+    it('COMMENT - string', function() {
+        processor.processComment('Some Value').should.equal('# Some Value')
+    })
 })
 
 describe('DockerProcessorTests - determineTests', function(){
@@ -185,5 +189,10 @@ describe('DockerProcessorTests - determineTests', function(){
         let resp = processor.determineFunction('shell')
         resp.name.should.equal('processShell')
     })
-    
+
+    it('determine - COMMENT', function(){
+        let resp = processor.determineFunction('comment')
+        resp.name.should.equal('processComment')
+    })
+
 })

@@ -46,4 +46,16 @@ describe('JSONGenerator Tests', function() {
 
         generateResult.should.eql(resp)
     })
+
+    it('Valid JSON - FROM, COMMENT', async function() {
+
+        let buf = Buffer.from('FROM nginx:latest\n# Some Value\n');
+        let bufferStream = new Stream.PassThrough();
+        bufferStream.end(buf);
+
+        let generateResult = await jsonGenerator.generateJSON(bufferStream)
+
+        let expectedValue = 'Some Value'
+        generateResult[Object.keys(generateResult)[1]].should.eql(expectedValue)
+    })
 })

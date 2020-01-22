@@ -103,8 +103,19 @@ describe('GeneratorTests', function () {
               shell: [ "/bin/bash", "-c", "echo", "hello" ]
             }
           ] )
-        console.log('gen:', generateResult)
         generateResult.should.equal('FROM nginx:latest\nRUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]\nVOLUME /home/testuser/app\nUSER testuser\nWORKDIR /home/testuser/app\nLABEL name=value\nENV env1=value1\nENV env2=value2\nADD test.run /home/testuser/app/test.run\nCOPY test.cmd /home/testuser/app/test.cmd\nENTRYPOINT [ "tail" ]\nCMD [ "-f", "/dev/null" ]\nEXPOSE 80/tcp\nARG value1\nARG value2\nSTOPSIGNAL stop\nSHELL [ "/bin/bash", "-c", "echo", "hello" ]\n')
     })
+
+    it('Valid JSON, comment', function () {
+      let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', comment: 'Some value' })
+      generateResult.should.equal('FROM nginx:latest\n# Some value\n')
+    })
+
+  it('Valid JSON, invalid command', function () {
+    let generateResult = Generator.generateDockerFile({ from: 'nginx:latest', x: 'Some value' })
+    generateResult.should.equal('FROM nginx:latest\n# Some value\n')
+  })
+
+
 
 })

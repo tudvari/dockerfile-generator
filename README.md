@@ -69,7 +69,8 @@ let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
       expose: ["80/tcp"],
       args: [ "value1", "value2"],
       stopsignal: "stop",
-      shell: [ "/bin/bash", "-c", "echo", "hello" ]
+      shell: [ "/bin/bash", "-c", "echo", "hello" ],
+      comment: "This is a comment"
     }
 ```
 ##### Output
@@ -92,6 +93,7 @@ ARG value1
 ARG value2
 STOPSIGNAL stop
 SHELL [ "/bin/bash", "-c", "echo", "hello"]
+# This is a comment
 ```
 
 #### Example for Dockerfile Generation Array Input ( generateDockerFileFromArray function )
@@ -153,7 +155,7 @@ SHELL [ "/bin/bash", "-c", "echo", "hello"]
     },
     {
       shell: [ "/bin/bash", "-c", "echo", "hello" ]
-    }
+    },
   ]
 ```
 ##### Output
@@ -199,6 +201,7 @@ ARG value1
 ARG value2
 STOPSIGNAL stop
 SHELL [ "/bin/bash", "-c", "echo", "hello"]
+# This is a comment
 ```
 
 ##### Example Output
@@ -228,7 +231,8 @@ SHELL [ "/bin/bash", "-c", "echo", "hello"]
       expose: ["80/tcp"],
       args: [ "value1", "value2"],
       stopsignal: "stop",
-      shell: [ "/bin/bash", "-c", "echo", "hello" ]
+      shell: [ "/bin/bash", "-c", "echo", "hello" ],
+      comment_4389: "This is a comment"
     }
 ```
 

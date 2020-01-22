@@ -8,6 +8,10 @@
           "description": "Name of the base image.",
           "type": "string"
         },
+        "#" :{
+          "description": "File comment.",
+          "type": "string"
+        },
         "run" : {
             "oneOf": [
               {"type": "string"},

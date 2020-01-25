@@ -7,7 +7,8 @@
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
     "coverage": "nyc npm run test",
-    "test": "./node_modules/mocha/bin/mocha *Tests.js"
+    "test": "./node_modules/mocha/bin/mocha *Tests.js",
+    "lint": "eslint -c .eslintrc.js ."
   },
   "keywords": [
     "dockerfile",
@@ -20,9 +21,9 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "6.8.0",
-    "gulp": "^4.0.2",
-    "gulp-eslint": "^6.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0",
     "mocha": "6.2.2",
     "nyc": "^15.0.0",
     "should": "13.2.3"
@@ -33,8 +34,7 @@
   "nyc": {
     "all": true,
     "exclude": [
-      "*Test.js",
-      "Gulpfile.js"
+      "*Test.js"
     ]
   }
 }

@@ -1,61 +1,53 @@
-const path = require('path')
-const Stream = require('stream')
+const path = require('path');
+const Stream = require('stream');
 
-const mocha = require('mocha')
-const should = require('should')
 
-const jsonGenerator = require(path.resolve(__dirname + '/lib/jsonGenerator'))
+const jsonGenerator = require(path.resolve(`${__dirname}/lib/jsonGenerator`));
 
-describe('JSONGenerator Tests', function() { 
+describe('JSONGenerator Tests', () => {
+  it('Valid Dockerfile - FROM ', async () => {
+    const buf = Buffer.from('FROM nginx:latest\n');
+    const bufferStream = new Stream.PassThrough();
+    bufferStream.end(buf);
 
-    it('Valid Dockerfile - FROM ', async function() {
+    const generateResult = await jsonGenerator.generateJSON(bufferStream);
+    generateResult.should.eql({ from: 'nginx:latest' });
+  });
 
-        let buf = Buffer.from('FROM nginx:latest\n');
-        let bufferStream = new Stream.PassThrough();
-        bufferStream.end(buf);
+  it('Valid JSON - FROM, CMD Array', async () => {
+    const buf = Buffer.from('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\nCMD [ "test2.cmd", "-b2" ]\n');
+    const bufferStream = new Stream.PassThrough();
+    bufferStream.end(buf);
 
-        let generateResult = await jsonGenerator.generateJSON(bufferStream)
-        generateResult.should.eql({ from: 'nginx:latest' })
-    })
+    const generateResult = await jsonGenerator.generateJSON(bufferStream);
+    generateResult.should.eql({ from: 'nginx:latest', cmd: ['test.cmd', '-b', 'test2.cmd', '-b2'] });
+  });
 
-    it('Valid JSON - FROM, CMD Array', async function() {
-        
-        let buf = Buffer.from('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\nCMD [ "test2.cmd", "-b2" ]\n');
-        let bufferStream = new Stream.PassThrough();
-        bufferStream.end(buf);
+  it('Valid JSON - FROM, ENV', async () => {
+    const buf = Buffer.from('FROM nginx:latest\nENV env1=value1\nENV env2=value2\n');
+    const bufferStream = new Stream.PassThrough();
+    bufferStream.end(buf);
 
-        let generateResult = await jsonGenerator.generateJSON(bufferStream)
-        generateResult.should.eql({from: 'nginx:latest', cmd: ["test.cmd", "-b", "test2.cmd", "-b2"]})
-    })
+    const generateResult = await jsonGenerator.generateJSON(bufferStream);
+    const env = {};
+    env.env1 = 'value1';
+    env.env2 = 'value2';
 
-    it('Valid JSON - FROM, ENV', async function() {
-        
-        let buf = Buffer.from('FROM nginx:latest\nENV env1=value1\nENV env2=value2\n');
-        let bufferStream = new Stream.PassThrough();
-        bufferStream.end(buf);
+    const resp = {};
+    resp.from = 'nginx:latest';
+    resp.env = env;
 
-        let generateResult = await jsonGenerator.generateJSON(bufferStream)
-        
-        let env = {}
-        env['env1'] = 'value1'
-        env['env2'] = 'value2'
+    generateResult.should.eql(resp);
+  });
 
-        let resp = {}
-        resp['from'] = 'nginx:latest'
-        resp['env'] = env
+  it('Valid JSON - FROM, COMMENT', async () => {
+    const buf = Buffer.from('FROM nginx:latest\n# Some Value\n');
+    const bufferStream = new Stream.PassThrough();
+    bufferStream.end(buf);
 
-        generateResult.should.eql(resp)
-    })
+    const generateResult = await jsonGenerator.generateJSON(bufferStream);
 
-    it('Valid JSON - FROM, COMMENT', async function() {
-
-        let buf = Buffer.from('FROM nginx:latest\n# Some Value\n');
-        let bufferStream = new Stream.PassThrough();
-        bufferStream.end(buf);
-
-        let generateResult = await jsonGenerator.generateJSON(bufferStream)
-
-        let expectedValue = 'Some Value'
-        generateResult[Object.keys(generateResult)[1]].should.eql(expectedValue)
-    })
-})
+    const expectedValue = 'Some Value';
+    generateResult[Object.keys(generateResult)[1]].should.eql(expectedValue);
+  });
+});

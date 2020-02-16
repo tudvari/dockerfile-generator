@@ -39,8 +39,8 @@ describe('jsonProcessorTests - determineTests', () => {
   });
 
   it('determine - mutliple params (array)', () => {
-     const resp = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]');
-     resp.name.should.equal('processRUN');
+    const resp = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]');
+    resp.name.should.equal('processRUN');
   });
 
   it('determine - mutliple params (array)', () => {

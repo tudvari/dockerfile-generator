@@ -197,6 +197,7 @@ describe('JSON schema Tests', () => {
 
   it('Volumes is Number', () => {
     const validationResult = v.validate({ from: 'nginx:latest', volumes: 2 }, schema).errors.length;
+    validationResult.should.be.not.equal(0);
   });
 
   it('Volumes is Object', () => {

@@ -1,8 +1,7 @@
 # dockerfile-generator
 
 Generating Dockerfile from JSON and generate JSON document from a Dockerfile.
-
-[![Build Status](https://travis-ci.org/tudvari/dockerfile-generator.svg?branch=master)](https://travis-ci.org/tudvari/dockerfile-generator)
+![Node.js CI](https://github.com/tudvari/dockerfile-generator/workflows/Node.js%20CI/badge.svg)
 [![Code Climate](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/gpa.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator)
 [![Test Coverage](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/coverage.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator/coverage)
 [![npm version](https://badge.fury.io/js/dockerfile-generator.svg)](https://badge.fury.io/js/dockerfile-generator)

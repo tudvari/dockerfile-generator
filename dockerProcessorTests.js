@@ -4,7 +4,7 @@ const processor = require(path.resolve(__dirname + '/lib/dockerProcessor'));
 
 describe('DockerProcessorTests - Fragments', () => {
   it('FROM test', () => {
-    processor.processFrom('testFrom').should.equal('FROM testFrom');
+    processor.processFrom({ baseImage: 'testFrom' }).should.equal('FROM testFrom');
   });
 
   it('RUN - string', () => {

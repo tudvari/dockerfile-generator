@@ -81,7 +81,7 @@ describe('jsonProcessorTests - processTests', () => {
 
     const respObject = foundFunction('FROM nginx:latest');
 
-    respObject.from.should.be.equal('nginx:latest');
+    respObject.from.baseImage.should.be.equal('nginx:latest');
   });
 
   it('process - EXPOSE', () => {

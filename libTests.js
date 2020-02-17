@@ -22,7 +22,7 @@ describe('JSON To Dockerfile', () => {
     addObject.src2 = 'dst2';
 
     const inputJSON = {
-      from: 'nginx:latest',
+      from: { baseImage: 'nginx:latest' },
       run: 'test.run',
       cmd: 'test.cmd',
       labels: {
@@ -55,7 +55,7 @@ describe('JSON To Dockerfile', () => {
 
   it('JSON contains all element - add/copy values are full path', async () => {
     const inputJSON = {
-      from: 'nginx:latest',
+      from: { baseImage: 'nginx:latest' },
       run: 'test.run',
       cmd: 'test.cmd',
       labels: {
@@ -94,7 +94,7 @@ describe('JSON To Dockerfile', () => {
 
   it('All element JSON to Dockerfile ', async () => {
     const inputJSON = {
-      from: 'nginx:latest',
+      from: { baseImage: 'nginx:latest' },
       run: ['adduser', '--disabled-password', '-gecos', '', 'testuser'],
       volumes: ['/home/testuser/app'],
       user: 'testuser',
@@ -133,7 +133,7 @@ describe('JSON To Dockerfile', () => {
 describe('Dockerfile TO JSON', () => {
   it('GenerateJSON - Full', async () => {
     const responseJSON = {
-      from: 'nginx:latest',
+      from: { baseImage: 'nginx:latest' },
       run: ['adduser', '--disabled-password', '-gecos', '', 'testuser'],
       volumes: ['/home/testuser/app'],
       user: 'testuser',

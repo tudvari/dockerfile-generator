@@ -11,7 +11,7 @@ describe('JSONGenerator Tests', () => {
     bufferStream.end(buf);
 
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
-    generateResult.should.eql({ from: 'nginx:latest' });
+    generateResult.should.eql({ from: { baseImage: 'nginx:latest' } });
   });
 
   it('Valid JSON - FROM, CMD Array', async () => {
@@ -20,7 +20,7 @@ describe('JSONGenerator Tests', () => {
     bufferStream.end(buf);
 
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
-    generateResult.should.eql({ from: 'nginx:latest', cmd: ['test.cmd', '-b', 'test2.cmd', '-b2'] });
+    generateResult.should.eql({ from: { baseImage: 'nginx:latest' }, cmd: ['test.cmd', '-b', 'test2.cmd', '-b2'] });
   });
 
   it('Valid JSON - FROM, ENV', async () => {
@@ -34,7 +34,9 @@ describe('JSONGenerator Tests', () => {
     env.env2 = 'value2';
 
     const resp = {};
-    resp.from = 'nginx:latest';
+    const from = {};
+    from.baseImage = 'nginx:latest';
+    resp.from = from;
     resp.env = env;
 
     generateResult.should.eql(resp);

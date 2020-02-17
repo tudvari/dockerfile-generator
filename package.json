@@ -8,6 +8,7 @@
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
     "coverage": "nyc npm run test",
     "test": "./node_modules/mocha/bin/mocha *Tests.js",
+    "test-single": "./node_modules/mocha/bin/mocha $1",
     "lint": "eslint -c .eslintrc.js ."
   },
   "keywords": [

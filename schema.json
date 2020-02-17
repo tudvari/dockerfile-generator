@@ -4,10 +4,7 @@
     "type": "object",
 
     "properties": {
-        "from": {
-          "description": "Name of the base image.",
-          "type": "string"
-        },
+        "from": {"$ref": "#/definitions/from"},
         "#" :{
           "description": "File comment.",
           "type": "string"
@@ -62,6 +59,18 @@
     },
 
     "definitions": { 
+        "from": {
+           "type": "object",
+           "properties": {
+              "baseImage": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              }
+           },
+           "required": ["baseImage"]
+        },
         "labels": {
             "oneOf": [
               {

@@ -12,39 +12,39 @@ describe('GeneratorTests', function () {
   });
 
   it('Valid JSON', function () {
-    const generateResult = Generator.generateDockerFile({ from: 'nginx:latest' });
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' } });
     generateResult.should.equal('FROM nginx:latest\n');
   });
 
   it('Valid JSON - FROM, ARG', function () {
-    const generateResult = Generator.generateDockerFile({ from: 'nginx:latest', args: ['arg1', 'arg2'] });
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, args: ['arg1', 'arg2'] });
     generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');
   });
 
   it('Valid JSON - FROM, CMD', function () {
-    const generateResult = Generator.generateDockerFile({ from: 'nginx:latest', cmd: ['test.cmd', '-b'] });
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' } , cmd: ['test.cmd', '-b'] });
     generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n');
   });
 
   it('Valid ARRAY', function () {
-    const generateResult = Generator.generateDockerFileFromArray([{ from: 'nginx:latest' }]);
+    const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');
   });
 
   it('Valid ARRAY - FROM, ARG', function () {
-    const generateResult = Generator.generateDockerFileFromArray([{ from: 'nginx:latest' }, { args: ['arg1', 'arg2'] }]);
+    const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }, { args: ['arg1', 'arg2'] }]);
     generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');
   });
 
   it('Valid ARRAY - FROM, CMD', function () {
-    const generateResult = Generator.generateDockerFileFromArray([{ from: 'nginx:latest' }, { cmd: ['test.cmd', '-b'] }] );
+    const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }, { cmd: ['test.cmd', '-b'] }] );
     generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n');
   });
 
   it('Valid ARRAY - FROM, CMD', function () {
     const generateResult = Generator.generateDockerFileFromArray([
       {
-        from: 'nginx:latest',
+              from: { baseImage: 'nginx:latest' },
       },
       {
         run: ['adduser', '--disabled-password', '-gecos', '', 'testuser'],
@@ -103,12 +103,12 @@ describe('GeneratorTests', function () {
 
 
   it('Valid JSON, comment', function () {
-    const generateResult = Generator.generateDockerFile({ from: 'nginx:latest', comment: 'Some value' });
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, comment: 'Some value' });
     generateResult.should.equal('FROM nginx:latest\n# Some value\n');
   });
 
   it('Valid JSON, invalid command', function () {
-    const generateResult = Generator.generateDockerFile({ from: 'nginx:latest', x: 'Some value' });
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, x: 'Some value' });
     generateResult.should.equal('FROM nginx:latest\n# Some value\n');
   });
 });

@@ -7,6 +7,10 @@ describe('DockerProcessorTests - Fragments', () => {
     processor.processFrom({ baseImage: 'testFrom' }).should.equal('FROM testFrom');
   });
 
+  it('FROM test with alias', () => {
+    processor.processFrom({ baseImage: 'testFrom', alias: 'image1' }).should.equal('FROM testFrom AS image1');
+  });
+
   it('RUN - string', () => {
     processor.processRun('test.run').should.equal('RUN [ "test.run" ]');
   });

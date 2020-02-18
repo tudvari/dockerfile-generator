@@ -22,7 +22,7 @@ describe('GeneratorTests', function () {
   });
 
   it('Valid JSON - FROM, CMD', function () {
-    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' } , cmd: ['test.cmd', '-b'] });
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, cmd: ['test.cmd', '-b'] });
     generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n');
   });
 
@@ -37,14 +37,14 @@ describe('GeneratorTests', function () {
   });
 
   it('Valid ARRAY - FROM, CMD', function () {
-    const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }, { cmd: ['test.cmd', '-b'] }] );
+    const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }, { cmd: ['test.cmd', '-b'] }]);
     generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n');
   });
 
   it('Valid ARRAY - FROM, CMD', function () {
     const generateResult = Generator.generateDockerFileFromArray([
       {
-              from: { baseImage: 'nginx:latest' },
+        'from-1': { baseImage: 'nginx:latest' },
       },
       {
         run: ['adduser', '--disabled-password', '-gecos', '', 'testuser'],

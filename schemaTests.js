@@ -8,7 +8,7 @@ const schema = JSON.parse(fs.readFileSync(path.resolve(__dirname, './schema.json
 
 describe('JSON schema Tests', () => {
   it('FROM is String', () => {
-    const validationResult = v.validate({ from:  'nginx:latest' }, schema).errors.length;
+    const validationResult = v.validate({ from_1:  'nginx:latest' }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 

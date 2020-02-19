@@ -75,6 +75,14 @@ describe('DockerProcessorTests - Fragments', () => {
     processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2');
   });
 
+  it('COPY - array with from', () => {
+    const params = [];
+    params.src1 = 'dest1';
+    params.src2 = 'dest2';
+    params.from = '1';
+    processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2');
+  });
+
   it('ENTRYPOINT - string', () => {
     processor.processEntryPoint('test.entrypoint').should.equal('ENTRYPOINT [ "test.entrypoint" ]');
   });

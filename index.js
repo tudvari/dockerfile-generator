@@ -1,5 +1,5 @@
-const DockerGenerator = require('./lib/dockerGenerator')
-const JsonGenerator = require('./lib/jsonGenerator')
+const DockerGenerator = require('./lib/dockerGenerator');
+const JsonGenerator = require('./lib/jsonGenerator');
 
 module.exports.generate = function (input) {
 	return new Promise( function (resolve, reject) {

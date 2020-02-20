@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const Validator = require('jsonschema').Validator;
+const { Validator } = require('jsonschema');
 
 const v = new Validator();
 
@@ -8,7 +8,7 @@ const schema = JSON.parse(fs.readFileSync(path.resolve(__dirname, './schema.json
 
 describe('JSON schema Tests', () => {
   it('FROM is String', () => {
-    const validationResult = v.validate({ from_1:  'nginx:latest' }, schema).errors.length;
+    const validationResult = v.validate({ from_1: 'nginx:latest' }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
@@ -33,7 +33,7 @@ describe('JSON schema Tests', () => {
   });
 
   it('FROM is Object with all attribs', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' , alias: 'nginx' } }, schema).errors.length;
+    const validationResult = v.validate({ from: { baseImage: 'nginx:latest', alias: 'nginx' } }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
@@ -85,7 +85,12 @@ describe('JSON schema Tests', () => {
   });
 
   it('Label is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: ['echo', '-b', 'command'], cmd: ['executable', 'param1', 'param2'], labels: [] }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: ['echo', '-b', 'command'],
+      cmd: ['executable', 'param1', 'param2'],
+      labels: [],
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 

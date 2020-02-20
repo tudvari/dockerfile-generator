@@ -1,8 +1,6 @@
-const path = require('path');
 const Stream = require('stream');
 
-
-const jsonGenerator = require(path.resolve(`${__dirname}/lib/jsonGenerator`));
+const jsonGenerator = require('./lib/jsonGenerator');
 
 describe('JSONGenerator Tests', () => {
   it('Valid Dockerfile - FROM ', async () => {

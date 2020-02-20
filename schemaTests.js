@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { describe, it } = require('mocha');
 const { Validator } = require('jsonschema');
 
 const v = new Validator();

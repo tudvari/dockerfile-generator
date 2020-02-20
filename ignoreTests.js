@@ -1,4 +1,5 @@
 const should = require('should');
+const { describe, it } = require('mocha');
 
 const generator = require('./');
 

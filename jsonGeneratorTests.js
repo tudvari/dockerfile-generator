@@ -1,5 +1,5 @@
 const Stream = require('stream');
-
+const { describe, it } = require('mocha');
 const jsonGenerator = require('./lib/jsonGenerator');
 
 describe('JSONGenerator Tests', () => {

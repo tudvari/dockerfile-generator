@@ -1,6 +1,6 @@
-const path = require('path');
+const { describe, it } = require('mocha');
 
-const processor = require(path.resolve(__dirname + '/lib/dockerProcessor'));
+const processor = require('./lib/dockerProcessor');
 
 describe('DockerProcessorTests - Fragments', () => {
   it('FROM test', () => {

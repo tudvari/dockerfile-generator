@@ -1,4 +1,6 @@
 const Stream = require('stream');
+const { describe, it } = require('mocha');
+const should = require('should');
 
 const generator = require('.');
 

@@ -1,5 +1,6 @@
-const jsonProcessor = require('./lib/jsonProcessor');
 const { describe, it } = require('mocha');
+
+const jsonProcessor = require('./lib/jsonProcessor');
 
 describe('jsonProcessorTests - determineTests', () => {
   it('determine - Single param', () => {

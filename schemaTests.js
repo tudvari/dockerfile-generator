@@ -170,13 +170,17 @@ describe('JSON schema Tests', () => {
   });
 
   it('Env is Array', () => {
+    const envObject = {};
+    envObject.key1 = 'value1';
+    envObject.key2 = 'value2';
+
     const validationResult = v.validate({
       from: { baseImage: 'nginx:latest' },
       run: 'test.run',
       cmd: 'test.cmd',
       labels: [],
       expose: ['80/tcp', '8080/tcp'],
-      env: [key1 = 'value1', key2 = 'value2'],
+      env: envObject,
     }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
@@ -219,14 +223,22 @@ describe('JSON schema Tests', () => {
   });
 
   it('Add is Array', () => {
+    const envObject = {};
+    envObject.key1 = 'value1';
+    envObject.key2 = 'value2';
+
+    const addObject = {};
+    addObject.src1 = 'dest1';
+    addObject.src2 = 'dest2';
+
     const validationResult = v.validate({
       from: { baseImage: 'nginx:latest' },
       run: 'test.run',
       cmd: 'test.cmd',
       labels: [],
       expose: ['80/tcp', '8080/tcp'],
-      env: [key1 = 'value1', key2 = 'value2'],
-      add: [src1 = 'dest1', src2 = 'dest2'],
+      env: envObject,
+      add: addObject,
     }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
@@ -271,14 +283,22 @@ describe('JSON schema Tests', () => {
   });
 
   it('Copy is Array', () => {
+    const envObject = {};
+    envObject.key1 = 'value1';
+    envObject.key2 = 'value2';
+
+    const copyObject = {};
+    copyObject.src1 = 'dest1';
+    copyObject.src2 = 'dest2';
+
     const validationResult = v.validate({
       from: { baseImage: 'nginx:latest' },
       run: 'test.run',
       cmd: 'test.cmd',
       labels: [],
       expose: ['80/tcp', '8080/tcp'],
-      env: [key1 = 'value1', key2 = 'value2'],
-      copy: [src1 = 'dest1', src2 = 'dest2'],
+      env: envObject,
+      copy: copyObject,
     }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
@@ -389,7 +409,11 @@ describe('JSON schema Tests', () => {
   });
 
   it('Args is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, args: [arg1 = 'arg1_value', args2 = 'arg2_value'] }, schema).errors.length;
+    const argObject = {};
+    argObject.arg1 = 'arg_value1';
+    argObject.args2 = 'args_value2';
+
+    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, args: argObject }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 

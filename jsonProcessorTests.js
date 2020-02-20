@@ -1,6 +1,6 @@
-const path = require('path');
+const { describe, it } = require('mocha');
 
-const jsonProcessor = require(path.resolve(__dirname + '/lib/jsonProcessor'));
+const jsonProcessor = require('./lib/jsonProcessor');
 
 describe('jsonProcessorTests - determineTests', () => {
   it('determine - Single param', () => {
@@ -81,7 +81,7 @@ describe('jsonProcessorTests - processTests', () => {
 
     const respObject = foundFunction('FROM nginx:latest');
 
-    respObject.from.should.be.equal('nginx:latest');
+    respObject.from.baseImage.should.be.equal('nginx:latest');
   });
 
   it('process - EXPOSE', () => {
@@ -132,7 +132,7 @@ describe('jsonProcessorTests - processTests', () => {
   it('process - ARG', () => {
     const foundFunction = jsonProcessor.determineFunction('ARG arg1');
     foundFunction.name.should.equal('processARG');
- 
+
     const respObject = foundFunction('ARG arg1');
 
     respObject.arg.should.be.equal('arg1');

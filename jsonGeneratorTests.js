@@ -1,8 +1,6 @@
-const path = require('path');
 const Stream = require('stream');
-
-
-const jsonGenerator = require(path.resolve(`${__dirname}/lib/jsonGenerator`));
+const { describe, it } = require('mocha');
+const jsonGenerator = require('./lib/jsonGenerator');
 
 describe('JSONGenerator Tests', () => {
   it('Valid Dockerfile - FROM ', async () => {
@@ -11,7 +9,7 @@ describe('JSONGenerator Tests', () => {
     bufferStream.end(buf);
 
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
-    generateResult.should.eql({ from: 'nginx:latest' });
+    generateResult.should.eql({ from: { baseImage: 'nginx:latest' } });
   });
 
   it('Valid JSON - FROM, CMD Array', async () => {
@@ -20,7 +18,7 @@ describe('JSONGenerator Tests', () => {
     bufferStream.end(buf);
 
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
-    generateResult.should.eql({ from: 'nginx:latest', cmd: ['test.cmd', '-b', 'test2.cmd', '-b2'] });
+    generateResult.should.eql({ from: { baseImage: 'nginx:latest' }, cmd: ['test.cmd', '-b', 'test2.cmd', '-b2'] });
   });
 
   it('Valid JSON - FROM, ENV', async () => {
@@ -34,7 +32,9 @@ describe('JSONGenerator Tests', () => {
     env.env2 = 'value2';
 
     const resp = {};
-    resp.from = 'nginx:latest';
+    const from = {};
+    from.baseImage = 'nginx:latest';
+    resp.from = from;
     resp.env = env;
 
     generateResult.should.eql(resp);

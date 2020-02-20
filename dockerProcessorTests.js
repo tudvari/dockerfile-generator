@@ -1,10 +1,14 @@
-const path = require('path');
+const { describe, it } = require('mocha');
 
-const processor = require(path.resolve(__dirname + '/lib/dockerProcessor'));
+const processor = require('./lib/dockerProcessor');
 
 describe('DockerProcessorTests - Fragments', () => {
   it('FROM test', () => {
-    processor.processFrom('testFrom').should.equal('FROM testFrom');
+    processor.processFrom({ baseImage: 'testFrom' }).should.equal('FROM testFrom');
+  });
+
+  it('FROM test with alias', () => {
+    processor.processFrom({ baseImage: 'testFrom', alias: 'myalias' }).should.equal('FROM testFrom AS myalias');
   });
 
   it('RUN - string', () => {
@@ -54,7 +58,7 @@ describe('DockerProcessorTests - Fragments', () => {
   });
 
   it('EXPOSE - test', () => {
-    processor.processExposes(["80/tcp", "8080"]).should.equal('EXPOSE 80/tcp\nEXPOSE 8080');
+    processor.processExposes(['80/tcp', '8080']).should.equal('EXPOSE 80/tcp\nEXPOSE 8080');
   });
 
   it('ADD - array', () => {
@@ -65,10 +69,18 @@ describe('DockerProcessorTests - Fragments', () => {
   });
 
   it('COPY - array', () => {
-    let params = [];
+    const params = [];
     params.src1 = 'dest1';
     params.src2 = 'dest2';
     processor.processCopy(params).should.equal('COPY src1 dest1\nCOPY src2 dest2');
+  });
+
+  it('COPY - array with from', () => {
+    const params = [];
+    params.src1 = 'dest1';
+    params.src2 = 'dest2';
+    params.from = '1';
+    processor.processCopy(params).should.equal('COPY --from=1 src1 dest1\nCOPY --from=1 src2 dest2');
   });
 
   it('ENTRYPOINT - string', () => {
@@ -109,9 +121,13 @@ describe('DockerProcessorTests - Fragments', () => {
 });
 
 describe('DockerProcessorTests - determineTests', () => {
-
   it('determine - FROM', () => {
     const resp = processor.determineFunction('from');
+    resp.name.should.equal('processFrom');
+  });
+
+  it('determine - FROM with counter', () => {
+    const resp = processor.determineFunction('from-1');
     resp.name.should.equal('processFrom');
   });
 

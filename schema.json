@@ -2,12 +2,10 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "dockerfile_reference_schema.json",
     "type": "object",
-
+    "patternProperties": {
+      "^from": { "$ref": "#/definitions/from" }
+    },
     "properties": {
-        "from": {
-          "description": "Name of the base image.",
-          "type": "string"
-        },
         "#" :{
           "description": "File comment.",
           "type": "string"
@@ -60,8 +58,20 @@
         "stopsignal" : {"type": "string"},
         "shell" : {"type": "array", "items": {"type": "string"}}
     },
-
+    "required": ["from"],
     "definitions": { 
+        "from": {
+           "type": "object",
+           "properties": {
+              "baseImage": {
+                "type": "string"
+              },
+              "alias": {
+                "type": "string"
+              }
+           },
+           "required": ["baseImage"]
+        },
         "labels": {
             "oneOf": [
               {
@@ -90,7 +100,6 @@
               {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
             ]
           }
-    },
-    "required": ["from"]
+    }
   }
 

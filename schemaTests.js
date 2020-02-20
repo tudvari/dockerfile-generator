@@ -95,88 +95,210 @@ describe('JSON schema Tests', () => {
   });
 
   it('Label is Number', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: 2 }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: 2,
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Label is Object', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: {} }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: {},
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
   it('Expose is String', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: '80/tcp' }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: '80/tcp',
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
   it('Expose is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: ['80/tcp', '8080/tcp'] }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: ['80/tcp', '8080/tcp'],
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
   it('Expose is Number', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: 2 }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: 2,
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Expose is Object', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: {}, expose: {} }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: {},
+      expose: {},
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Env is String', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: [], env: 'a' }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: [],
+      env: 'a',
+    }, schema).errors.length;
+    validationResult.should.be.not.equal(0);
   });
 
   it('Env is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: ['80/tcp', '8080/tcp'], env: [key1 = 'value1', key2 = 'value2'] }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: ['80/tcp', '8080/tcp'],
+      env: [key1 = 'value1', key2 = 'value2'],
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
   it('Env is Number', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: [], env: 2 }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: [],
+      env: 2,
+    }, schema).errors.length;
+    validationResult.should.be.not.equal(0);
   });
 
   it('Env is Object', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: {}, expose: [], env: { key: 'value' } }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: {},
+      expose: [],
+      env: { key: 'value' },
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
   it('Add is String', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: [], env: [], add: 'a' }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: [],
+      env: [],
+      add: 'a',
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Add is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: ['80/tcp', '8080/tcp'], env: [key1='value1', key2='value2'], add: [src1='dest1', src2='dest2'] }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: ['80/tcp', '8080/tcp'],
+      env: [key1 = 'value1', key2 = 'value2'],
+      add: [src1 = 'dest1', src2 = 'dest2'],
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
   it('Add is Number', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: [], env: [], add: 2 }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: [],
+      env: [],
+      add: 2,
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Add is Object', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: {}, expose: [], env: { key: 'value' }, add: {} }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: {},
+      expose: [],
+      env: { key: 'value' },
+      add: {},
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
   it('Copy is String', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: [], env: [], copy: 'a' }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: [],
+      env: [],
+      copy: 'a',
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Copy is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: ['80/tcp', '8080/tcp'], env: [key1='value1', key2='value2'], copy: [src1='dest1', src2='dest2'] }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: ['80/tcp', '8080/tcp'],
+      env: [key1 = 'value1', key2 = 'value2'],
+      copy: [src1 = 'dest1', src2 = 'dest2'],
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
   it('Copy is Number', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: [], expose: [], env: [], copy: 2 }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' },
+      run: 'test.run',
+      cmd: 'test.cmd',
+      labels: [],
+      expose: [],
+      env: [],
+      copy: 2,
+    }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
   it('Copy is Object', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: {}, expose: [], env: { key: 'value' }, copy: {} }, schema).errors.length;
+    const validationResult = v.validate({
+      from: { baseImage: 'nginx:latest' }, run: 'test.run', cmd: 'test.cmd', labels: {}, expose: [], env: { key: 'value' }, copy: {},
+    }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
@@ -266,7 +388,7 @@ describe('JSON schema Tests', () => {
   });
 
   it('Args is Array', () => {
-    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, args: [arg1='arg1_value', args2='arg2_value'] }, schema).errors.length;
+    const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, args: [arg1 = 'arg1_value', args2 = 'arg2_value'] }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 

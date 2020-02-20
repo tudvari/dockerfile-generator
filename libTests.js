@@ -1,5 +1,5 @@
 const Stream = require('stream');
-const should = require('should');
+
 const generator = require('.');
 
 describe('JSON To Dockerfile', () => {

@@ -11,16 +11,18 @@ module.exports.generate = (input) => {
   }));
 };
 
-module.exports.convertToJSON = function (dockerFileStream) {
+module.exports.convertToJSON = (dockerFileStream) => {
   return JsonGenerator.generateJSON(dockerFileStream);
 };
 
-module.exports.generateIgnoreFile = function (ignoredFilesArray) {
-  return new Promise(((resolve, reject) => {
+module.exports.generateIgnoreFile = (ignoredFilesArray) => {
+  return new Promise(((resolve) => {
     let ignoredFileContent = '';
-    for (const ignoredFile of ignoredFilesArray) {
+
+    ignoredFilesArray.forEach((ignoredFile) => {
       ignoredFileContent = `${ignoredFileContent + ignoredFile}\n`;
-    }
+    });
+
     return resolve(ignoredFileContent);
   }));
 };

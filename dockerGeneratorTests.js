@@ -1,6 +1,4 @@
-const path = require('path');
-
-const Generator = require(path.resolve(__dirname + '/lib/dockerGenerator'));
+const Generator = require('./lib/dockerGenerator');
 
 describe('GeneratorTests', () => {
   it('Invalid JSON', () => {

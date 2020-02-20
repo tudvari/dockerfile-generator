@@ -1,6 +1,5 @@
-const path = require('path');
-
-const jsonProcessor = require(path.resolve(__dirname + '/lib/jsonProcessor'));
+const jsonProcessor = require('./lib/jsonProcessor');
+const { describe, it } = require('mocha');
 
 describe('jsonProcessorTests - determineTests', () => {
   it('determine - Single param', () => {
@@ -132,7 +131,7 @@ describe('jsonProcessorTests - processTests', () => {
   it('process - ARG', () => {
     const foundFunction = jsonProcessor.determineFunction('ARG arg1');
     foundFunction.name.should.equal('processARG');
- 
+
     const respObject = foundFunction('ARG arg1');
 
     respObject.arg.should.be.equal('arg1');

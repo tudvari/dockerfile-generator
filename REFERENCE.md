@@ -467,7 +467,6 @@ ENTRYPOINT [ "test_runnable.sh", "param1", "param2" ]
 ##### Required properties
 Volumes is array, which contains the path of the volumes.
 
-
 #### Example usages
 
 ###### Input
@@ -483,8 +482,30 @@ VOLUME /home/app/1
 VOLUME /home/app/2
 ```
 
-### user
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### USER
+### Keyword schema
+```json
+"user": {
+    "type": "string"
+}
+```
+#### Properties
+
+##### Required properties
+- The name of the user, which is a string.
+
+#### Example usages
+
+###### Input
+```javascript
+{ from: { baseImage: 'nginx:latest' }, user: 'username' }
+```
+###### Output
+```json
+FROM nginx:latest
+USER username
+```
+
 ### working_dir
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### args

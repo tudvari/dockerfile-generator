@@ -23,6 +23,16 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest AS http\n');
   });
 
+  it('Valid JSON - RUN in shell form', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, run: 'test_runnable.sh' });
+    generateResult.should.equal('FROM nginx:latest\nRUN [ "test_runnable.sh" ]\n');
+  });
+
+  it('Valid JSON - RUN in exec form', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, run: ['test_runnable.sh', 'param1', 'param2'] });
+    generateResult.should.equal('FROM nginx:latest\nRUN [ "test_runnable.sh", "param1", "param2" ]\n');
+  });
+
   it('Valid JSON - FROM, ARG', () => {
     const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, args: ['arg1', 'arg2'] });
     generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');

@@ -176,8 +176,8 @@ CMD [ "test.cmd", "-b" ]
 
 ##### Required properties
 Labels has two forms
- - Object: In this case the labels keyword is plain javascript object. The name of for a label is the attribute of the object.
- - Array: In this case the labels keyword is array. The name of for a label is the key of the element inside the array.
+ - Object: In this case the labels keyword is plain javascript object. The name of the label is the name of the attribute.
+ - Array: In this case the labels keyword is array. The name of the label is the key of the element inside the array.
 
 #### Example usages
 
@@ -245,8 +245,67 @@ EXPOSE 80
 EXPOSE 22
 EXPOSE 443
 ```
-### env
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+
+### ENV
+### Keyword schema
+```json
+"env": {
+    "oneOf": [
+        {
+            "type": "object",
+            "patternProperties": {
+                ".+": {
+                    "type": ["string", "number", "null"]
+                }
+            },
+            "additionalProperties": false
+        },
+        {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+    ]
+}
+```
+#### Properties
+
+##### Required properties
+ENV has two forms
+ - Object: In this case the ENV keyword is plain javascript object. The name of the variable is the name of the attribute.
+ - Array: In this case the ENV keyword is array. The name of variable is the key of the element inside the array.
+
+#### Example usages
+
+##### Object form
+###### Input
+```javascript
+ const env = {
+    key1: 'value1',
+    key2: 'value2',
+};
+
+{ "from": { "baseImage": "nginx:latest" }, "env": env }
+```
+###### Output
+```json
+FROM nginx:latest
+ENV key1=value1
+ENV key2=value2
+```
+
+##### Array form
+###### Input
+```javascript
+const env = [];
+env.key1 = 'value1';
+env.key2 = 'value2';
+
+{ "from": { "baseImage": "nginx:latest" }, "env": env }
+```
+###### Output
+```json
+FROM nginx:latest
+ENV key1=value1
+ENV key2=value2
+```
+
 ### add
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### copy

@@ -215,7 +215,36 @@ LABEL key2=value2
 ```
 
 ### expose
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### Keyword schema
+```json
+"expose": {
+    "type": "array",
+    "items": {
+        "type": ["string", "number"],
+        "format": "expose"
+    },
+    "uniqueItems": true
+}
+```
+#### Properties
+
+##### Required properties
+- A array which contains the list of exposed ports.
+#### Example usages
+
+###### Input
+```javascript
+const expose = ['80', '22', '443'];
+
+{ from: { baseImage: 'nginx:latest' }, "expose": expose}
+```
+###### Output
+```json
+FROM nginx:latest
+EXPOSE 80
+EXPOSE 22
+EXPOSE 443
+```
 ### env
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### add

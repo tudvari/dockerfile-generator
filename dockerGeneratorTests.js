@@ -66,6 +66,13 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nLABEL key1=value1\nLABEL key2=value2\n');
   });
 
+  it('Valid JSON - FROM, EXPOSE', () => {
+    const expose = ['80', '22', '443'];
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, expose });
+    generateResult.should.equal('FROM nginx:latest\nEXPOSE 80\nEXPOSE 22\nEXPOSE 443\n');
+  });
+
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

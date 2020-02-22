@@ -61,7 +61,7 @@ The purpose of this document to collect the supported keywords with examples.
 'FROM nginx:latest'
 ```
 
-###### Multi-stage usage
+##### Multi-stage usage
 ###### Input
 ```json
 { from: { baseImage: 'nginx:latest', alias: 'http' } }

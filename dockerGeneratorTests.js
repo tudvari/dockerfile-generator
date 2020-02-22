@@ -48,6 +48,24 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n');
   });
 
+  it('Valid JSON - FROM, LABELS in object form', () => {
+    const labels = {
+      key1: 'value1',
+      key2: 'value2',
+    };
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, labels });
+    generateResult.should.equal('FROM nginx:latest\nLABEL key1=value1\nLABEL key2=value2\n');
+  });
+
+  it('Valid JSON - FROM, LABELS in array form', () => {
+    const labels = [];
+    labels.key1 = 'value1';
+    labels.key2 = 'value2';
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, labels });
+    generateResult.should.equal('FROM nginx:latest\nLABEL key1=value1\nLABEL key2=value2\n');
+  });
+
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

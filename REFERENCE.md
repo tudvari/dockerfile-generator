@@ -1,4 +1,4 @@
-# Dockfile-generator reference
+# Dockerfile-generator reference
 
 The purpose of this document to collect the supported keywords with examples.
 
@@ -113,7 +113,7 @@ FROM nginx:latest
 RUN [ "test_runnable.sh", "param1", "param2" ]
 ```
 
-### cmd
+### CMD
 ### Keyword schema
 ```json
         "cmd" : {
@@ -154,8 +154,66 @@ FROM nginx:latest
 CMD [ "test.cmd", "-b" ]
 ```
 
-### labels
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### LABELS
+### Keyword schema
+```json
+        "labels": {
+            "oneOf": [
+              {
+                "type": "object",
+                "patternProperties": {
+                  ".+": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+            ]
+        }
+```
+#### Properties
+
+##### Required properties
+Labels has two forms
+ - Object: In this case the labels keyword is plain javascript object. The name of for a label is the attribute of the object.
+ - Array: In this case the labels keyword is array. The name of for a label is the key of the element inside the array.
+
+#### Example usages
+
+##### Object form
+###### Input
+```javascript
+const labels = {
+      key1: 'value1',
+      key2: 'value2',
+};
+
+{ "from": { "baseImage": "nginx:latest" }, "labels": labels }
+```
+###### Output
+```json
+FROM nginx:latest
+LABEL key1=value1
+LABEL key2=value2
+```
+
+##### Array form
+###### Input
+```javascript
+const labels = [];
+labels.key1 = 'value1';
+labels.key2 = 'value2';
+
+{ "from": { "baseImage": "nginx:latest" }, "labels": labels }
+```
+###### Output
+```json
+FROM nginx:latest
+LABEL key1=value1
+LABEL key2=value2
+```
+
 ### expose
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### env

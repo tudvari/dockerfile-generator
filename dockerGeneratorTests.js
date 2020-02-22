@@ -109,6 +109,24 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nADD key1 value1\nADD key2 value2\n');
   });
 
+  it('Valid JSON - FROM, COPY in array form', () => {
+    const copy = [];
+    copy.key1 = 'value1';
+    copy.key2 = 'value2';
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, copy });
+    generateResult.should.equal('FROM nginx:latest\nCOPY key1 value1\nCOPY key2 value2\n');
+  });
+
+  it('Valid JSON - FROM, COPY in object form', () => {
+    const copy = {};
+    copy.key1 = 'value1';
+    copy.key2 = 'value2';
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, copy });
+    generateResult.should.equal('FROM nginx:latest\nCOPY key1 value1\nCOPY key2 value2\n');
+  });
+
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

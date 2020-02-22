@@ -214,7 +214,7 @@ LABEL key1=value1
 LABEL key2=value2
 ```
 
-### expose
+### EXPOSE
 ### Keyword schema
 ```json
 "expose": {
@@ -357,8 +357,56 @@ ADD key1 value1
 ADD key2 value2
 ```
 
-### copy
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### COPY
+### Keyword schema
+```json
+"copy": { 
+    "oneOf": [
+        {"type": "array", "items": {"type": "string"}},
+        {"type": "object"}
+    ]
+}
+```
+#### Properties
+
+##### Required properties
+COPY has two forms
+ - Object: In this case the COPY keyword is plain javascript object. The source of the copied file is the name of the attribute. The destination is the value of the attribute.
+ - Array: In this case COPY keyword is array. The source of the copied file is the key of the item. The destination is the value of the item.
+
+#### Example usages
+
+##### Object form
+###### Input
+```javascript
+const copy = {};
+copy.key1 = 'value1';
+copy.key2 = 'value2';
+
+{ "from": { "baseImage": "nginx:latest" }, "copy": copy }
+```
+###### Output
+```json
+FROM nginx:latest
+COPY key1 value1
+COPY key2 value2
+```
+
+##### Array form
+###### Input
+```javascript
+const copy = [];
+copy.key1 = 'value1';
+copy.key2 = 'value2';
+
+{ "from": { "baseImage": "nginx:latest" }, "copy": copy }
+```
+###### Output
+```json
+FROM nginx:latest
+COPY key1 value1
+COPY key2 value2
+```
 ### entrypoint
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### volumes

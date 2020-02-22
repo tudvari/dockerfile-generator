@@ -54,7 +54,7 @@ The purpose of this document to collect the supported keywords with examples.
 ##### Simple usage
 ###### Input
 ```json
-{ from: { baseImage: 'nginx:latest' } }
+{ "from": { "baseImage": "nginx:latest" } }
 ```
 ###### Output
 ```json
@@ -64,7 +64,7 @@ The purpose of this document to collect the supported keywords with examples.
 ##### Multi-stage usage
 ###### Input
 ```json
-{ from: { baseImage: 'nginx:latest', alias: 'http' } }
+{ "from": { "baseImage": "nginx:latest", "alias": "http" } }
 ```
 ###### Output
 ```json

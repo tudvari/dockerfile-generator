@@ -18,6 +18,11 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\n');
   });
 
+  it('Valid JSON', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest', alias: 'http' } });
+    generateResult.should.equal('FROM nginx:latest AS http\n');
+  });
+
   it('Valid JSON - FROM, ARG', () => {
     const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, args: ['arg1', 'arg2'] });
     generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');

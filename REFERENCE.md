@@ -306,8 +306,57 @@ ENV key1=value1
 ENV key2=value2
 ```
 
-### add
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### ADD
+### Keyword schema
+```json
+"add": { 
+    "oneOf": [
+        {"type": "array", "items": {"type": "string"}},
+        {"type": "object"}
+    ]
+}
+```
+#### Properties
+
+##### Required properties
+ADD has two forms
+ - Object: In this case the ADD keyword is plain javascript object. The source of the added file is the name of the attribute. The destination is the value of the attribute.
+ - Array: In this case the ADD keyword is array. The source of the added file is the key of the item. The destination is the value of the item.
+
+#### Example usages
+
+##### Object form
+###### Input
+```javascript
+const add = {};
+add.key1 = 'value1';
+add.key2 = 'value2';
+
+{ "from": { "baseImage": "nginx:latest" }, "add": add }
+```
+###### Output
+```json
+FROM nginx:latest
+ADD key1 value1
+ADD key2 value2
+```
+
+##### Array form
+###### Input
+```javascript
+const add = [];
+add.key1 = 'value1';
+add.key2 = 'value2';
+
+{ "from": { "baseImage": "nginx:latest" }, "add": add }
+```
+###### Output
+```json
+FROM nginx:latest
+ADD key1 value1
+ADD key2 value2
+```
+
 ### copy
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### entrypoint

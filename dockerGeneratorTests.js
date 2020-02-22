@@ -91,6 +91,24 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nENV key1=value1\nENV key2=value2\n');
   });
 
+  it('Valid JSON - FROM, ADD in array form', () => {
+    const add = [];
+    add.key1 = 'value1';
+    add.key2 = 'value2';
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, add });
+    generateResult.should.equal('FROM nginx:latest\nADD key1 value1\nADD key2 value2\n');
+  });
+
+  it('Valid JSON - FROM, ADD in object form', () => {
+    const add = {};
+    add.key1 = 'value1';
+    add.key2 = 'value2';
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, add });
+    generateResult.should.equal('FROM nginx:latest\nADD key1 value1\nADD key2 value2\n');
+  });
+
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

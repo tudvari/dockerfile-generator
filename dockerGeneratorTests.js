@@ -127,6 +127,18 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nCOPY key1 value1\nCOPY key2 value2\n');
   });
 
+  it('Valid JSON - FROM, ENTRYPOINT is a string', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, entrypoint: 'test_runnable.sh' });
+    generateResult.should.equal('FROM nginx:latest\nENTRYPOINT [ "test_runnable.sh" ]\n');
+  });
+
+  it('Valid JSON - FROM, ENTRYPOINT is a array', () => {
+    const entrypoint = ['test_runnable.sh', 'param1', 'param2'];
+
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, entrypoint });
+    generateResult.should.equal('FROM nginx:latest\nENTRYPOINT [ "test_runnable.sh", "param1", "param2" ]\n');
+  });
+
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

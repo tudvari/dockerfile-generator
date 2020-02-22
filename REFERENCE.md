@@ -28,18 +28,18 @@ The purpose of this document to collect the supported keywords with examples.
 
 ### Keyword schema
 ```json
-        "from": {
-           "type": "object",
-           "properties": {
-              "baseImage": {
-                "type": "string"
-              },
-              "alias": {
-                "type": "string"
-              }
-           },
-           "required": ["baseImage"]
+"from": {
+    "type": "object",
+    "properties": {
+        "baseImage": {
+            "type": "string"
+        },
+        "alias": {
+            "type": "string"
         }
+    },
+    "required": ["baseImage"]
+}
 ```
 #### Properties
 
@@ -75,12 +75,12 @@ FROM nginx:latest AS http
 
 ### Keyword schema
 ```json
-        "run" : {
-            "oneOf": [
-              {"type": "string"},
-              {"type": "array", "items": {"type": "string"}}
-            ]
-        }
+"run" : {
+    "oneOf": [
+        {"type": "string"},
+        {"type": "array", "items": {"type": "string"}}
+    ]
+}
 ```
 #### Properties
 
@@ -116,12 +116,12 @@ RUN [ "test_runnable.sh", "param1", "param2" ]
 ### CMD
 ### Keyword schema
 ```json
-        "cmd" : {
-            "oneOf": [
-              {"type": "string"},
-              {"type": "array", "items": {"type": "string"}}
-            ]
-        }
+"cmd" : {
+    "oneOf": [
+        {"type": "string"},
+        {"type": "array", "items": {"type": "string"}}
+    ]
+}
 ```
 #### Properties
 
@@ -157,20 +157,20 @@ CMD [ "test.cmd", "-b" ]
 ### LABELS
 ### Keyword schema
 ```json
-        "labels": {
-            "oneOf": [
-              {
-                "type": "object",
-                "patternProperties": {
-                  ".+": {
+"labels": {
+    "oneOf": [
+        {
+            "type": "object",
+            "patternProperties": {
+                ".+": {
                     "type": "string"
-                  }
-                },
-                "additionalProperties": false
-              },
-              {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
-            ]
-        }
+                }
+            },
+            "additionalProperties": false
+        },
+        {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+    ]
+}
 ```
 #### Properties
 

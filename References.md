@@ -18,7 +18,6 @@ The purpose of this document to collect the supported keywords with examples.
 - [working_dir](#working_dir)
 - [args](#args)
 - [onbuild](#onbuild)
-- [stopsignal](#stopsignal)
 - [shell](#shell)
 - [comment](#comment)
 
@@ -43,6 +42,8 @@ The purpose of this document to collect the supported keywords with examples.
 ```
 #### Properties
 
+For multi-stage build we are able to use multiple form statement. Please see the multi-stage example.
+
 ##### Required properties
 - baseImage: The name of the base image, what is the starting-point of this image.
 
@@ -64,7 +65,7 @@ FROM nginx:latest
 ##### Multi-stage usage
 ###### Input
 ```json
-{ "from": { "baseImage": "nginx:latest", "alias": "http" } }
+{ "from_1": { "baseImage": "nginx:latest", "alias": "http" } }
 ```
 ###### Output
 ```json
@@ -374,6 +375,8 @@ COPY has two forms
  - Object: In this case the COPY keyword is plain javascript object. The source of the copied file is the name of the attribute. The destination is the value of the attribute.
  - Array: In this case COPY keyword is array. The source of the copied file is the key of the item. The destination is the value of the item.
 
+ For multi-stage builds we can use a --from switch with a copy keyword. Please see the multi-stage example below.
+
 #### Example usages
 
 ##### Object form
@@ -406,6 +409,23 @@ copy.key2 = 'value2';
 FROM nginx:latest
 COPY key1 value1
 COPY key2 value2
+```
+
+##### Multi-stage
+###### Input
+```javascript
+const copy = {};
+copy.key1 = 'value1';
+copy.key2 = 'value2';
+copy.from = 0;
+
+{ "from": { "baseImage": "nginx:latest" }, "copy": copy }
+```
+###### Output
+```json
+FROM nginx:latest
+COPY --from=0 key1 value1
+COPY --from=0 key2 value2
 ```
 
 ### ENTRYPOINT
@@ -527,7 +547,7 @@ USER username
 ###### Output
 ```json
 FROM nginx:latest
-WIR /home/app
+WORKDIR /home/app
 ```
 
 ### ARGS
@@ -542,7 +562,7 @@ WIR /home/app
 #### Properties
 
 ##### Required properties
-ARGS is array, which contains the values of the required ARGS.
+ARGS is array, which contains the values of the required arguments.
 
 #### Example usages
 
@@ -557,11 +577,89 @@ ARG arg1
 ARG arg2
 ```
 
-### onbuild
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
-### stopsignal
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
-### shell
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
-### comment
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### STOPSIGNAL
+### Keyword schema
+```json
+"stopsignal": {
+    "type": "string"
+}
+```
+#### Properties
+
+##### Required properties
+- The full path of the working directory.
+
+#### Example usages
+
+###### Input
+```javascript
+{ from: { baseImage: 'nginx:latest' }, stopsignal: 'signal' }
+```
+###### Output
+```json
+FROM nginx:latest
+STOPSIGNAL signal
+```
+
+### SHELL
+### Keyword schema
+```json
+"shell": {
+    "type": "array", "items": {"type": "string"}, "uniqueItems": true
+}
+```
+#### Properties
+
+##### Required properties
+SHELL is array, which contains the executable and params of the shell command.
+
+#### Example usages
+
+###### Input
+```javascript
+{ "from": { "baseImage": "nginx:latest" }, "shell": ['executable', 'arg1', 'arg2'] }
+```
+###### Output
+```json
+FROM nginx:latest
+SHELL ["executable", "arg1", "arg2"]
+```
+
+### COMMENT
+### Keyword schema
+```json
+"comment" : {
+    "type": "string"
+}
+```
+
+We are able to user multiple comment, for this we have to use the comment keyword with a suffix. Please see the example below.
+#### Properties
+
+##### Required properties
+COMMENT is a string.
+
+#### Example usages
+
+##### Single comment
+###### Input
+```javascript
+{ "from": { "baseImage": "nginx:latest" }, "comment": "single comment" }
+```
+###### Output
+```json
+FROM nginx:latest
+# single comment
+```
+
+##### Multiple comment
+###### Input
+```javascript
+{ "from": { "baseImage": "nginx:latest" }, "comment_1": "first comment","comment_2": "second comment" }
+```
+###### Output
+```json
+FROM nginx:latest
+# first comment
+# second comment
+```

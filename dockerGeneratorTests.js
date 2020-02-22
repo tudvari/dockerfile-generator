@@ -160,7 +160,22 @@ describe('GeneratorTests', () => {
     const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, args: ['arg1', 'arg2'] });
     generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');
   });
-  
+
+  it('Valid JSON - FROM, STOPSIGNAL', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, stopsignal: 'signal' });
+    generateResult.should.equal('FROM nginx:latest\nSTOPSIGNAL signal\n');
+  });
+
+  it('Valid JSON - FROM, SINGLE COMMENT', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, comment: 'single comment' });
+    generateResult.should.equal('FROM nginx:latest\n# single comment\n');
+  });
+
+  it('Valid JSON - FROM, MULTIPLE COMMENT', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, comment_1: 'first comment', comment_2: 'second comment' });
+    generateResult.should.equal('FROM nginx:latest\n# first comment\n# second comment\n');
+  });
+
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

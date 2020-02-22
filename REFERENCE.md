@@ -39,7 +39,7 @@ The purpose of this document to collect the supported keywords with examples.
               }
            },
            "required": ["baseImage"]
-        },
+        }
 ```
 #### Properties
 
@@ -112,8 +112,48 @@ RUN [ "test_runnable.sh" ]
 FROM nginx:latest
 RUN [ "test_runnable.sh", "param1", "param2" ]
 ```
+
 ### cmd
-A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
+### Keyword schema
+```json
+        "cmd" : {
+            "oneOf": [
+              {"type": "string"},
+              {"type": "array", "items": {"type": "string"}}
+            ]
+        }
+```
+#### Properties
+
+##### Required properties
+CMD has two forms
+ - with one command: In this case the command is a runnable shell command. (Shell form)
+ - with array, which contains a executable and the params of the executable. (Exec form)
+
+#### Example usages
+
+##### Shell form
+###### Input
+```json
+{ "from": { "baseImage": "nginx:latest" }, "cmd": "test.cmd" }
+```
+###### Output
+```json
+FROM nginx:latest
+CMD [ "test.cmd"]
+```
+
+##### Exec form
+###### Input
+```json
+{ "from": { "baseImage": "nginx:latest" }, "cmd": ["test.cmd", "-b"] }
+```
+###### Output
+```json
+FROM nginx:latest
+CMD [ "test.cmd", "-b" ]
+```
+
 ### labels
 A Lorem Ipsum egy egyszerû szövegrészlete, szövegutánzata a betûszedõ és nyomdaiparnak. A Lorem Ipsum az 1500-as évek óta standard szövegrészletként szolgált az iparban; mikor egy ismeretlen nyomdász összeállította a betûkészletét és egy példa-könyvet vagy szöveget nyomott papírra, ezt használta. Nem csak 5 évszázadot élt túl, de az elektronikus betûkészleteknél is változatlanul megmaradt. Az 1960-as években népszerûsítették a Lorem Ipsum részleteket magukbafoglaló Letraset lapokkal, és legutóbb softwarekkel mint például az Aldus Pagemaker
 ### expose

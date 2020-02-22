@@ -13,12 +13,12 @@ describe('GeneratorTests', () => {
     }
   });
 
-  it('Valid JSON', () => {
+  it('Valid JSON - FROM', () => {
     const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' } });
     generateResult.should.equal('FROM nginx:latest\n');
   });
 
-  it('Valid JSON', () => {
+  it('Valid JSON - FROM with alias', () => {
     const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest', alias: 'http' } });
     generateResult.should.equal('FROM nginx:latest AS http\n');
   });
@@ -38,7 +38,12 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');
   });
 
-  it('Valid JSON - FROM, CMD', () => {
+  it('Valid JSON - FROM, CMD in shell form', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, cmd: 'test.cmd' });
+    generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd" ]\n');
+  });
+
+  it('Valid JSON - FROM, CMD in exec form', () => {
     const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, cmd: ['test.cmd', '-b'] });
     generateResult.should.equal('FROM nginx:latest\nCMD [ "test.cmd", "-b" ]\n');
   });

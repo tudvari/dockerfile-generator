@@ -156,6 +156,11 @@ describe('GeneratorTests', () => {
     generateResult.should.equal('FROM nginx:latest\nWORKDIR /home/app\n');
   });
 
+  it('Valid JSON - FROM, ARGS', () => {
+    const generateResult = Generator.generateDockerFile({ from: { baseImage: 'nginx:latest' }, args: ['arg1', 'arg2'] });
+    generateResult.should.equal('FROM nginx:latest\nARG arg1\nARG arg2\n');
+  });
+  
   it('Valid ARRAY', () => {
     const generateResult = Generator.generateDockerFileFromArray([{ from: { baseImage: 'nginx:latest' } }]);
     generateResult.should.equal('FROM nginx:latest\n');

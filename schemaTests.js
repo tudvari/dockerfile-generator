@@ -427,22 +427,22 @@ describe('JSON schema Tests', () => {
     validationResult.should.be.equal(0);
   });
 
-  it('Onbuild is String', () => {
+  it.skip('Onbuild is String', () => {
     const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, onbuild: '/app' }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
-  it('Onbuild is Array', () => {
+  it.skip('Onbuild is Array', () => {
     const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, onbuild: ['param1', 'param2'] }, schema).errors.length;
     validationResult.should.be.equal(0);
   });
 
-  it('Onbuild is Number', () => {
+  it.skip('Onbuild is Number', () => {
     const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, onbuild: 2 }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });
 
-  it('Onbuild is Object', () => {
+  it.skip('Onbuild is Object', () => {
     const validationResult = v.validate({ from: { baseImage: 'nginx:latest' }, onbuild: { } }, schema).errors.length;
     validationResult.should.be.not.equal(0);
   });

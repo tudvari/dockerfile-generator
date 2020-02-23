@@ -4,79 +4,80 @@ Generating Dockerfile from JSON and generate JSON document from a Dockerfile.
   
 ![Node.js CI](https://github.com/tudvari/dockerfile-generator/workflows/Node.js%20CI/badge.svg)
 [![npm version](https://badge.fury.io/js/dockerfile-generator.svg)](https://badge.fury.io/js/dockerfile-generator)
-[![Code Climate](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/gpa.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator)
-[![Test Coverage](https://codeclimate.com/github/tudvari/dockerfile-generator/badges/coverage.svg)](https://codeclimate.com/github/tudvari/dockerfile-generator/coverage)
 
+##  Latest release note
 
-## About the package
+#### Version 4.0.0 (23.02.2020)
+- Multi-stage build support
+- Multiple comment support
+- Documentation update
+- Dependency update
 
-The main goal of this package is to support a Dockfile generation from Javascript. You are able to use all keyword from a Dockerfile reference.
+Release notes of previous versions: [Release notes](ReleaseNotes.md).
 
-Dockerfile reference is [HERE](https://docs.docker.com/engine/reference/builder/).
+## Installation
 
-###  Changes of the Latest Release
+```shell
+npm install dockerfile-generator
+```
+## How to use the library
 
-## Version 3.3.0 (2020.01.22)
-- Comment handling
-
-You can find all Release Notes [HERE](https://github.com/tudvari/dockerfile-generator/blob/master/ReleaseNotes.md).
-
-## Usage
+You can find here the reference doc: [References](References.md).
 
 ```Javascript
-var generator = require('dockerfile-generator')
+const generator = require('dockerfile-generator')
 
-let result = await generator.generateDockerFile(inputJson)
+const result = await generator.generateDockerFile(inputJson)
 // Result is a generated Dockerfile.
 
-let generateResult = generator.generateDockerFileFromArray(inputArray)
+const generateResult = generator.generateDockerFileFromArray(inputArray)
 // Result is a generated Dockerfile.
 
-let convertedJSON = generator.convertToJSON(inputDockerFile)
+const convertedJSON = generator.convertToJSON(inputDockerFile)
 // Result is a generated JSON from Dockerfile.
 
-let genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
+const genereratedIgnore = await generator.generateIgnoreFile(ignoredElementsArray)
 // generatedIgnore is a generated dockerignore file
 ```
 
-### Examples
+## Examples
 
-#### Example for Dockerfile Generation JSON Input ( generateDockerFile function )
+##### Example for Dockerfile Generation JSON Input ( generateDockerFile function )
 
-##### Input
+###### Input
 
-```code
+```json
     {
-      from: "nginx:latest",
-      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
-      volumes: [ "/home/testuser/app" ],
-      user: "testuser",
-      working_dir: "/home/testuser/app",
-      labels: {
-        name: "value"
+      "from": "nginx:latest",
+      "run": [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
+      "volumes": [ "/home/testuser/app" ],
+      "user": "testuser",
+      "working_dir": "/home/testuser/app",
+      "labels": {
+        "name": "value"
       },
-      env: {
-        env1: "value1",
-        env2: "value2"
+      "env": {
+        "env1": "value1",
+        "env2": "value2"
       },
-      add: {
-        'test.run' : '/home/testuser/app/test.run'
+      "add": {
+        "test.run" : "/home/testuser/app/test.run"
       },
-      copy:  {
-        'test.cmd' : '/home/testuser/app/test.cmd'
+      "copy":  {
+        "test.cmd" : "/home/testuser/app/test.cmd"
       },
-      entrypoint: "tail",
-      cmd: ["-f", "/dev/null"],
-      expose: ["80/tcp"],
-      args: [ "value1", "value2"],
-      stopsignal: "stop",
-      shell: [ "/bin/bash", "-c", "echo", "hello" ],
-      comment: "This is a comment"
+      "entrypoint": "tail",
+      "cmd": ["-f", "/dev/null"],
+      "expose": ["80/tcp"],
+      "args": [ "value1", "value2"],
+      "stopsignal": "stop",
+      "shell": [ "/bin/bash", "-c", "echo", "hello" ],
+      "comment": "This is a comment"
     }
 ```
-##### Output
+###### Output
 
-```code
+```javascript
 FROM nginx:latest
 RUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
 VOLUME /home/testuser/app
@@ -97,71 +98,71 @@ SHELL [ "/bin/bash", "-c", "echo", "hello"]
 # This is a comment
 ```
 
-#### Example for Dockerfile Generation Array Input ( generateDockerFileFromArray function )
+##### Example for Dockerfile Generation Array Input ( generateDockerFileFromArray function )
 
-##### Input
+###### Input
 
-```code
+```json
   [
     {
-      from: "nginx:latest"
+      "from": "nginx:latest"
     },
      {
-      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
+      "run": [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
     },
      {
-      volumes: [ "/home/testuser/app" ]
+      "volumes": [ "/home/testuser/app" ]
     },
      {
-      user: "testuser"
+      "user": "testuser"
     },
      {
-      working_dir: "/home/testuser/app"
+      "working_dir": "/home/testuser/app"
     },
      {  
-      labels: {
-        name: "value"
+      "labels": {
+        "name": "value"
       }
     },
      {
-      env: {
-        env1: "value1",
-        env2: "value2"
+      "env": {
+        "env1": "value1",
+        "env2": "value2"
       }
     },
      {
-      add: {
-        'test.run' : '/home/testuser/app/test.run'
+      "add": {
+        "test.run" : "/home/testuser/app/test.run"
       }
     },
      {
-      copy:  {
-        'test.cmd' : '/home/testuser/app/test.cmd'
+      "copy":  {
+        "test.cmd" : "/home/testuser/app/test.cmd"
       }
     },
     {  
-      entrypoint: "tail"
+      "entrypoint": "tail"
     },
     {
-      cmd: ["-f", "/dev/null"]
+      "cmd": ["-f", "/dev/null"]
     },
     {
-      expose: ["80/tcp"]
+      "expose": ["80/tcp"]
     },
     {
-      args: [ "value1", "value2"]
+      "args": [ "value1", "value2"]
     },
     {
-      stopsignal: "stop"
+      "stopsignal": "stop"
     },
     {
-      shell: [ "/bin/bash", "-c", "echo", "hello" ]
+      "shell": [ "/bin/bash", "-c", "echo", "hello" ]
     },
   ]
 ```
-##### Output
+###### Output
 
-```code
+```javascript
 FROM nginx:latest
 RUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
 VOLUME /home/testuser/app
@@ -184,7 +185,7 @@ SHELL [ "/bin/bash", "-c", "echo", "hello"]
 
 ##### Example Input
 
-```code
+```javascript
 FROM nginx:latest
 RUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]
 VOLUME /home/testuser/app
@@ -207,46 +208,46 @@ SHELL [ "/bin/bash", "-c", "echo", "hello"]
 
 ##### Example Output
 
-```code
+```json
     {
-      from: "nginx:latest",
-      run: [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
-      volumes: [ "/home/testuser/app" ],
-      user: "testuser",
-      working_dir: "/home/testuser/app",
-      labels: {
-        name: "value"
+      "from": "nginx:latest",
+      "run": [ "adduser", "--disabled-password", "-gecos", "", "testuser" ],
+      "volumes": [ "/home/testuser/app" ],
+      "user": "testuser",
+      "working_dir": "/home/testuser/app",
+      "labels": {
+        "name": "value"
       },
-      env: {
-        env1: "value1",
-        env2: "value2"
+      "env": {
+        "env1": "value1",
+        "env2": "value2"
       },
-      add: {
-        'test.run' : '/home/testuser/app/test.run'
+      "add": {
+        "test.run" : "/home/testuser/app/test.run"
       },
-      copy:  {
-        'test.cmd' : '/home/testuser/app/test.cmd'
+      "copy":  {
+        "test.cmd" : "/home/testuser/app/test.cmd"
       },
-      entrypoint: "tail",
-      cmd: ["-f", "/dev/null"],
-      expose: ["80/tcp"],
-      args: [ "value1", "value2"],
-      stopsignal: "stop",
-      shell: [ "/bin/bash", "-c", "echo", "hello" ],
-      comment_4389: "This is a comment"
+      "entrypoint": "tail",
+      "cmd": ["-f", "/dev/null"],
+      "expose": ["80/tcp"],
+      "args": [ "value1", "value2"],
+      "stopsignal": "stop",
+      "shell": [ "/bin/bash", "-c", "echo", "hello" ],
+      "comment_1": "This is a comment"
     }
 ```
 
 #### Example for .dockerignore Generation ( generateIgnoreFile function )
 
 ##### Input
-```code
+```javascript
 ['node_modules','.git']
 ```
 
 ##### Output
 
-```code
+```javascript
 node_modules
 .git
 ```

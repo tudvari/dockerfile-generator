@@ -54,9 +54,9 @@
         "user": {"type": "string"},
         "working_dir": {"type": "string"},
         "args": {"$ref": "#/definitions/list_or_dict"},
-        "onbuild" : {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "stopsignal" : {"type": "string"},
-        "shell" : {"type": "array", "items": {"type": "string"}}
+        "shell" : {"type": "array", "items": {"type": "string"}},
+        "comment" : {"type": "string"}
     },
     "required": ["from"],
     "definitions": { 

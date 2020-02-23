@@ -68,6 +68,13 @@ describe('DockerProcessorTests - Fragments', () => {
     processor.processAdd(params).should.equal('ADD src1 dest1\nADD src2 dest2');
   });
 
+  it('ADD - object', () => {
+    const params = {};
+    params.src1 = 'dest1';
+    params.src2 = 'dest2';
+    processor.processAdd(params).should.equal('ADD src1 dest1\nADD src2 dest2');
+  });
+
   it('COPY - array', () => {
     const params = [];
     params.src1 = 'dest1';

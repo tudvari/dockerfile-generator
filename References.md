@@ -58,7 +58,7 @@ For multi-stage build we are able to use multiple form statement. Please see the
 { "from": { "baseImage": "nginx:latest" } }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ```
 
@@ -68,7 +68,7 @@ FROM nginx:latest
 { "from_1": { "baseImage": "nginx:latest", "alias": "http" } }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest AS http
 ```
 
@@ -98,7 +98,7 @@ RUN has two forms
 { "from": { "baseImage": "nginx:latest" }, "run": "test_runnable.sh" }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 RUN [ "test_runnable.sh" ]
 ```
@@ -109,7 +109,7 @@ RUN [ "test_runnable.sh" ]
 { "from": { "baseImage": "nginx:latest" }, "run": ["test_runnable.sh", "param1", "param2"] }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 RUN [ "test_runnable.sh", "param1", "param2" ]
 ```
@@ -139,7 +139,7 @@ CMD has two forms
 { "from": { "baseImage": "nginx:latest" }, "cmd": "test.cmd" }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 CMD [ "test.cmd"]
 ```
@@ -150,7 +150,7 @@ CMD [ "test.cmd"]
 { "from": { "baseImage": "nginx:latest" }, "cmd": ["test.cmd", "-b"] }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 CMD [ "test.cmd", "-b" ]
 ```
@@ -193,7 +193,7 @@ const labels = {
 { "from": { "baseImage": "nginx:latest" }, "labels": labels }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 LABEL key1=value1
 LABEL key2=value2
@@ -209,7 +209,7 @@ labels.key2 = 'value2';
 { "from": { "baseImage": "nginx:latest" }, "labels": labels }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 LABEL key1=value1
 LABEL key2=value2
@@ -240,7 +240,7 @@ const expose = ['80', '22', '443'];
 { from: { baseImage: 'nginx:latest' }, "expose": expose}
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 EXPOSE 80
 EXPOSE 22
@@ -285,7 +285,7 @@ ENV has two forms
 { "from": { "baseImage": "nginx:latest" }, "env": env }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ENV key1=value1
 ENV key2=value2
@@ -301,7 +301,7 @@ env.key2 = 'value2';
 { "from": { "baseImage": "nginx:latest" }, "env": env }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ENV key1=value1
 ENV key2=value2
@@ -336,7 +336,7 @@ add.key2 = 'value2';
 { "from": { "baseImage": "nginx:latest" }, "add": add }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ADD key1 value1
 ADD key2 value2
@@ -352,7 +352,7 @@ add.key2 = 'value2';
 { "from": { "baseImage": "nginx:latest" }, "add": add }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ADD key1 value1
 ADD key2 value2
@@ -389,7 +389,7 @@ copy.key2 = 'value2';
 { "from": { "baseImage": "nginx:latest" }, "copy": copy }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 COPY key1 value1
 COPY key2 value2
@@ -405,7 +405,7 @@ copy.key2 = 'value2';
 { "from": { "baseImage": "nginx:latest" }, "copy": copy }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 COPY key1 value1
 COPY key2 value2
@@ -422,7 +422,7 @@ copy.from = 0;
 { "from": { "baseImage": "nginx:latest" }, "copy": copy }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 COPY --from=0 key1 value1
 COPY --from=0 key2 value2
@@ -453,7 +453,7 @@ ENTRYPOINT has two forms
 { "from": { "baseImage": "nginx:latest" }, "entrypoint": "test_runnable.sh" }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ENTRYPOINT [ "test_runnable.sh" ]
 ```
@@ -466,7 +466,7 @@ const entrypoint = ['test_runnable.sh', 'param1', 'param2'];
 { "from": { "baseImage": "nginx:latest" }, "entrypoint": entrypoint }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ENTRYPOINT [ "test_runnable.sh", "param1", "param2" ]
 ```
@@ -496,7 +496,7 @@ const volumes = ['/home/app/1', '/home/app/2'];
 { "from": { "baseImage": "nginx:latest" }, "volumes": volumes }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 VOLUME /home/app/1
 VOLUME /home/app/2
@@ -521,7 +521,7 @@ VOLUME /home/app/2
 { from: { baseImage: 'nginx:latest' }, user: 'username' }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 USER username
 ```
@@ -545,7 +545,7 @@ USER username
 { from: { baseImage: 'nginx:latest' }, working_dir: '/home/app' }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 WORKDIR /home/app
 ```
@@ -571,7 +571,7 @@ ARGS is array, which contains the values of the required arguments.
 { "from": { "baseImage": "nginx:latest" }, "args": ['arg1', 'arg2'] }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 ARG arg1
 ARG arg2
@@ -596,7 +596,7 @@ ARG arg2
 { from: { baseImage: 'nginx:latest' }, stopsignal: 'signal' }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 STOPSIGNAL signal
 ```
@@ -620,7 +620,7 @@ SHELL is array, which contains the executable and params of the shell command.
 { "from": { "baseImage": "nginx:latest" }, "shell": ['executable', 'arg1', 'arg2'] }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 SHELL ["executable", "arg1", "arg2"]
 ```
@@ -647,7 +647,7 @@ COMMENT is a string.
 { "from": { "baseImage": "nginx:latest" }, "comment": "single comment" }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 # single comment
 ```
@@ -658,7 +658,7 @@ FROM nginx:latest
 { "from": { "baseImage": "nginx:latest" }, "comment_1": "first comment","comment_2": "second comment" }
 ```
 ###### Output
-```json
+```javascript
 FROM nginx:latest
 # first comment
 # second comment

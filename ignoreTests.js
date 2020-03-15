@@ -1,7 +1,7 @@
 const should = require('should');
 const { describe, it } = require('mocha');
 
-const generator = require('./');
+const generator = require('.');
 
 describe('.dockerignore generate tests', () => {
   it('Empty Array', async () => {

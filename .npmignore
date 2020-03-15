@@ -12,3 +12,7 @@ Gulpfile.js
 *Tests.js
 test_datas
 TODO
+.vscode
+.eslintrc.js
+.github
+

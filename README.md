@@ -7,7 +7,7 @@ Generating Dockerfile from JSON and generate JSON document from a Dockerfile.
 
 ##  Latest release note
 
-## Version 4.0.1 (15.03.2020)
+## Version 4.0.2 (18.03.2020)
 - Vulnerable dependency update
     * More details: https://github.com/advisories/GHSA-7fhm-mqm4-2wp7
 

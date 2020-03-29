@@ -24,7 +24,7 @@
   "devDependencies": {
     "eslint": "7.0.0-alpha.2",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-import": "2.20.2",
     "mocha": "7.1.1",
     "nyc": "^15.0.0",
     "should": "13.2.3"

@@ -1,6 +1,6 @@
 {
   "name": "dockerfile-generator",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Dockerfile generator for NodeJS",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "jsonschema": "^1.2.5"
+    "jsonschema": "^1.2.6"
   },
   "nyc": {
     "all": true,

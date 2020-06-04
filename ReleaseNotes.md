@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 4.0.4 (04.06.2020)
+- Remove fs api usage
+
 ## Version 4.0.3 (01.04.2020)
 - Dependency update
 

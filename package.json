@@ -22,15 +22,15 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "7.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "2.20.2",
-    "mocha": "7.2.0",
-    "nyc": "^15.0.1",
-    "should": "13.2.3"
+    "eslint": "7.3.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "2.21.2",
+    "mocha": "8.0.1",
+    "nyc": "^15.1.0",
+    "should": "13.2.3",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
   },
   "dependencies": {
-    "eslint-plugin-jsx-a11y": "^6.2.3",
     "jsonschema": "^1.2.6"
   },
   "nyc": {

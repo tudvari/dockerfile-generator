@@ -22,7 +22,7 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "7.8.0",
+    "eslint": "7.8.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "2.22.0",
     "mocha": "8.1.3",

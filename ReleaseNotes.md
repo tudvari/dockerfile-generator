@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 4.0.7 (11.10.2020)
+- Maintenance release, dependency updates
+
 ## Version 4.0.6 (08.10.2020)
 - Maintenance release, dependency updates
 

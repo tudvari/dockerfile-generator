@@ -4,3 +4,4 @@ coverage
 *.swp
 .nyc_output
 .vscode
+.idea

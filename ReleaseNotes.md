@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 4.0.12 (27.09.2021)
+- Maintenance release, dependency updates
+
 ## Version 4.0.11 (30.03.2021)
 - Maintenance release, dependency updates
 

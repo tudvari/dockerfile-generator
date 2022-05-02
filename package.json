@@ -7,8 +7,8 @@
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
     "coverage": "nyc npm run test",
-    "test": "./node_modules/mocha/bin/mocha *Tests.js",
-    "test-single": "./node_modules/mocha/bin/mocha $1",
+    "test": "./node_modules/mocha/bin/mocha.js *Tests.js",
+    "test-single": "./node_modules/mocha/bin/mocha.js $1",
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.js ."
   },
   "keywords": [

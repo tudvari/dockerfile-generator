@@ -2,7 +2,7 @@ const Stream = require('stream')
 const { describe, it } = require('mocha')
 const should = require('should')
 
-const generator = require('.')
+const generator = require('../.')
 
 describe('JSON To Dockerfile', () => {
 	it('Empty JSON as input - Validation Error', async () => {

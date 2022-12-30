@@ -5,7 +5,7 @@ const { Validator } = require('jsonschema')
 
 const v = new Validator()
 
-const schema = JSON.parse(fs.readFileSync(path.resolve(__dirname, './schema.json')))
+const schema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../schema.json')))
 
 describe('JSON schema Tests', () => {
 	it('FROM is String', () => {

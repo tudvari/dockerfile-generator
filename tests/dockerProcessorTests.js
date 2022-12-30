@@ -1,6 +1,6 @@
 const { describe, it } = require('mocha')
 
-const processor = require('./lib/dockerProcessor')
+const processor = require('../lib/dockerProcessor')
 
 describe('DockerProcessorTests - Fragments', () => {
 	it('FROM test', () => {

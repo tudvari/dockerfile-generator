@@ -1,6 +1,6 @@
 const Stream = require('stream')
 const { describe, it } = require('mocha')
-const jsonGenerator = require('./lib/jsonGenerator')
+const jsonGenerator = require('../lib/jsonGenerator')
 
 describe('JSONGenerator Tests', () => {
 	it('Valid Dockerfile - FROM ', async () => {

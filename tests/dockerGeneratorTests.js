@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha')
 const should = require('should')
 
-const Generator = require('./lib/dockerGenerator')
+const Generator = require('../lib/dockerGenerator')
 
 describe('GeneratorTests', () => {
 	it('Invalid JSON', () => {

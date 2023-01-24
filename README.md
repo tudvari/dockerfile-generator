@@ -7,8 +7,10 @@ Generating Dockerfile from JSON and generate JSON document from a Dockerfile.
 
 ##  Latest release note
 
-## Version 4.0.14 (06.11.2022)
-- Maintenance release, dependency updates
+## Version 5.0.0 (24.01.2023)
+- Reorganize code base
+- Update dependencies
+- Change code style
 
 Release notes of previous versions: [Release notes](ReleaseNotes.md).
 

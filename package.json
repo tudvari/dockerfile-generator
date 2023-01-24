@@ -1,13 +1,13 @@
 {
   "name": "dockerfile-generator",
-  "version": "4.0.14",
+  "version": "5.0.0",
   "description": "Dockerfile generator for NodeJS",
   "main": "index.js",
   "scripts": {
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
     "coverage": "nyc npm run test",
-    "test": "./node_modules/mocha/bin/mocha.js *Tests.js",
+    "test": "./node_modules/mocha/bin/mocha.js ./tests/*Tests.js",
     "test-single": "./node_modules/mocha/bin/mocha.js $1",
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.js ."
   },
@@ -22,6 +22,7 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
+    "eslint-config-google": "^0.14.0",
     "eslint": "8.32.0",
     "mocha": "10.2.0",
     "nyc": "^15.1.0",

@@ -23,7 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "eslint-config-google": "^0.14.0",
-    "mocha": "11.1.0",
+    "mocha": "11.2.2",
     "eslint": "9.25.1",
     "nyc": "^17.0.0",
     "should": "13.2.3"

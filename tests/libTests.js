@@ -1,18 +1,12 @@
 /* eslint-disable max-len */
 const Stream = require('stream');
-const {describe, it} = require('@jest/globals');
-const should = require('should');
+const {describe, it, expect} = require('@jest/globals');
 
 const generator = require('../.');
 
 describe('JSON To Dockerfile', () => {
   it('Empty JSON as input - Validation Error', async () => {
-    try {
-      await generator.generate({});
-    } catch (err) {
-      should.exist(err);
-      err.message.should.equal('Input Validation error');
-    }
+    await expect(generator.generate({})).rejects.toThrow('Input Validation error');
   });
 
   it('JSON contains all element', async () => {
@@ -47,13 +41,10 @@ describe('JSON To Dockerfile', () => {
       shell: ['cmd', 'param1', 'param2'],
     };
 
-    try {
       const respLiteral = 'FROM nginx:latest\nRUN [ "test.run" ]\nCMD [ "test.cmd" ]\nLABEL name=value\nENV env1=value1\nENV env2=value2\nADD src1 dst1\nADD src2 dst2\nCOPY src1 dst1\nCOPY src2 dst2\nEXPOSE 80/tcp\nENTRYPOINT [ "/home/test" ]\nVOLUME /home/testvolume\nUSER testuser\nWORKDIR /home/app\nARG value1\nARG value2\nSTOPSIGNAL stop\nSHELL [ "cmd", "param1", "param2" ]\n';
+
       const resp = await generator.generate(inputJSON);
-      resp.should.equal(respLiteral);
-    } catch (error) {
-      should.not.exist(error);
-    }
+      expect(resp).toEqual(respLiteral);
   });
 
   it('JSON contains all element - add/copy values are full path', async () => {
@@ -86,13 +77,10 @@ describe('JSON To Dockerfile', () => {
       shell: ['cmd', 'param1', 'param2'],
     };
 
-    try {
       const respLiteral = 'FROM nginx:latest\nRUN [ "test.run" ]\nCMD [ "test.cmd" ]\nLABEL name=value\nENV env1=value1\nENV env2=value2\nADD /home/src1 /home/dst1\nADD /home/src2 /home/dst2\nCOPY /home/src1 dst1\nCOPY /home/src2 dst2\nEXPOSE 80/tcp\nENTRYPOINT [ "/home/test" ]\nVOLUME /home/testvolume\nUSER testuser\nWORKDIR /home/app\nARG value1\nARG value2\nSTOPSIGNAL stop\nSHELL [ "cmd", "param1", "param2" ]\n';
+
       const resp = await generator.generate(inputJSON);
-      resp.should.equal(respLiteral);
-    } catch (error) {
-      should.not.exist(error);
-    }
+      expect(resp).toEqual(respLiteral);
   });
 
   it('All element JSON to Dockerfile ', async () => {
@@ -123,13 +111,10 @@ describe('JSON To Dockerfile', () => {
       shell: ['/bin/bash', '-c', 'echo', 'hello'],
     };
 
-    try {
       const respLiteral = 'FROM nginx:latest\nRUN [ "adduser", "--disabled-password", "-gecos", "", "testuser" ]\nVOLUME /home/testuser/app\nUSER testuser\nWORKDIR /home/testuser/app\nLABEL name=value\nENV env1=value1\nENV env2=value2\nADD test.run /home/testuser/app/test.run\nCOPY test.cmd /home/testuser/app/test.cmd\nENTRYPOINT [ "tail" ]\nCMD [ "-f", "/dev/null" ]\nEXPOSE 80/tcp\nARG value1\nARG value2\nSTOPSIGNAL stop\nSHELL [ "/bin/bash", "-c", "echo", "hello" ]\n';
+
       const resp = await generator.generate(inputJSON);
-      resp.should.equal(respLiteral);
-    } catch (error) {
-      should.not.exist(error);
-    }
+      expect(resp).toEqual(respLiteral);
   });
 });
 
@@ -169,6 +154,6 @@ describe('Dockerfile TO JSON', () => {
     bufferStream.end(buf);
 
     const resp = await generator.convertToJSON(bufferStream);
-    resp.should.eql(responseJSON);
+    expect(resp).toEqual(responseJSON);
   });
 });

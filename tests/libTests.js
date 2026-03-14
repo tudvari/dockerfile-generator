@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const Stream = require('stream');
-const {describe, it} = require('mocha');
+const {describe, it} = require('@jest/globals');
 const should = require('should');
 
 const generator = require('../.');

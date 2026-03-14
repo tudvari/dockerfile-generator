@@ -1,147 +1,147 @@
 /* eslint-disable max-len */
-const {describe, it} = require('mocha');
+const {describe, it, expect} = require('@jest/globals');
 
 const jsonProcessor = require('../lib/jsonProcessor');
 
 describe('jsonProcessorTests - determineTests', () => {
   it('determine - Single param', () => {
     const foundFunction = jsonProcessor.determineFunction('FROM nginx:latest');
-    foundFunction.name.should.equal('processFROM');
+    expect(foundFunction.name).toEqual('processFROM');
   });
 
   it('determine - Single param', () => {
     const foundFunction = jsonProcessor.determineFunction('EXPOSE 80/tcp');
-    foundFunction.name.should.equal('processEXPOSE');
+    expect(foundFunction.name).toEqual('processEXPOSE');
   });
 
   it('determine - Single param', () => {
     const foundFunction = jsonProcessor.determineFunction('VOLUME /home/testuser');
-    foundFunction.name.should.equal('processVOLUME');
+    expect(foundFunction.name).toEqual('processVOLUME');
   });
 
   it('determine - Single param', () => {
     const foundFunction = jsonProcessor.determineFunction('USER testuser');
-    foundFunction.name.should.equal('processUSER');
+    expect(foundFunction.name).toEqual('processUSER');
   });
 
   it('determine - Single param', () => {
     const foundFunction = jsonProcessor.determineFunction('WORKDIR /work');
-    foundFunction.name.should.equal('processWORKDIR');
+    expect(foundFunction.name).toEqual('processWORKDIR');
   });
 
   it('determine - Single param', () => {
     const foundFunction = jsonProcessor.determineFunction('STOPSIGNAL sigterm');
-    foundFunction.name.should.equal('processSTOPSIGNAL');
+    expect(foundFunction.name).toEqual('processSTOPSIGNAL');
   });
 
   it('determine - mutliple params (array)', () => {
     const resp = jsonProcessor.determineFunction('CMD ["test.cmd","-b","param"]');
-    resp.name.should.equal('processCMD');
+    expect(resp.name).toEqual('processCMD');
   });
 
   it('determine - mutliple params (array)', () => {
     const resp = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]');
-    resp.name.should.equal('processRUN');
+    expect(resp.name).toEqual('processRUN');
   });
 
   it('determine - mutliple params (array)', () => {
     const resp = jsonProcessor.determineFunction('ENTRYPOINT ["test.run","-b","param"]');
-    resp.name.should.equal('processENTRYPOINT');
+    expect(resp.name).toEqual('processENTRYPOINT');
   });
 
   it('determine - mutliple params (array)', () => {
     const resp = jsonProcessor.determineFunction('ARG arg1');
-    resp.name.should.equal('processARG');
+    expect(resp.name).toEqual('processARG');
   });
 
   it('determine - mutliple params (simple params)', () => {
     const resp = jsonProcessor.determineFunction('COPY src dst');
-    resp.name.should.equal('processCOPY');
+    expect(resp.name).toEqual('processCOPY');
   });
 
   it('determine - key-value pair', () => {
     const resp = jsonProcessor.determineFunction('LABEL key=value');
-    resp.name.should.equal('processLABEL');
+    expect(resp.name).toEqual('processLABEL');
   });
 
   it('determine - key-value pair', () => {
     const resp = jsonProcessor.determineFunction('LABEL key=value');
-    resp.name.should.equal('processLABEL');
+    expect(resp.name).toEqual('processLABEL');
   });
 
   it('determine - key-value pair', () => {
     const resp = jsonProcessor.determineFunction('ENV key=value');
-    resp.name.should.equal('processENV');
+    expect(resp.name).toEqual('processENV');
   });
 });
 
 describe('jsonProcessorTests - processTests', () => {
   it('process - FROM', () => {
     const foundFunction = jsonProcessor.determineFunction('FROM nginx:latest');
-    foundFunction.name.should.equal('processFROM');
+    expect(foundFunction.name).toEqual('processFROM');
 
     const respObject = foundFunction('FROM nginx:latest');
 
-    respObject.from.baseImage.should.be.equal('nginx:latest');
+    expect(respObject.from.baseImage).toEqual('nginx:latest');
   });
 
   it('process - EXPOSE', () => {
     const foundFunction = jsonProcessor.determineFunction('EXPOSE 80/tcp');
-    foundFunction.name.should.equal('processEXPOSE');
+    expect(foundFunction.name).toEqual('processEXPOSE');
 
     const respObject = foundFunction('EXPOSE 80/tcp');
 
-    respObject.expose.should.be.equal('80/tcp');
+    expect(respObject.expose).toEqual('80/tcp');
   });
 
   it('process - VOLUME', () => {
     const foundFunction = jsonProcessor.determineFunction('VOLUME /home/testvolume');
-    foundFunction.name.should.equal('processVOLUME');
+    expect(foundFunction.name).toEqual('processVOLUME');
 
     const respObject = foundFunction('VOLUME /home/testvolume');
 
-    respObject.volume.should.be.equal('/home/testvolume');
+    expect(respObject.volume).toEqual('/home/testvolume');
   });
 
   it('process - USER', () => {
     const foundFunction = jsonProcessor.determineFunction('USER testuser');
-    foundFunction.name.should.equal('processUSER');
+    expect(foundFunction.name).toEqual('processUSER');
 
     const respObject = foundFunction('USER testuser');
 
-    respObject.user.should.be.equal('testuser');
+    expect(respObject.user).toEqual('testuser');
   });
 
   it('process - WORKDIR', () => {
     const foundFunction = jsonProcessor.determineFunction('WORKDIR /work');
-    foundFunction.name.should.equal('processWORKDIR');
+    expect(foundFunction.name).toEqual('processWORKDIR');
 
     const respObject = foundFunction('WORKDIR /work');
 
-    respObject.workdir.should.be.equal('/work');
+    expect(respObject.workdir).toEqual('/work');
   });
 
   it('process - STOPSIGNAL', () => {
     const foundFunction = jsonProcessor.determineFunction('STOPSIGNAL sigterm');
-    foundFunction.name.should.equal('processSTOPSIGNAL');
+    expect(foundFunction.name).toEqual('processSTOPSIGNAL');
 
     const respObject = foundFunction('STOPSIGNAL sigterm');
 
-    respObject.stopsignal.should.be.equal('sigterm');
+    expect(respObject.stopsignal).toEqual('sigterm');
   });
 
   it('process - ARG', () => {
     const foundFunction = jsonProcessor.determineFunction('ARG arg1');
-    foundFunction.name.should.equal('processARG');
+    expect(foundFunction.name).toEqual('processARG');
 
     const respObject = foundFunction('ARG arg1');
 
-    respObject.arg.should.be.equal('arg1');
+    expect(respObject.arg).toEqual('arg1');
   });
 
   it('process - CMD', () => {
     const foundFunction = jsonProcessor.determineFunction('CMD ["test.cmd", "-b","param"]');
-    foundFunction.name.should.equal('processCMD');
+    expect(foundFunction.name).toEqual('processCMD');
 
     const respObject = foundFunction('CMD ["test.cmd", "-b", "param"]');
 
@@ -150,12 +150,12 @@ describe('jsonProcessorTests - processTests', () => {
     expectedArray.push('-b');
     expectedArray.push('param');
 
-    respObject.cmd.should.be.eql(expectedArray);
+    expect(respObject.cmd).toEqual(expectedArray);
   });
 
   it('process - RUN', () => {
     const foundFunction = jsonProcessor.determineFunction('RUN ["test.run","-b","param"]');
-    foundFunction.name.should.equal('processRUN');
+    expect(foundFunction.name).toEqual('processRUN');
 
     const respObject = foundFunction('RUN ["test.run","-b","param"]');
 
@@ -164,12 +164,12 @@ describe('jsonProcessorTests - processTests', () => {
     expectedArray.push('-b');
     expectedArray.push('param');
 
-    respObject.run.should.be.eql(expectedArray);
+    expect(respObject.run).toEqual(expectedArray);
   });
 
   it('process - SHELL', () => {
     const foundFunction = jsonProcessor.determineFunction('SHELL ["test.sh","-b","param"]');
-    foundFunction.name.should.equal('processSHELL');
+    expect(foundFunction.name).toEqual('processSHELL');
 
     const respObject = foundFunction('SHELL ["test.sh","-b","param"]');
 
@@ -178,12 +178,12 @@ describe('jsonProcessorTests - processTests', () => {
     expectedArray.push('-b');
     expectedArray.push('param');
 
-    respObject.shell.should.be.eql(expectedArray);
+    expect(respObject.shell).toEqual(expectedArray);
   });
 
   it('process - ENTRYPOINT', () => {
     const foundFunction = jsonProcessor.determineFunction('ENTRYPOINT ["test.run","-b","param"]');
-    foundFunction.name.should.equal('processENTRYPOINT');
+    expect(foundFunction.name).toEqual('processENTRYPOINT');
 
     const respObject = foundFunction('ENTRYPOINT ["test.run","-b","param"]');
 
@@ -192,64 +192,64 @@ describe('jsonProcessorTests - processTests', () => {
     expectedArray.push('-b');
     expectedArray.push('param');
 
-    respObject.entrypoint.should.be.eql(expectedArray);
+    expect(respObject.entrypoint).toEqual(expectedArray);
   });
 
   it('process - COPY', () => {
     const foundFunction = jsonProcessor.determineFunction('COPY src dst');
-    foundFunction.name.should.equal('processCOPY');
+    expect(foundFunction.name).toEqual('processCOPY');
 
     const respObject = foundFunction('COPY src dst');
 
     const expectedArray = {};
     expectedArray.src = 'dst';
 
-    respObject.copy.should.be.eql(expectedArray);
+    expect(respObject.copy).toEqual(expectedArray);
   });
 
   it('process - ADD', () => {
     const foundFunction = jsonProcessor.determineFunction('ADD src dst');
-    foundFunction.name.should.equal('processADD');
+    expect(foundFunction.name).toEqual('processADD');
 
     const respObject = foundFunction('ADD src dst');
 
     const expectedArray = {};
     expectedArray.src = 'dst';
 
-    respObject.add.should.be.eql(expectedArray);
+    expect(respObject.add).toEqual(expectedArray);
   });
 
   it('process - LABEL', () => {
     const foundFunction = jsonProcessor.determineFunction('LABEL key=value');
-    foundFunction.name.should.equal('processLABEL');
+    expect(foundFunction.name).toEqual('processLABEL');
 
     const respObject = foundFunction('LABEL key=value');
 
     const expectedArray = {};
     expectedArray.key = 'value';
 
-    respObject.label.should.be.eql(expectedArray);
+    expect(respObject.label).toEqual(expectedArray);
   });
 
   it('process - ENV', () => {
     const foundFunction = jsonProcessor.determineFunction('ENV key=value');
-    foundFunction.name.should.equal('processENV');
+    expect(foundFunction.name).toEqual('processENV');
 
     const respObject = foundFunction('ENV key=value');
 
     const expectedArray = {};
     expectedArray.key = 'value';
 
-    respObject.env.should.be.eql(expectedArray);
+    expect(respObject.env).toEqual(expectedArray);
   });
 
   it('process - COMMENT', () => {
     const foundFunction = jsonProcessor.determineFunction('# Some value');
-    foundFunction.name.should.equal('processCOMMENT');
+    expect(foundFunction.name).toEqual('processCOMMENT');
 
     const respObject = foundFunction('# Some value');
     const expectedValue = 'Some value';
 
-    respObject[Object.keys(respObject)[0]].should.be.eql(expectedValue);
+    expect(respObject[Object.keys(respObject)[0]]).toEqual(expectedValue);
   });
 });

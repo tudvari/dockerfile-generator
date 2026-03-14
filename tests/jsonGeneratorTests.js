@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 const Stream = require('stream');
-const {describe, it} = require('mocha');
+const {describe, it, expect} = require('@jest/globals');
 const jsonGenerator = require('../lib/jsonGenerator');
 
 describe('JSONGenerator Tests', () => {
@@ -10,7 +10,7 @@ describe('JSONGenerator Tests', () => {
     bufferStream.end(buf);
 
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
-    generateResult.should.eql({from: {baseImage: 'nginx:latest'}});
+    expect(generateResult).toEqual({from: {baseImage: 'nginx:latest'}});
   });
 
   it('Valid JSON - FROM, CMD Array', async () => {
@@ -19,7 +19,7 @@ describe('JSONGenerator Tests', () => {
     bufferStream.end(buf);
 
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
-    generateResult.should.eql({from: {baseImage: 'nginx:latest'}, cmd: ['test.cmd', '-b', 'test2.cmd', '-b2']});
+    expect(generateResult).toEqual({from: {baseImage: 'nginx:latest'}, cmd: ['test.cmd', '-b', 'test2.cmd', '-b2']});
   });
 
   it('Valid JSON - FROM, ENV', async () => {
@@ -38,7 +38,7 @@ describe('JSONGenerator Tests', () => {
     resp.from = from;
     resp.env = env;
 
-    generateResult.should.eql(resp);
+    expect(generateResult).toEqual(resp);
   });
 
   it('Valid JSON - FROM, COMMENT', async () => {
@@ -49,6 +49,6 @@ describe('JSONGenerator Tests', () => {
     const generateResult = await jsonGenerator.generateJSON(bufferStream);
 
     const expectedValue = 'Some Value';
-    generateResult[Object.keys(generateResult)[1]].should.eql(expectedValue);
+    expect(generateResult[Object.keys(generateResult)[1]]).toEqual(expectedValue);
   });
 });

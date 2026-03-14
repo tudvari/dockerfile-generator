@@ -6,7 +6,6 @@
   "scripts": {
     "generate-tests": "./node_modules/mocha/bin/mocha generateTests.js",
     "convertjson-tests": "./node_modules/mocha/bin/mocha convertToJSONTests.js",
-    "coverage": "nyc npm run test",
     "test": "jest --config jest.config.ts",
     "linter": "npx eslint *.js tests/*.js",
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.js ."
@@ -25,10 +24,7 @@
     "@jest/globals": "^30.2.0",
     "eslint": "10.0.3",
     "eslint-config-google": "^0.14.0",
-    "jest": "^30.2.0",
-    "mocha": "11.7.5",
-    "nyc": "^18.0.0",
-    "should": "13.2.3"
+    "jest": "^30.2.0"
   },
   "dependencies": {
     "jsonschema": "^1.4.0"

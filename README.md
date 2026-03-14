@@ -7,13 +7,14 @@ Generating Dockerfile from JSON and generate JSON document from a Dockerfile.
 
 ##  Latest release note
 
+## Version 5.0.5 (14.03.2026)
+- Update dependencies
+- Migrate tests from mocha to jest
+
 ## Version 5.0.4 (21.12.2025)
 - Update dependencies
 
 ## Version 5.0.3 (28.10.2024)
-- Update dependencies
-
-## Version 5.0.2 (21.10.2023)
 - Update dependencies
 
 Release notes of previous versions: [Release notes](ReleaseNotes.md).

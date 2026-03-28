@@ -17,3 +17,5 @@ TODO
 .github
 .idea
 .eslintrc.yml
+coverage
+*jest*

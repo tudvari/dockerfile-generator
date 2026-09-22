@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 5.0.6 (22.09.2026)
+- Update dependencies
+
 ## Version 5.0.5 (14.03.2026)
 - Update dependencies
 - Migrate tests from mocha to jest

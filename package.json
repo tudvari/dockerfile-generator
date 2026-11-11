@@ -21,7 +21,7 @@
   "author": "Tibor Udvari <tudvari@tudvari.com> (https://tudvari.com)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.26.0",
+    "@babel/core": "^8.1.0",
     "@jest/globals": "^29.7.0",
     "deepmerge": "4.3.1",
     "eslint": "^9.17.0",
